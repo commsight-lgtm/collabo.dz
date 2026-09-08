@@ -1,0 +1,2770 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collabo-DZ — Talents locaux, connectés aux entreprises</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Sora:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --paper: #F7F2E7;
+            --paper-2: #EFE7D3;
+            --ink: #1C2321;
+            --ink-soft: #565F58;
+            --line: #E0D5B8;
+            --gold: #C98A2C;
+            --gold-dark: #9C6A1E;
+            --gold-tint: #F3E1BC;
+            --teal: #1F5B54;
+            --teal-dark: #123834;
+            --teal-tint: #DDEAE7;
+            --clay: #B4472F;
+            --white: #FFFDF8;
+            --radius: 5px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            line-height: 1.55;
+        }
+
+        h1,
+        h2,
+        h3,
+        .display {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            line-height: 1.08;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .wrap {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        ::selection {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadein .35s ease;
+        }
+
+        @keyframes fadein {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page.active {
+                animation: none;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: var(--radius);
+            font-size: 14.5px;
+            font-weight: 600;
+            transition: transform .12s ease, background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-solid {
+            background: var(--ink);
+            color: var(--white);
+        }
+
+        .btn-solid:hover {
+            background: var(--teal-dark);
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-dark);
+            box-shadow: 0 4px 14px rgba(201, 138, 44, 0.35);
+        }
+
+        .btn-ghost {
+            border: 1.5px solid var(--ink);
+            color: var(--ink);
+        }
+
+        .btn-ghost:hover {
+            background: var(--ink);
+            color: var(--white);
+        }
+
+        .btn-line {
+            border: 1.5px solid var(--line);
+            color: var(--ink-soft);
+        }
+
+        .btn-line:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .btn-teal {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .btn-teal:hover {
+            background: var(--teal-dark);
+        }
+
+        .btn-danger {
+            border: 1.5px solid var(--clay);
+            color: var(--clay);
+        }
+
+        .btn-danger:hover {
+            background: var(--clay);
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 7px 13px;
+            font-size: 12.5px;
+        }
+
+        .btn[disabled] {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+        header.site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(247, 242, 231, 0.92);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .logo .dot {
+            color: var(--gold);
+        }
+
+        nav.links {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+
+        nav.links button {
+            font-size: 14.5px;
+            color: var(--ink-soft);
+            transition: color .15s;
+        }
+
+        nav.links button.active,
+        nav.links button:hover {
+            color: var(--ink);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 26px;
+        }
+
+        .hamburger span {
+            height: 2px;
+            background: var(--ink);
+            border-radius: 2px;
+        }
+
+        #mnav {
+            display: none;
+        }
+
+        #mnav.open {
+            display: block;
+        }
+
+        .section {
+            padding: 76px 0;
+        }
+
+        .section-tight {
+            padding: 56px 0;
+        }
+
+        .section-alt {
+            background: var(--paper-2);
+        }
+
+        .section-dark {
+            background: var(--teal-dark);
+            color: var(--paper);
+        }
+
+        .section-dark h2,
+        .section-dark h3 {
+            color: #fff;
+        }
+
+        .section-dark p {
+            color: rgba(247, 242, 231, 0.78);
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .section-head h2 {
+            font-size: clamp(26px, 3vw, 36px);
+            max-width: 16ch;
+        }
+
+        .section-head p {
+            color: var(--ink-soft);
+            max-width: 40ch;
+            font-size: 15px;
+        }
+
+        .hero {
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(ellipse at top right, var(--gold-tint) 0%, transparent 55%);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 56px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 4.6vw, 58px);
+            max-width: 14ch;
+        }
+
+        .hero .lede {
+            margin-top: 22px;
+            font-size: 17px;
+            color: var(--ink-soft);
+            max-width: 46ch;
+        }
+
+        .hero-search {
+            margin-top: 32px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            box-shadow: 0 10px 30px rgba(28, 35, 33, 0.06);
+        }
+
+        .hero-search select {
+            border: none;
+            background: transparent;
+            font-family: 'Sora', sans-serif;
+            font-size: 15px;
+            padding: 12px 10px;
+            color: var(--ink);
+            min-width: 0;
+        }
+
+        .hero-search select:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: -2px;
+            border-radius: 3px;
+        }
+
+        .hero-search .field-wilaya {
+            flex: 1 1 200px;
+        }
+
+        .hero-search .field-cat {
+            flex: 1 1 170px;
+            border-left: 1px solid var(--line);
+        }
+
+        .hero-note {
+            margin-top: 16px;
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        .hero-note strong {
+            color: var(--ink);
+        }
+
+        .hero-art {
+            position: relative;
+            aspect-ratio: 4/5;
+        }
+
+        .hero-card {
+            position: absolute;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 14px;
+            box-shadow: 0 16px 30px rgba(28, 35, 33, 0.10);
+            width: 190px;
+        }
+
+        .hero-card img {
+            width: 44px;
+            height: 44px;
+            border-radius: 3px;
+            object-fit: cover;
+        }
+
+        .hero-card .r {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .hero-card .nm {
+            font-weight: 600;
+            font-size: 13.5px;
+        }
+
+        .hero-card .wl {
+            font-size: 11.5px;
+            color: var(--ink-soft);
+        }
+
+        .hc1 {
+            top: 0;
+            left: 10%;
+            transform: rotate(-3deg);
+        }
+
+        .hc2 {
+            top: 40%;
+            right: 0;
+            transform: rotate(2deg);
+        }
+
+        .hc3 {
+            bottom: 0;
+            left: 20%;
+            transform: rotate(4deg);
+        }
+
+        .hero-art .plinth {
+            position: absolute;
+            inset: 14% 18%;
+            background: var(--teal);
+            border-radius: var(--radius);
+            z-index: -1;
+        }
+
+        .featured-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .fs-item {
+            border-top: 2px solid var(--line);
+            padding-top: 14px;
+        }
+
+        .fs-item strong {
+            display: block;
+            font-family: 'Fraunces', serif;
+            font-size: 26px;
+        }
+
+        .fs-item span {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .step {
+            border-top: 2px solid var(--ink);
+            padding-top: 16px;
+        }
+
+        .step h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: var(--ink-soft);
+            font-size: 14.5px;
+        }
+
+        .step.gold {
+            border-top-color: var(--gold);
+        }
+
+        .step.teal {
+            border-top-color: var(--teal);
+        }
+
+        /* MAP */
+        .wilaya-map {
+            position: relative;
+            height: 360px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .wilaya-map .cap {
+            position: absolute;
+            bottom: 10px;
+            left: 14px;
+            font-size: 12px;
+            color: var(--ink-soft);
+        }
+
+        .map-pin {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .map-pin .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--teal);
+            border: 2px solid var(--white);
+            box-shadow: 0 0 0 2px var(--teal);
+            transition: transform .12s;
+        }
+
+        .map-pin:hover .dot,
+        .map-pin.active .dot {
+            background: var(--gold);
+            box-shadow: 0 0 0 2px var(--gold);
+            transform: scale(1.3);
+        }
+
+        .map-pin .lbl {
+            font-size: 10.5px;
+            color: var(--ink-soft);
+            white-space: nowrap;
+            background: rgba(255, 253, 248, 0.9);
+            padding: 1px 5px;
+            border-radius: 3px;
+        }
+
+        .map-pin.active .lbl {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+            padding: 14px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+        }
+
+        .filters select,
+        .filters input {
+            border: 1px solid var(--line);
+            background: var(--paper);
+            border-radius: 3px;
+            padding: 10px 12px;
+            font-family: 'Sora', sans-serif;
+            font-size: 14.5px;
+            color: var(--ink);
+        }
+
+        .filters input[type="search"] {
+            flex: 1 1 220px;
+        }
+
+        .filters select {
+            flex: 0 0 auto;
+        }
+
+        .filters select:focus,
+        .filters input:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: -1px;
+        }
+
+        .filters .count {
+            margin-left: auto;
+            align-self: center;
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        #directory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            gap: 16px;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 16px;
+            transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+        }
+
+        .card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 22px rgba(201, 138, 44, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .ribbon {
+            position: absolute;
+            top: -1px;
+            right: 12px;
+            background: var(--gold);
+            color: #fff;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .card .photo {
+            width: 76px;
+            height: 76px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex: 0 0 auto;
+            background: var(--paper-2);
+        }
+
+        .card .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card .body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card .top-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card h3 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .badge-verified {
+            width: 15px;
+            height: 15px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-verified svg {
+            width: 9px;
+            height: 9px;
+            fill: #fff;
+        }
+
+        .badge-id {
+            width: 15px;
+            height: 15px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .badge-id svg {
+            width: 9px;
+            height: 9px;
+            fill: #fff;
+        }
+
+        .card .meta {
+            margin-top: 3px;
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .stars {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .stars .empty {
+            color: var(--line);
+        }
+
+        .rating-line {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            font-size: 12.5px;
+            color: var(--ink-soft);
+        }
+
+        .card .tags {
+            margin-top: 10px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 11.5px;
+            padding: 3px 9px;
+            border-radius: 20px;
+            background: var(--paper-2);
+            color: var(--ink-soft);
+            border: 1px solid var(--line);
+        }
+
+        .card .row-bottom {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .followers {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .followers strong {
+            color: var(--ink);
+        }
+
+        .price-from {
+            font-size: 12.5px;
+            color: var(--gold-dark);
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--ink-soft);
+            border: 1px dashed var(--line);
+            border-radius: var(--radius);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .benefit {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        .benefit .num {
+            font-family: 'Fraunces', serif;
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .benefit h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .benefit p {
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+
+        .quote-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .quote {
+            background: var(--white);
+            border-left: 3px solid var(--gold);
+            padding: 22px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .quote p.txt {
+            font-family: 'Fraunces', serif;
+            font-size: 17px;
+            font-style: italic;
+            color: var(--ink);
+        }
+
+        .quote p.attr {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .plan-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 26px;
+        }
+
+        .plan-card.pro {
+            border-color: var(--gold);
+            box-shadow: 0 8px 22px rgba(201, 138, 44, 0.12);
+        }
+
+        .plan-card h3 {
+            font-size: 20px;
+        }
+
+        .plan-card .price {
+            font-family: 'Fraunces', serif;
+            font-size: 30px;
+            margin: 10px 0;
+        }
+
+        .plan-card ul {
+            margin: 14px 0 0;
+            padding-left: 18px;
+            color: var(--ink-soft);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .reg-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .reg-tab {
+            padding: 10px 20px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--ink-soft);
+        }
+
+        .reg-tab.active {
+            background: var(--ink);
+            color: var(--white);
+            border-color: var(--ink);
+        }
+
+        .reg-panel {
+            display: none;
+        }
+
+        .reg-panel.active {
+            display: block;
+        }
+
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 32px;
+            max-width: 640px;
+        }
+
+        .form-card.wide {
+            max-width: none;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-grid .full {
+            grid-column: 1/-1;
+        }
+
+        label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+
+        label .opt {
+            font-weight: 400;
+            color: var(--ink-soft);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="url"],
+        input[type="tel"],
+        input[type="password"],
+        input[type="file"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            background: var(--paper);
+            font-family: 'Sora', sans-serif;
+            font-size: 14.5px;
+            color: var(--ink);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 0;
+            border-color: transparent;
+        }
+
+        .form-actions {
+            margin-top: 26px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .form-note {
+            font-size: 12.5px;
+            color: var(--ink-soft);
+        }
+
+        .form-error {
+            font-size: 13.5px;
+            color: var(--clay);
+            margin-top: 10px;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .success-box {
+            display: none;
+            background: var(--teal);
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 26px 28px;
+        }
+
+        .success-box.show {
+            display: block;
+        }
+
+        .success-box.show~form {
+            display: none;
+        }
+
+        .success-box h3 {
+            color: #fff;
+            font-family: 'Sora', sans-serif;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .success-box p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+        }
+
+        .switch-link {
+            font-size: 13.5px;
+            color: var(--ink-soft);
+            margin-top: 18px;
+        }
+
+        .switch-link button {
+            color: var(--teal);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* DASHBOARD */
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 230px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .dash-side {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: sticky;
+            top: 96px;
+        }
+
+        .dash-side .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--paper-2);
+            margin-bottom: 10px;
+        }
+
+        .dash-side .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .dash-side h3 {
+            font-size: 16px;
+        }
+
+        .dash-side .role {
+            font-size: 12px;
+            color: var(--gold-dark);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .dash-tabs {
+            margin-top: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .dash-tabs button {
+            text-align: left;
+            padding: 9px 10px;
+            border-radius: 4px;
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        .dash-tabs button.active {
+            background: var(--paper-2);
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .dash-side .btn {
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .card-block {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .card-block h3 {
+            font-size: 17px;
+            margin-bottom: 16px;
+        }
+
+        .list-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .list-row input {
+            flex: 1;
+        }
+
+        .stat-bar-row {
+            margin-bottom: 14px;
+        }
+
+        .stat-bar-row .lbl {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .stat-bar {
+            height: 8px;
+            background: var(--paper-2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .stat-bar>span {
+            display: block;
+            height: 100%;
+            background: var(--teal);
+        }
+
+        .collab-item {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .collab-item .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .collab-item .who {
+            font-weight: 600;
+        }
+
+        .status-pill {
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: none;
+        }
+
+        .status-en_attente {
+            background: var(--gold-tint);
+            color: var(--gold-dark);
+        }
+
+        .status-accepté {
+            background: var(--teal-tint);
+            color: var(--teal-dark);
+        }
+
+        .status-contenu_livré {
+            background: #E4DEF2;
+            color: #5B3EA6;
+        }
+
+        .status-payé {
+            background: #DDF0DE;
+            color: #1F6B2C;
+        }
+
+        .status-refusé {
+            background: #F3D9D3;
+            color: var(--clay);
+        }
+
+        .collab-item .msg {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+
+        .collab-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .req-item {
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .req-item .who {
+            font-weight: 600;
+        }
+
+        .req-item .msg {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .portfolio-grid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--line);
+        }
+
+        .admin-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+        }
+
+        footer {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 48px 0 28px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        footer .logo {
+            color: var(--paper);
+        }
+
+        footer .logo .dot {
+            color: var(--gold);
+        }
+
+        footer p {
+            color: #B9BFB8;
+            font-size: 13.5px;
+            max-width: 36ch;
+            margin-top: 10px;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333B36;
+            font-size: 12.5px;
+            color: #8A9089;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(28, 35, 33, 0.55);
+            z-index: 100;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .modal-head {
+            background: var(--teal);
+            padding: 28px;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            position: relative;
+        }
+
+        .modal-head .photo {
+            width: 88px;
+            height: 88px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex: 0 0 auto;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-head .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-head h3 {
+            color: #fff;
+            font-size: 22px;
+        }
+
+        .modal-head .meta {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13.5px;
+            margin-top: 4px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #fff;
+            font-size: 22px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-body {
+            padding: 26px 28px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-body .bio {
+            color: var(--ink-soft);
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 6px;
+            margin: 18px 0;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+
+        .modal-tabs button {
+            padding: 8px 4px;
+            font-size: 13px;
+            color: var(--ink-soft);
+            border-bottom: 2px solid transparent;
+            margin-right: 14px;
+        }
+
+        .modal-tabs button.active {
+            color: var(--ink);
+            border-color: var(--gold);
+            font-weight: 600;
+        }
+
+        .modal-tab-panel {
+            display: none;
+        }
+
+        .modal-tab-panel.active {
+            display: block;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .social-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 13.5px;
+            color: var(--ink-soft);
+        }
+
+        .social-pill svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .social-pill strong {
+            color: var(--ink);
+        }
+
+        .review-item {
+            border-top: 1px solid var(--line);
+            padding: 12px 0;
+        }
+
+        .review-item .stars {
+            font-size: 14px;
+        }
+
+        .review-item .cmt {
+            font-size: 13.5px;
+            color: var(--ink-soft);
+            margin-top: 4px;
+        }
+
+        .review-item .from {
+            font-size: 12px;
+            color: var(--ink-soft);
+            margin-top: 4px;
+        }
+
+        .chat-modal .modal-body {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 60vh;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-msg {
+            max-width: 75%;
+            padding: 9px 13px;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+
+        .chat-msg.mine {
+            align-self: flex-end;
+            background: var(--teal);
+            color: #fff;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-msg.theirs {
+            align-self: flex-start;
+            background: var(--paper-2);
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+            padding: 14px;
+            border-top: 1px solid var(--line);
+        }
+
+        .chat-input-row input {
+            flex: 1;
+        }
+
+        .invoice-box {
+            border: 1px solid var(--line);
+            padding: 24px;
+            border-radius: var(--radius);
+        }
+
+        .invoice-box .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+        }
+
+        .invoice-box .total {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            margin-top: 14px;
+            text-align: right;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #print-area,
+            #print-area * {
+                visibility: visible;
+            }
+
+            #print-area {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+        }
+
+        .config-banner {
+            background: var(--clay);
+            color: #fff;
+            font-size: 13.5px;
+            padding: 10px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .config-banner.show {
+            display: block;
+        }
+
+        .config-banner code {
+            background: rgba(255, 255, 255, 0.18);
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+
+        @media (max-width:860px) {
+            nav.links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-art {
+                display: none;
+            }
+
+            #directory-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps,
+            .benefits,
+            .quote-row,
+            .plans,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-strip {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dash-side {
+                position: static;
+            }
+
+            .wilaya-map {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="config-banner" id="config-banner">Firebase n'est pas encore configuré — remplacez
+        <code>firebaseConfig</code> en bas du fichier avec les clés de votre projet.
+    </div>
+
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="#" class="logo" onclick="go('accueil');return false;">Collabo<span class="dot">.</span>DZ</a>
+            <nav class="links" id="nav-links">
+                <button onclick="go('accueil')" data-page="accueil">Accueil</button>
+                <button onclick="go('annuaire')" data-page="annuaire">Talents</button>
+                <button onclick="go('entreprises')" data-page="entreprises">Entreprises</button>
+                <button onclick="go('dashboard')" data-page="dashboard" id="nav-dashboard" style="display:none;">Mon
+                    espace</button>
+            </nav>
+            <div class="nav-cta" id="nav-cta">
+                <button class="btn btn-line" onclick="go('connexion')" id="nav-login">Connexion</button>
+                <button class="btn btn-gold" onclick="go('inscription')" id="nav-register">Devenir talent</button>
+            </div>
+            <button class="hamburger" aria-label="menu"
+                onclick="document.getElementById('mnav').classList.toggle('open')"><span></span><span></span><span></span></button>
+        </div>
+        <div id="mnav" class="wrap">
+            <div style="display:flex;flex-direction:column;gap:14px;padding:16px 0;">
+                <button onclick="go('accueil')">Accueil</button>
+                <button onclick="go('annuaire')">Talents</button>
+                <button onclick="go('entreprises')">Entreprises</button>
+                <button onclick="go('connexion')">Connexion</button>
+                <button onclick="go('inscription')">Inscription</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ACCUEIL -->
+        <div class="page active" id="page-accueil">
+            <section class="hero">
+                <div class="wrap hero-inner">
+                    <div>
+                        <h1>Les visages connus de chaque wilaya, à portée de collaboration</h1>
+                        <p class="lede">Fini de fouiller Instagram et TikTok au hasard. Collabo-DZ répertorie les
+                            créateurs par wilaya, avec avis vérifiés, statistiques d'audience réelles et suivi complet
+                            de vos collaborations.</p>
+                        <div class="hero-search">
+                            <select class="field-wilaya" id="hero-wilaya">
+                                <option value="">Toutes les wilayas</option>
+                            </select>
+                            <select class="field-cat" id="hero-cat">
+                                <option value="">Toutes les catégories</option>
+                            </select>
+                            <button class="btn btn-solid" onclick="applyHeroSearch()">Chercher un talent</button>
+                        </div>
+                        <div class="featured-strip">
+                            <div class="fs-item"><strong id="stat-talents">—</strong><span>talents inscrits</span></div>
+                            <div class="fs-item"><strong id="stat-wilayas">—</strong><span>wilayas couvertes</span>
+                            </div>
+                            <div class="fs-item"><strong>8</strong><span>catégories</span></div>
+                            <div class="fs-item"><strong>★</strong><span>avis vérifiés</span></div>
+                        </div>
+                    </div>
+                    <div class="hero-art" aria-hidden="true">
+                        <div class="plinth"></div>
+                        <div class="hero-card hc1">
+                            <div class="r"><img src="https://i.pravatar.cc/100?img=32">
+                                <div>
+                                    <p class="nm">Amel D.</p>
+                                    <p class="wl">Alger — Humour</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-card hc2">
+                            <div class="r"><img src="https://i.pravatar.cc/100?img=12">
+                                <div>
+                                    <p class="nm">Yanis K.</p>
+                                    <p class="wl">Béjaïa — Musique</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-card hc3">
+                            <div class="r"><img src="https://i.pravatar.cc/100?img=47">
+                                <div>
+                                    <p class="nm">Sarah B.</p>
+                                    <p class="wl">Oran — Mode</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section section-alt">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Talents à la une</h2>
+                        <p>Profils vérifiés et mis en avant.</p>
+                    </div>
+                    <div id="featured-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;"></div>
+                    <div style="margin-top:26px;text-align:center;"><button class="btn btn-ghost"
+                            onclick="go('annuaire')">Voir tout l'annuaire</button></div>
+                </div>
+            </section>
+
+            <section class="section" id="comment">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Comment ça marche</h2>
+                    </div>
+                    <div class="steps">
+                        <div class="step gold">
+                            <h3>Demande de collaboration</h3>
+                            <p>L'entreprise contacte le talent avec un message et un budget indicatif.</p>
+                        </div>
+                        <div class="step teal">
+                            <h3>Suivi en temps réel</h3>
+                            <p>Discussion intégrée, statut de la collaboration, livraison du contenu.</p>
+                        </div>
+                        <div class="step">
+                            <h3>Paiement et avis</h3>
+                            <p>Facture générée automatiquement, puis avis mutuel à la fin.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ANNUAIRE -->
+        <div class="page" id="page-annuaire">
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Explorer les talents</h2>
+                        <p>Cliquez une wilaya sur la carte ou utilisez les filtres.</p>
+                    </div>
+                    <div class="wilaya-map" id="wilaya-map"><span class="cap">Carte schématique — approximative, non
+                            géolocalisée</span></div>
+                    <div class="filters">
+                        <select id="f-wilaya">
+                            <option value="">Wilaya</option>
+                        </select>
+                        <select id="f-cat">
+                            <option value="">Catégorie</option>
+                        </select>
+                        <input type="search" id="f-search" placeholder="Rechercher un nom...">
+                        <span class="count" id="f-count"></span>
+                    </div>
+                    <div id="directory-grid"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ENTREPRISES -->
+        <div class="page" id="page-entreprises">
+            <section class="hero" style="padding:64px 0 40px;">
+                <div class="wrap">
+                    <h1 style="max-width:18ch;">Trouvez le bon visage pour votre marque, dans votre wilaya</h1>
+                    <p class="lede" style="margin-top:18px;">Statistiques d'audience réelles, avis vérifiés, suivi de
+                        collaboration et facturation intégrée.</p>
+                    <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+                        <button class="btn btn-gold" onclick="go('inscription');switchTab('business')">Créer un compte
+                            entreprise</button>
+                        <button class="btn btn-ghost" onclick="go('annuaire')">Parcourir les talents</button>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-alt">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Pourquoi Collabo-DZ</h2>
+                    </div>
+                    <div class="benefits">
+                        <div class="benefit">
+                            <div class="num">01</div>
+                            <h3>Ciblage géographique</h3>
+                            <p>Filtrez par wilaya et découvrez des talents recommandés pour votre secteur.</p>
+                        </div>
+                        <div class="benefit">
+                            <div class="num">02</div>
+                            <h3>Avis vérifiés</h3>
+                            <p>Chaque collaboration terminée donne lieu à un avis noté, visible publiquement.</p>
+                        </div>
+                        <div class="benefit">
+                            <div class="num">03</div>
+                            <h3>Suivi complet</h3>
+                            <p>Discussion, statut de livraison et facture générée automatiquement.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-dark">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Nos formules</h2>
+                    </div>
+                    <div class="plans">
+                        <div class="plan-card">
+                            <h3>Gratuit</h3>
+                            <p class="price">0 DA</p>
+                            <ul>
+                                <li>3 demandes de collaboration / mois</li>
+                                <li>Accès complet à l'annuaire</li>
+                                <li>Messagerie incluse</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card pro">
+                            <h3>Pro</h3>
+                            <p class="price">Sur devis</p>
+                            <ul>
+                                <li>Demandes de collaboration illimitées</li>
+                                <li>Recommandations prioritaires</li>
+                                <li>Support dédié</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONNEXION -->
+        <div class="page" id="page-connexion">
+            <section class="section">
+                <div class="wrap" style="max-width:480px;">
+                    <div class="section-head">
+                        <h2>Connexion</h2>
+                    </div>
+                    <div class="form-card">
+                        <div class="success-box" id="success-login">
+                            <h3>Connecté</h3>
+                            <p>Redirection vers votre espace...</p>
+                        </div>
+                        <form id="form-login" onsubmit="return handleLogin(event)">
+                            <div style="margin-bottom:16px;"><label for="l-email">Email</label><input type="email"
+                                    id="l-email" required></div>
+                            <div style="margin-bottom:16px;"><label for="l-pass">Mot de passe</label><input
+                                    type="password" id="l-pass" required></div>
+                            <div class="form-error" id="login-error"></div>
+                            <div class="form-actions"><button type="submit" class="btn btn-solid">Se connecter</button>
+                            </div>
+                        </form>
+                        <p class="switch-link">Pas encore de compte ? <button
+                                onclick="go('inscription')">S'inscrire</button></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- INSCRIPTION -->
+        <div class="page" id="page-inscription">
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>Rejoindre Collabo-DZ</h2>
+                        <p>Vous pourrez compléter forfaits, portfolio et statistiques depuis votre espace après
+                            inscription.</p>
+                    </div>
+                    <div class="reg-tabs">
+                        <button class="reg-tab active" id="tab-talent" onclick="switchTab('talent')">Je suis un
+                            talent</button>
+                        <button class="reg-tab" id="tab-business" onclick="switchTab('business')">Je suis une
+                            entreprise</button>
+                    </div>
+
+                    <div class="reg-panel active" id="panel-talent">
+                        <div class="form-card wide">
+                            <div class="success-box" id="success-talent">
+                                <h3>Compte créé</h3>
+                                <p>Complétez votre profil (forfaits, portfolio, disponibilité) depuis votre espace.</p>
+                            </div>
+                            <form id="form-talent" onsubmit="return handleTalentSignup(event)">
+                                <div class="form-grid">
+                                    <div><label for="t-nom">Nom et prénom</label><input type="text" id="t-nom" required>
+                                    </div>
+                                    <div><label for="t-wilaya">Wilaya</label><select id="t-wilaya" required>
+                                            <option value="">Sélectionner</option>
+                                        </select></div>
+                                    <div><label for="t-cat">Catégorie</label><select id="t-cat" required>
+                                            <option value="">Sélectionner</option>
+                                        </select></div>
+                                    <div><label for="t-abonnes">Abonnés approx.</label><input type="text" id="t-abonnes"
+                                            placeholder="ex : 45k"></div>
+                                    <div class="full"><label for="t-bio">Courte bio</label><textarea id="t-bio"
+                                            placeholder="Ce que vous proposez..."></textarea></div>
+                                    <div><label for="t-insta">Lien Instagram</label><input type="url" id="t-insta"
+                                            placeholder="https://instagram.com/..."></div>
+                                    <div><label for="t-tiktok">Lien TikTok / YouTube</label><input type="url"
+                                            id="t-tiktok" placeholder="https://..."></div>
+                                    <div class="full"><label for="t-photo">Photo de profil <span class="opt">(compressée
+                                                automatiquement, max ~700 Ko)</span></label><input type="file"
+                                            id="t-photo" accept="image/*"></div>
+                                    <div><label for="t-email">Email</label><input type="email" id="t-email" required>
+                                    </div>
+                                    <div><label for="t-pass">Mot de passe</label><input type="password" id="t-pass"
+                                            minlength="6" required></div>
+                                </div>
+                                <div class="form-error" id="talent-error"></div>
+                                <div class="form-actions"><button type="submit" class="btn btn-gold"
+                                        id="t-submit-btn">Envoyer ma demande</button><span class="form-note">Un badge
+                                        "vérifié" sera ajouté après contrôle manuel.</span></div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="reg-panel" id="panel-business">
+                        <div class="form-card wide">
+                            <div class="success-box" id="success-business">
+                                <h3>Compte entreprise créé</h3>
+                                <p>Vous pouvez maintenant parcourir l'annuaire et contacter des talents.</p>
+                            </div>
+                            <form id="form-business" onsubmit="return handleBusinessSignup(event)">
+                                <div class="form-grid">
+                                    <div><label for="b-nom">Nom de l'entreprise</label><input type="text" id="b-nom"
+                                            required></div>
+                                    <div><label for="b-wilaya">Wilaya du siège</label><select id="b-wilaya" required>
+                                            <option value="">Sélectionner</option>
+                                        </select></div>
+                                    <div><label for="b-secteur">Secteur d'activité</label><input type="text"
+                                            id="b-secteur" placeholder="ex : restauration, mode, e-commerce"></div>
+                                    <div><label for="b-email">Email professionnel</label><input type="email"
+                                            id="b-email" required></div>
+                                    <div><label for="b-pass">Mot de passe</label><input type="password" id="b-pass"
+                                            minlength="6" required></div>
+                                    <div class="full"><label for="b-besoin">Type de collaborations
+                                            recherchées</label><textarea id="b-besoin"></textarea></div>
+                                </div>
+                                <div class="form-error" id="business-error"></div>
+                                <div class="form-actions"><button type="submit" class="btn btn-solid"
+                                        id="b-submit-btn">Créer mon compte entreprise</button><span
+                                        class="form-note">Formule gratuite : 3 demandes / mois.</span></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div class="page" id="page-dashboard">
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2 id="dash-title">Mon espace</h2>
+                    </div>
+                    <div class="dash-grid">
+                        <aside class="dash-side">
+                            <div class="avatar"><img id="dash-avatar" src="https://i.pravatar.cc/100?img=1"></div>
+                            <h3 id="dash-name">—</h3>
+                            <p class="role" id="dash-role">—</p>
+                            <div class="dash-tabs" id="dash-tabs"></div>
+                            <button class="btn btn-line" onclick="handleLogout()">Se déconnecter</button>
+                        </aside>
+                        <div id="dash-content"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <div class="footer-inner">
+                <div><a class="logo" href="#" onclick="go('accueil');return false;">Collabo-DZ<span
+                            class="dot">.</span>DZ</a>
+                    <p>Mettre en relation les talents locaux et les entreprises, wilaya par wilaya.</p>
+                </div>
+                <div>
+                    <p style="color:var(--paper);font-weight:600;margin-bottom:8px;">Navigation</p>
+                    <p><button onclick="go('annuaire')">Talents</button></p>
+                    <p style="margin-top:6px;"><button onclick="go('inscription')">Inscription</button></p>
+                </div>
+            </div>
+            <div class="footer-bottom wrap" style="padding:0;"><span>Collabo-DZ — connecté à Firebase</span><span
+                    id="footer-year"></span></div>
+        </div>
+    </footer>
+
+    <div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this) closeModal()">
+        <div class="modal" id="modal-content"></div>
+    </div>
+    <div class="modal-backdrop" id="chat-backdrop" onclick="if(event.target===this) closeChat()">
+        <div class="modal chat-modal" id="chat-content"></div>
+    </div>
+    <div class="modal-backdrop" id="misc-backdrop" onclick="if(event.target===this) closeMisc()">
+        <div class="modal" id="misc-content"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        /* =========================================================================
+           CONFIGURATION FIREBASE — À REMPLACER
+           1. console.firebase.google.com → Créer un projet → Ajouter une app web
+           2. Copier la config ci-dessous
+           3. Activer Authentication → Email/Password
+           4. Créer Firestore (Storage n'est pas utilisé — les photos sont compressées
+              dans le navigateur et stockées en base64 directement dans Firestore,
+              donc limitées à ~700 Ko chacune pour rester sous la limite de 1 Mo
+              par document)
+           Collections utilisées : talents, businesses, collaborations (+ sous-collection
+           messages), reviews, invoices.
+           Règles de départ suggérées (à adapter avant mise en prod) :
+             match /talents/{id} { allow read: if true; allow write: if request.auth.uid == id; }
+             match /businesses/{id} { allow read: if request.auth != null; allow write: if request.auth.uid == id; }
+             match /collaborations/{id} {
+               allow create: if request.auth != null;
+               allow read, update: if request.auth.uid in [resource.data.businessId, resource.data.talentId];
+               match /messages/{m} { allow read, create: if request.auth != null; }
+             }
+             match /reviews/{id} { allow read: if true; allow create: if request.auth != null; }
+             match /invoices/{id} { allow read: if request.auth.uid in [resource.data.businessId, resource.data.talentId]; allow create: if request.auth != null; }
+           ADMIN : remplacez ADMIN_EMAIL plus bas par votre email pour voir le panneau
+           de vérification d'identité dans votre tableau de bord.
+           ========================================================================= */
+        const firebaseConfig = {
+            apiKey: "AIzaSyAzGuHOn3dDQKNgjuWVrVzUOJ2grZ4ohIY",
+            authDomain: "collabo-dz.firebaseapp.com",
+            projectId: "collabo-dz",
+            storageBucket: "collabo-dz.firebasestorage.app",
+            messagingSenderId: "672502375150",
+            appId: "1:672502375150:web:2dc5383106214ff35d89ff"
+        };
+        const ADMIN_EMAIL = "admin@nujoom.dz";
+
+        let firebaseReady = false;
+        try {
+            if (firebaseConfig.apiKey !== "REMPLACE_MOI") { firebase.initializeApp(firebaseConfig); firebaseReady = true; }
+        } catch (e) { console.error("Firebase init error:", e); }
+        if (!firebaseReady) document.getElementById('config-banner').classList.add('show');
+        const auth = firebaseReady ? firebase.auth() : null;
+        const db = firebaseReady ? firebase.firestore() : null;
+
+        /* ---------------- STATIC DATA ---------------- */
+        const WILAYAS = ["Alger", "Oran", "Constantine", "Annaba", "Blida", "Sétif", "Béjaïa", "Tlemcen", "Batna", "Tizi Ouzou", "Bouira", "Ouargla", "Béchar", "Tiaret", "Skikda", "Mostaganem", "Djelfa", "Chlef", "Biskra", "El Oued"];
+        const CATEGORIES = ["Humour", "Cuisine", "Mode", "Sport", "Musique", "Gaming", "Lifestyle", "Éducation"];
+        const ICONS = { check: '<svg viewBox="0 0 24 24"><path d="M4 12l5 5 11-11" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' };
+        const SECTOR_MAP = [
+            { kw: ["restaur", "alimentation", "food", "pâtiss", "café"], cat: "Cuisine" },
+            { kw: ["mode", "vêtement", "fashion", "boutique", "couture"], cat: "Mode" },
+            { kw: ["sport", "fitness", "salle de sport", "musculation"], cat: "Sport" },
+            { kw: ["musique", "événement", "event", "concert"], cat: "Musique" },
+            { kw: ["gaming", "tech", "électronique", "informatique"], cat: "Gaming" },
+            { kw: ["éducation", "formation", "école", "cours"], cat: "Éducation" },
+            { kw: ["lifestyle", "déco", "beauté", "cosmétique"], cat: "Lifestyle" },
+            { kw: ["humour", "divertissement", "loisir"], cat: "Humour" }
+        ];
+        /* positions approximatives (schématiques, non géographiques précises) sur la carte 0-100% */
+        const WILAYA_POS = [
+            { n: "Alger", t: 8, l: 48 }, { n: "Oran", t: 10, l: 26 }, { n: "Constantine", t: 14, l: 64 }, { n: "Annaba", t: 8, l: 74 },
+            { n: "Béjaïa", t: 10, l: 54 }, { n: "Tlemcen", t: 20, l: 16 }, { n: "Sétif", t: 16, l: 56 }, { n: "Batna", t: 24, l: 60 },
+            { n: "Tizi Ouzou", t: 9, l: 50 }, { n: "Bouira", t: 14, l: 46 }, { n: "Djelfa", t: 34, l: 42 }, { n: "Béchar", t: 52, l: 10 },
+            { n: "Tiaret", t: 22, l: 32 }, { n: "Skikda", t: 8, l: 68 }, { n: "Mostaganem", t: 12, l: 24 }, { n: "Chlef", t: 12, l: 34 },
+            { n: "Biskra", t: 32, l: 56 }, { n: "El Oued", t: 52, l: 60 }, { n: "Ouargla", t: 62, l: 52 }
+        ];
+
+        const DEMO_TALENTS = [
+            { id: "demo1", nom: "Amel Djaballah", wilaya: "Alger", cat: "Humour", abonnes: "128k", verified: true, idVerified: true, isFeatured: true, photoURL: "https://i.pravatar.cc/300?img=32", bio: "Créatrice de sketchs sur le quotidien algérois.", engagementRate: 6.4, audienceAge: "18-24 ans (48%), 25-34 ans (32%)", audienceGeo: "Alger 40%, Blida 15%, Oran 10%", packages: [{ label: "1 story", price: "8 000 DA" }, { label: "1 post + 3 stories", price: "25 000 DA" }], portfolio: [], busyDates: [], ratingAvg: 4.7, ratingCount: 12 },
+            { id: "demo2", nom: "Yanis Kaci", wilaya: "Béjaïa", cat: "Musique", abonnes: "64k", verified: true, idVerified: false, isFeatured: false, photoURL: "https://i.pravatar.cc/300?img=12", bio: "Chanteur et compositeur, chaabi moderne.", engagementRate: 5.1, audienceAge: "18-30 ans (60%)", audienceGeo: "Béjaïa 35%, Alger 20%", packages: [{ label: "Présence évènement", price: "50 000 DA" }], portfolio: [], busyDates: [], ratingAvg: 4.3, ratingCount: 5 },
+            { id: "demo3", nom: "Sarah Bouhadjar", wilaya: "Oran", cat: "Mode", abonnes: "91k", verified: true, idVerified: true, isFeatured: true, photoURL: "https://i.pravatar.cc/300?img=47", bio: "Styliste, prêt-à-porter local.", engagementRate: 7.2, audienceAge: "18-24 ans (55%)", audienceGeo: "Oran 50%, Mostaganem 12%", packages: [{ label: "1 post", price: "18 000 DA" }], portfolio: [], busyDates: [], ratingAvg: 4.9, ratingCount: 20 }
+        ];
+
+        let talentsCache = [];
+        let currentUser = null, currentRole = null, currentProfile = null;
+        let activeCollabTab = 'collabs';
+        let activeChatId = null, chatUnsub = null;
+        let mapSelectedWilaya = "";
+
+        function fillSelect(el, list) { list.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; el.appendChild(o); }); }
+        ['hero-wilaya', 'f-wilaya', 't-wilaya', 'b-wilaya'].forEach(id => fillSelect(document.getElementById(id), WILAYAS));
+        ['hero-cat', 'f-cat', 't-cat'].forEach(id => fillSelect(document.getElementById(id), CATEGORIES));
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        /* ---------------- ROUTER ---------------- */
+        const PAGES = ['accueil', 'annuaire', 'entreprises', 'connexion', 'inscription', 'dashboard'];
+        function go(page) {
+            if (page === 'dashboard' && !currentUser) { page = 'connexion'; }
+            PAGES.forEach(p => document.getElementById('page-' + p).classList.toggle('active', p === page));
+            document.querySelectorAll('#nav-links button').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+            document.getElementById('mnav').classList.remove('open');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            location.hash = page;
+            if (page === 'dashboard') renderDashboard();
+        }
+        window.addEventListener('hashchange', () => { const p = location.hash.replace('#', ''); if (PAGES.includes(p)) go(p); });
+        if (PAGES.includes(location.hash.replace('#', ''))) go(location.hash.replace('#', ''));
+
+        /* ---------------- STARS HELPER ---------------- */
+        function starsHTML(avg, count) {
+            avg = avg || 0;
+            const full = Math.round(avg);
+            let s = '';
+            for (let i = 1; i <= 5; i++) s += i <= full ? '★' : '<span class="empty">★</span>';
+            return `<span class="stars">${s}</span> <span style="font-size:12px;color:var(--ink-soft);">${avg ? avg.toFixed(1) : '—'} (${count || 0})</span>`;
+        }
+
+        /* ---------------- MAP ---------------- */
+        function renderMap() {
+            const el = document.getElementById('wilaya-map');
+            const caption = el.querySelector('.cap').outerHTML;
+            el.innerHTML = caption + WILAYA_POS.map(w => `
+    <div class="map-pin ${mapSelectedWilaya === w.n ? 'active' : ''}" style="top:${w.t}%;left:${w.l}%;" onclick="selectMapWilaya('${w.n}')">
+      <div class="dot"></div><span class="lbl">${w.n}</span>
+    </div>`).join('');
+        }
+        function selectMapWilaya(name) {
+            mapSelectedWilaya = (mapSelectedWilaya === name) ? "" : name;
+            document.getElementById('f-wilaya').value = mapSelectedWilaya;
+            renderMap(); renderDirectory();
+        }
+
+        /* ---------------- DIRECTORY DATA ---------------- */
+        function loadTalents() {
+            if (db) {
+                db.collection('talents').orderBy('createdAt', 'desc').onSnapshot(snap => {
+                    talentsCache = snap.empty ? [] : snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                    renderDirectory(); renderFeatured(); renderStats();
+                }, err => { console.error(err); talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); });
+            } else { talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); }
+        }
+        function renderStats() {
+            const list = talentsCache.length ? talentsCache : DEMO_TALENTS;
+            document.getElementById('stat-talents').textContent = list.length;
+            document.getElementById('stat-wilayas').textContent = new Set(list.map(t => t.wilaya)).size;
+        }
+        function sortForDisplay(list) {
+            return [...list].sort((a, b) => {
+                if (!!b.isFeatured !== !!a.isFeatured) return (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0);
+                if (!!b.verified !== !!a.verified) return (b.verified ? 1 : 0) - (a.verified ? 1 : 0);
+                return (b.ratingAvg || 0) - (a.ratingAvg || 0);
+            });
+        }
+        function cardHTML(t) {
+            const cheapest = (t.packages && t.packages.length) ? t.packages[0] : null;
+            return `
+    ${t.isFeatured ? '<span class="ribbon">En vedette</span>' : ''}
+    <div class="photo"><img src="${t.photoURL || 'https://i.pravatar.cc/200?u=' + t.id}" alt="${t.nom}"></div>
+    <div class="body">
+      <div class="top-row"><h3>${t.nom}</h3>${t.verified ? `<span class="badge-verified" title="Réseaux sociaux vérifiés">${ICONS.check}</span>` : ''}${t.idVerified ? `<span class="badge-id" title="Identité vérifiée">${ICONS.check}</span>` : ''}</div>
+      <p class="meta">${t.wilaya}</p>
+      <div class="rating-line">${starsHTML(t.ratingAvg, t.ratingCount)}</div>
+      <div class="tags"><span class="tag">${t.cat}</span></div>
+      ${cheapest ? `<p class="price-from">À partir de ${cheapest.price}</p>` : ''}
+      <div class="row-bottom">
+        <span class="followers"><strong>${t.abonnes || '—'}</strong> abonnés</span>
+        <button class="btn btn-ghost btn-sm" onclick="openProfile('${t.id}')">Voir le profil</button>
+      </div>
+    </div>`;
+        }
+        function renderFeatured() {
+            const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
+            const list = sortForDisplay(source).slice(0, 3);
+            document.getElementById('featured-grid').innerHTML = list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('');
+        }
+        function renderDirectory() {
+            renderMap();
+            const wilaya = document.getElementById('f-wilaya').value;
+            const cat = document.getElementById('f-cat').value;
+            const search = document.getElementById('f-search').value.trim().toLowerCase();
+            const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
+            const filtered = sortForDisplay(source.filter(t => (!wilaya || t.wilaya === wilaya) && (!cat || t.cat === cat) && (!search || t.nom.toLowerCase().includes(search))));
+            const grid = document.getElementById('directory-grid');
+            document.getElementById('f-count').textContent = filtered.length + (filtered.length > 1 ? ' profils' : ' profil');
+            grid.innerHTML = '';
+            if (filtered.length === 0) { grid.innerHTML = '<div class="empty-state"><h3>Aucun profil trouvé</h3><p>Essayez une autre wilaya ou catégorie.</p></div>'; return; }
+            filtered.forEach(t => { const c = document.createElement('div'); c.className = 'card'; c.innerHTML = cardHTML(t); grid.appendChild(c); });
+        }
+        ['f-wilaya', 'f-cat'].forEach(id => document.getElementById(id).addEventListener('change', renderDirectory));
+        document.getElementById('f-search').addEventListener('input', renderDirectory);
+        function applyHeroSearch() {
+            document.getElementById('f-wilaya').value = document.getElementById('hero-wilaya').value;
+            document.getElementById('f-cat').value = document.getElementById('hero-cat').value;
+            go('annuaire'); renderDirectory();
+        }
+
+        /* ---------------- PROFILE MODAL (tabs: bio / stats / packages / portfolio / avis) ---------------- */
+        function openProfile(id) {
+            const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
+            const t = source.find(x => x.id === id);
+            if (!t) return;
+            if (db) db.collection('talents').doc(id).update({ viewCount: firebase.firestore.FieldValue.increment(1) }).catch(() => { });
+
+            const packagesHTML = (t.packages && t.packages.length) ? t.packages.map(p => `<div class="list-row" style="justify-content:space-between;"><span>${p.label}</span><strong>${p.price}</strong></div>`).join('') : '<p style="color:var(--ink-soft);font-size:14px;">Aucun forfait publié.</p>';
+            const portfolioHTML = (t.portfolio && t.portfolio.length) ? `<div class="portfolio-grid">${t.portfolio.map(u => `<img src="${u}">`).join('')}</div>` : '<p style="color:var(--ink-soft);font-size:14px;">Aucune réalisation publiée.</p>';
+            const busyHTML = (t.busyDates && t.busyDates.length) ? `<p style="font-size:14px;color:var(--ink-soft);">Indisponible : ${t.busyDates.join(', ')}</p>` : '<p style="font-size:14px;color:var(--ink-soft);">Aucune indisponibilité signalée.</p>';
+
+            document.getElementById('modal-content').innerHTML = `
+    <div class="modal-head">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="photo"><img src="${t.photoURL || 'https://i.pravatar.cc/200?u=' + t.id}" alt="${t.nom}"></div>
+      <div><h3>${t.nom} ${t.verified ? '✓' : ''}</h3><p class="meta">${t.wilaya} — ${t.cat}</p><div class="rating-line" style="color:#fff;">${starsHTML(t.ratingAvg, t.ratingCount)}</div></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="active" data-mt="bio" onclick="switchProfileTab('bio')">Profil</button>
+        <button data-mt="stats" onclick="switchProfileTab('stats')">Statistiques</button>
+        <button data-mt="pack" onclick="switchProfileTab('pack')">Forfaits</button>
+        <button data-mt="port" onclick="switchProfileTab('port')">Portfolio</button>
+        <button data-mt="avis" onclick="switchProfileTab('avis')">Avis</button>
+      </div>
+      <div class="modal-tab-panel active" data-mtp="bio">
+        <p class="bio">${t.bio || 'Aucune bio renseignée.'}</p>
+        <div class="socials"><span class="social-pill">Instagram · <strong>${t.abonnes || '—'}</strong></span></div>
+        ${busyHTML}
+      </div>
+      <div class="modal-tab-panel" data-mtp="stats">
+        <div class="stat-bar-row"><div class="lbl"><span>Taux d'engagement</span><span>${t.engagementRate || 0}%</span></div><div class="stat-bar"><span style="width:${Math.min(100, (t.engagementRate || 0) * 8)}%"></span></div></div>
+        <p style="font-size:13.5px;margin-top:14px;"><strong>Âge de l'audience :</strong> ${t.audienceAge || 'non renseigné'}</p>
+        <p style="font-size:13.5px;margin-top:8px;"><strong>Répartition géographique :</strong> ${t.audienceGeo || 'non renseignée'}</p>
+      </div>
+      <div class="modal-tab-panel" data-mtp="pack">${packagesHTML}</div>
+      <div class="modal-tab-panel" data-mtp="port">${portfolioHTML}</div>
+      <div class="modal-tab-panel" data-mtp="avis"><div id="reviews-list">Chargement des avis...</div></div>
+
+      <div class="contact-form" id="contact-zone" style="margin-top:22px;border-top:1px solid var(--line);padding-top:20px;">
+        ${collabCTA(t)}
+      </div>
+    </div>`;
+            document.getElementById('modal-backdrop').classList.add('open');
+            loadReviewsInto(id, 'reviews-list');
+        }
+        function switchProfileTab(tab) {
+            document.querySelectorAll('.modal-tabs button').forEach(b => b.classList.toggle('active', b.dataset.mt === tab));
+            document.querySelectorAll('.modal-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.mtp === tab));
+        }
+        function collabCTA(t) {
+            if (!currentUser) return `<p style="color:var(--ink-soft);font-size:14px;">Connectez-vous avec un compte entreprise pour contacter ce talent.</p><button class="btn btn-solid btn-sm" style="margin-top:12px;" onclick="closeModal();go('connexion')">Se connecter</button>`;
+            if (currentRole !== 'business') return `<p style="color:var(--ink-soft);font-size:14px;">Seuls les comptes entreprise peuvent envoyer une demande de collaboration.</p>`;
+            return `
+    <p style="font-weight:600;margin-bottom:14px;">Proposer une collaboration</p>
+    <form onsubmit="return handleCreateCollab(event,'${t.id}','${(t.nom || '').replace(/'/g, "")}')">
+      <div style="margin-bottom:12px;"><textarea placeholder="Type de campagne, délai..." id="collab-msg" required></textarea></div>
+      <div style="margin-bottom:12px;"><input type="text" id="collab-amount" placeholder="Budget indicatif (ex : 20000 DA)"></div>
+      <button type="submit" class="btn btn-gold">Envoyer la demande</button>
+    </form>`;
+        }
+        function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+
+        /* ---------------- REVIEWS ---------------- */
+        function loadReviewsInto(targetId, elId) {
+            const el = document.getElementById(elId);
+            if (!db) { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Avis de démonstration indisponibles hors connexion Firebase.</p>'; return; }
+            db.collection('reviews').where('toId', '==', targetId).orderBy('createdAt', 'desc').limit(20).get().then(snap => {
+                if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Aucun avis pour le moment.</p>'; return; }
+                el.innerHTML = snap.docs.map(d => { const r = d.data(); return `<div class="review-item">${starsHTML(r.rating, null)}<p class="cmt">${r.comment || ''}</p><p class="from">— ${r.fromName || 'Utilisateur'}</p></div>`; }).join('');
+            }).catch(() => { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Impossible de charger les avis (vérifiez les règles Firestore).</p>'; });
+        }
+        function recomputeRating(targetId, collectionName) {
+            db.collection('reviews').where('toId', '==', targetId).get().then(snap => {
+                if (snap.empty) return;
+                let sum = 0; snap.forEach(d => sum += d.data().rating);
+                const avg = sum / snap.size;
+                db.collection(collectionName).doc(targetId).update({ ratingAvg: avg, ratingCount: snap.size }).catch(() => { });
+            });
+        }
+        function openReviewForm(collabId, toId, toName, toRoleCollection) {
+            document.getElementById('misc-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>Laisser un avis à ${toName}</h3></div>
+    <div class="modal-body">
+      <form onsubmit="return submitReview(event,'${collabId}','${toId}','${(toName || '').replace(/'/g, "")}','${toRoleCollection}')">
+        <div style="margin-bottom:14px;"><label>Sérieux</label><select id="rv-serieux"><option value="5">5 - Excellent</option><option value="4">4 - Bien</option><option value="3">3 - Correct</option><option value="2">2 - Moyen</option><option value="1">1 - Insuffisant</option></select></div>
+        <div style="margin-bottom:14px;"><label>Réactivité</label><select id="rv-reactivite"><option value="5">5 - Excellent</option><option value="4">4 - Bien</option><option value="3">3 - Correct</option><option value="2">2 - Moyen</option><option value="1">1 - Insuffisant</option></select></div>
+        <div style="margin-bottom:14px;"><label>Qualité du travail</label><select id="rv-qualite"><option value="5">5 - Excellent</option><option value="4">4 - Bien</option><option value="3">3 - Correct</option><option value="2">2 - Moyen</option><option value="1">1 - Insuffisant</option></select></div>
+        <div style="margin-bottom:14px;"><label>Commentaire</label><textarea id="rv-comment" placeholder="Décrivez votre expérience"></textarea></div>
+        <button type="submit" class="btn btn-gold">Publier l'avis</button>
+      </form>
+    </div>`;
+            document.getElementById('misc-backdrop').classList.add('open');
+        }
+        function submitReview(e, collabId, toId, toName, toRoleCollection) {
+            e.preventDefault();
+            const s = +document.getElementById('rv-serieux').value, r = +document.getElementById('rv-reactivite').value, q = +document.getElementById('rv-qualite').value;
+            const rating = Math.round((s + r + q) / 3);
+            db.collection('reviews').add({
+                collaborationId: collabId, toId, toName,
+                fromId: currentUser.uid, fromName: currentProfile ? currentProfile.nom : currentUser.email,
+                rating, comment: document.getElementById('rv-comment').value,
+                criteria: { serieux: s, reactivite: r, qualite: q }, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                recomputeRating(toId, toRoleCollection);
+                db.collection('collaborations').doc(collabId).update({ ['reviewedBy_' + currentUser.uid]: true }).catch(() => { });
+                closeMisc(); renderDashboard();
+            });
+            return false;
+        }
+        function closeMisc() { document.getElementById('misc-backdrop').classList.remove('open'); }
+
+        /* ---------------- COLLABORATIONS ---------------- */
+        function handleCreateCollab(e, talentId, talentNom) {
+            e.preventDefault();
+            const msg = document.getElementById('collab-msg').value;
+            const amount = document.getElementById('collab-amount').value;
+            if (!db) { document.getElementById('contact-zone').innerHTML = '<p style="color:var(--clay);">Firebase non configuré.</p>'; return false; }
+            const biz = currentProfile || {};
+            if ((biz.plan || 'free') === 'free' && (biz.requestCount || 0) >= 3) {
+                document.getElementById('contact-zone').innerHTML = `<p style="color:var(--clay);">Quota gratuit atteint (3 demandes / mois). <button class="btn btn-gold btn-sm" onclick="upgradeToPro()">Passer en formule Pro</button></p>`;
+                return false;
+            }
+            db.collection('collaborations').add({
+                talentId, talentNom, businessId: currentUser.uid, businessName: biz.nom || currentUser.email,
+                message: msg, amount, status: 'en_attente', deliverableURL: '',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(), updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                db.collection('businesses').doc(currentUser.uid).update({ requestCount: firebase.firestore.FieldValue.increment(1) }).catch(() => { });
+                document.getElementById('contact-zone').innerHTML = '<p style="font-weight:600;color:var(--teal);">Demande envoyée. Suivez son statut depuis votre espace.</p>';
+            }).catch(err => { document.getElementById('contact-zone').innerHTML = `<p style="color:var(--clay);">Erreur : ${err.message}</p>`; });
+            return false;
+        }
+        function upgradeToPro() {
+            db.collection('businesses').doc(currentUser.uid).update({ plan: 'pro' }).then(() => { currentProfile.plan = 'pro'; renderDashboard(); closeModal(); });
+        }
+        function updateCollabStatus(id, status) {
+            db.collection('collaborations').doc(id).update({ status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => renderDashboard());
+        }
+        function setDeliverable(id) {
+            const url = prompt("Lien vers le contenu livré (Drive, YouTube, etc.) :");
+            if (!url) return;
+            db.collection('collaborations').doc(id).update({ deliverableURL: url, status: 'contenu_livré', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => renderDashboard());
+        }
+        function markPaid(id, businessId, businessName, talentId, talentNom, amount) {
+            db.collection('collaborations').doc(id).update({ status: 'payé', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => {
+                return db.collection('invoices').add({
+                    collaborationId: id, businessId, businessName, talentId, talentNom,
+                    amount: amount || '—', description: 'Collaboration Collabo-DZ',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }).then(() => renderDashboard());
+        }
+        function viewInvoice(collabId) {
+            db.collection('invoices').where('collaborationId', '==', collabId).limit(1).get().then(snap => {
+                if (snap.empty) { alert("Aucune facture trouvée pour cette collaboration."); return; }
+                const inv = snap.docs[0].data();
+                document.getElementById('misc-content').innerHTML = `
+      <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>Facture</h3></div>
+      <div class="modal-body">
+        <div id="print-area" class="invoice-box">
+          <div class="row"><span>Entreprise</span><strong>${inv.businessName}</strong></div>
+          <div class="row"><span>Talent</span><strong>${inv.talentNom}</strong></div>
+          <div class="row"><span>Description</span><span>${inv.description}</span></div>
+          <p class="total">${inv.amount}</p>
+        </div>
+        <div style="margin-top:16px;text-align:right;"><button class="btn btn-ghost" onclick="window.print()">Imprimer / PDF</button></div>
+      </div>`;
+                document.getElementById('misc-backdrop').classList.add('open');
+            });
+        }
+
+        /* ---------------- CHAT ---------------- */
+        function openChat(collabId, otherName) {
+            activeChatId = collabId;
+            document.getElementById('chat-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeChat()">&times;</button><h3>Discussion avec ${otherName}</h3></div>
+    <div class="modal-body"><div class="chat-messages" id="chat-messages"></div>
+      <form class="chat-input-row" onsubmit="return sendChatMessage(event)">
+        <input type="text" id="chat-input" placeholder="Écrire un message..." required>
+        <button type="submit" class="btn btn-gold btn-sm">Envoyer</button>
+      </form>
+    </div>`;
+            document.getElementById('chat-backdrop').classList.add('open');
+            if (chatUnsub) chatUnsub();
+            chatUnsub = db.collection('collaborations').doc(collabId).collection('messages').orderBy('createdAt', 'asc').onSnapshot(snap => {
+                const box = document.getElementById('chat-messages');
+                if (!box) return;
+                box.innerHTML = snap.docs.map(d => { const m = d.data(); const mine = m.senderId === currentUser.uid; return `<div class="chat-msg ${mine ? 'mine' : 'theirs'}">${m.text}</div>`; }).join('');
+                box.scrollTop = box.scrollHeight;
+            });
+        }
+        function sendChatMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return false;
+            db.collection('collaborations').doc(activeChatId).collection('messages').add({ senderId: currentUser.uid, text, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            input.value = '';
+            return false;
+        }
+        function closeChat() { document.getElementById('chat-backdrop').classList.remove('open'); if (chatUnsub) { chatUnsub(); chatUnsub = null; } activeChatId = null; }
+
+        /* ---------------- IMAGE COMPRESSION (pas de Storage payant : on stocke une version compressée en base64 dans Firestore) ---------------- */
+        function compressImageFile(file, maxDim, quality) {
+            maxDim = maxDim || 500; quality = quality || 0.7;
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = new Image();
+                    img.onload = () => {
+                        let w = img.width, h = img.height;
+                        if (w > h) { if (w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; } }
+                        else { if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; } }
+                        const canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = () => reject(new Error("Image illisible"));
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject(new Error("Lecture du fichier impossible"));
+                reader.readAsDataURL(file);
+            });
+        }
+        /* Compresse en réduisant progressivement jusqu'à tenir sous maxBytes (limite Firestore = 1 Mo par document) */
+        async function compressUnderLimit(file, maxBytes) {
+            maxBytes = maxBytes || 700000;
+            let dim = 600, q = 0.75;
+            for (let i = 0; i < 6; i++) {
+                const dataUrl = await compressImageFile(file, dim, q);
+                if (dataUrl.length * 0.75 <= maxBytes) return dataUrl;
+                dim = Math.round(dim * 0.8); q = Math.max(0.4, q - 0.1);
+            }
+            throw new Error("Image trop lourde même compressée — essayez une photo plus simple ou plus petite.");
+        }
+
+        /* ---------------- REGISTRATION TABS ---------------- */
+        function switchTab(tab) {
+            document.getElementById('tab-talent').classList.toggle('active', tab === 'talent');
+            document.getElementById('tab-business').classList.toggle('active', tab === 'business');
+            document.getElementById('panel-talent').classList.toggle('active', tab === 'talent');
+            document.getElementById('panel-business').classList.toggle('active', tab === 'business');
+        }
+        function needFirebase(errEl) {
+            if (!db) { document.getElementById(errEl).textContent = "Firebase n'est pas configuré (voir le bandeau en haut de page)."; document.getElementById(errEl).classList.add('show'); return true; }
+            return false;
+        }
+        function handleTalentSignup(e) {
+            e.preventDefault();
+            document.getElementById('talent-error').classList.remove('show');
+            if (needFirebase('talent-error')) return false;
+            const email = document.getElementById('t-email').value, pass = document.getElementById('t-pass').value;
+            const btn = document.getElementById('t-submit-btn'); btn.disabled = true; btn.textContent = 'Création en cours...';
+            const file = document.getElementById('t-photo').files[0];
+
+            (file ? compressUnderLimit(file) : Promise.resolve("")).then(photoDataUrl => {
+                return auth.createUserWithEmailAndPassword(email, pass).then(cred => {
+                    const uid = cred.user.uid;
+                    const profile = {
+                        nom: document.getElementById('t-nom').value, wilaya: document.getElementById('t-wilaya').value, cat: document.getElementById('t-cat').value,
+                        abonnes: document.getElementById('t-abonnes').value, bio: document.getElementById('t-bio').value,
+                        instagram: document.getElementById('t-insta').value, tiktok: document.getElementById('t-tiktok').value,
+                        verified: false, idVerified: false, isFeatured: false, photoURL: photoDataUrl,
+                        engagementRate: 0, audienceAge: "", audienceGeo: "", packages: [], portfolio: [], busyDates: [],
+                        viewCount: 0, ratingAvg: 0, ratingCount: 0,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    return db.collection('talents').doc(uid).set(profile);
+                });
+            }).then(() => { document.getElementById('success-talent').classList.add('show'); btn.disabled = false; btn.textContent = 'Envoyer ma demande'; })
+                .catch(err => { document.getElementById('talent-error').textContent = err.message; document.getElementById('talent-error').classList.add('show'); btn.disabled = false; btn.textContent = 'Envoyer ma demande'; });
+            return false;
+        }
+        function handleBusinessSignup(e) {
+            e.preventDefault();
+            document.getElementById('business-error').classList.remove('show');
+            if (needFirebase('business-error')) return false;
+            const email = document.getElementById('b-email').value, pass = document.getElementById('b-pass').value;
+            const btn = document.getElementById('b-submit-btn'); btn.disabled = true; btn.textContent = 'Création en cours...';
+            auth.createUserWithEmailAndPassword(email, pass).then(cred => {
+                return db.collection('businesses').doc(cred.user.uid).set({
+                    nom: document.getElementById('b-nom').value, wilaya: document.getElementById('b-wilaya').value,
+                    secteur: document.getElementById('b-secteur').value, email, besoin: document.getElementById('b-besoin').value,
+                    plan: 'free', requestCount: 0, ratingAvg: 0, ratingCount: 0,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }).then(() => { document.getElementById('success-business').classList.add('show'); btn.disabled = false; btn.textContent = 'Créer mon compte entreprise'; })
+                .catch(err => { document.getElementById('business-error').textContent = err.message; document.getElementById('business-error').classList.add('show'); btn.disabled = false; btn.textContent = 'Créer mon compte entreprise'; });
+            return false;
+        }
+        function handleLogin(e) {
+            e.preventDefault();
+            document.getElementById('login-error').classList.remove('show');
+            if (needFirebase('login-error')) return false;
+            auth.signInWithEmailAndPassword(document.getElementById('l-email').value, document.getElementById('l-pass').value).then(() => {
+                document.getElementById('success-login').classList.add('show'); setTimeout(() => go('dashboard'), 400);
+            }).catch(err => { document.getElementById('login-error').textContent = err.message; document.getElementById('login-error').classList.add('show'); });
+            return false;
+        }
+        function handleLogout() { if (auth) auth.signOut(); go('accueil'); }
+
+        /* ---------------- AUTH STATE ---------------- */
+        function updateNavForAuth() {
+            document.getElementById('nav-dashboard').style.display = currentUser ? 'inline' : 'none';
+            document.getElementById('nav-login').style.display = currentUser ? 'none' : 'inline-flex';
+            document.getElementById('nav-register').textContent = currentUser ? 'Mon espace' : 'Devenir talent';
+            document.getElementById('nav-register').onclick = currentUser ? () => go('dashboard') : () => go('inscription');
+        }
+        if (auth) {
+            auth.onAuthStateChanged(async user => {
+                currentUser = user; currentRole = null; currentProfile = null;
+                if (user) {
+                    const tDoc = await db.collection('talents').doc(user.uid).get();
+                    if (tDoc.exists) { currentRole = 'talent'; currentProfile = tDoc.data(); }
+                    else { const bDoc = await db.collection('businesses').doc(user.uid).get(); if (bDoc.exists) { currentRole = 'business'; currentProfile = bDoc.data(); } }
+                }
+                updateNavForAuth();
+                if (location.hash.replace('#', '') === 'dashboard') renderDashboard();
+            });
+        } else { updateNavForAuth(); }
+
+        /* ---------------- DASHBOARD ---------------- */
+        function dashTabsFor(role) {
+            if (role === 'talent') return [
+                { id: 'profil', label: 'Mon profil' }, { id: 'forfaits', label: 'Forfaits & Portfolio' }, { id: 'dispo', label: 'Disponibilité' },
+                { id: 'collabs', label: 'Collaborations' }, { id: 'avis', label: 'Avis reçus' }, { id: 'stats', label: 'Statistiques' }
+            ];
+            return [{ id: 'compte', label: 'Compte & Plan' }, { id: 'reco', label: 'Recommandations' }, { id: 'collabs', label: 'Collaborations' }];
+        }
+        function renderDashboard() {
+            if (!currentUser) { document.getElementById('dash-content').innerHTML = '<p>Veuillez vous connecter.</p>'; return; }
+            document.getElementById('dash-name').textContent = currentProfile ? currentProfile.nom : currentUser.email;
+            document.getElementById('dash-role').textContent = currentRole === 'talent' ? 'Compte talent' : currentRole === 'business' ? 'Compte entreprise' : '—';
+            document.getElementById('dash-avatar').src = (currentProfile && currentProfile.photoURL) ? currentProfile.photoURL : 'https://i.pravatar.cc/100?u=' + currentUser.uid;
+
+            const tabs = dashTabsFor(currentRole);
+            if (!tabs.find(t => t.id === activeCollabTab)) activeCollabTab = tabs[0].id;
+            document.getElementById('dash-tabs').innerHTML = tabs.map(t => `<button class="${activeCollabTab === t.id ? 'active' : ''}" onclick="setDashTab('${t.id}')">${t.label}</button>`).join('');
+
+            const content = document.getElementById('dash-content');
+            if (currentRole === 'talent') renderTalentDashTab(content, activeCollabTab);
+            else if (currentRole === 'business') renderBusinessDashTab(content, activeCollabTab);
+            else content.innerHTML = '<p style="color:var(--ink-soft);">Profil introuvable.</p>';
+
+            if (currentUser.email === ADMIN_EMAIL) renderAdminPanel(content);
+        }
+        function setDashTab(id) { activeCollabTab = id; renderDashboard(); }
+
+        function renderTalentDashTab(content, tab) {
+            if (tab === 'profil') {
+                content.innerHTML = `
+      <div class="card-block">
+        <h3>Mon profil</h3>
+        <div class="form-grid">
+          <div><label>Nom</label><input type="text" id="d-nom" value="${currentProfile.nom || ''}"></div>
+          <div><label>Wilaya</label><select id="d-wilaya"></select></div>
+          <div><label>Catégorie</label><select id="d-cat"></select></div>
+          <div><label>Abonnés</label><input type="text" id="d-abonnes" value="${currentProfile.abonnes || ''}"></div>
+          <div class="full"><label>Bio</label><textarea id="d-bio">${currentProfile.bio || ''}</textarea></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-gold" onclick="saveTalentEdits()">Enregistrer</button></div>
+      </div>
+      <div class="card-block">
+        <h3>Statistiques d'audience réelles</h3>
+        <div class="form-grid">
+          <div><label>Taux d'engagement (%)</label><input type="number" step="0.1" id="d-engagement" value="${currentProfile.engagementRate || 0}"></div>
+          <div><label>Âge principal de l'audience</label><input type="text" id="d-age" value="${currentProfile.audienceAge || ''}" placeholder="ex : 18-24 ans (45%)"></div>
+          <div class="full"><label>Répartition géographique de l'audience</label><input type="text" id="d-geo" value="${currentProfile.audienceGeo || ''}" placeholder="ex : Alger 30%, Oran 15%"></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-teal" onclick="saveEngagementStats()">Mettre à jour</button></div>
+      </div>
+      <div class="card-block">
+        <h3>Vérification d'identité</h3>
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;">Statut actuel : <strong>${currentProfile.idVerified ? 'Vérifié' : 'Non vérifié'}</strong></p>
+        <label for="d-idfile">Photo de votre pièce d'identité <span class="opt">(JPG/PNG uniquement, compressée automatiquement)</span></label>
+        <input type="file" id="d-idfile" accept="image/*">
+        <div class="form-actions"><button class="btn btn-ghost" onclick="uploadIdDoc()">Envoyer le document</button></div>
+      </div>
+      <div class="card-block">
+        <h3>Mise en avant</h3>
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;">Profil en vedette : <strong>${currentProfile.isFeatured ? 'Activé' : 'Désactivé'}</strong></p>
+        <button class="btn ${currentProfile.isFeatured ? 'btn-danger' : 'btn-gold'}" onclick="toggleFeatured()">${currentProfile.isFeatured ? 'Désactiver la mise en avant' : 'Mettre mon profil en avant (démo)'}</button>
+        <p class="form-note" style="margin-top:10px;">Version de démonstration : à remplacer par un vrai paiement avant mise en production.</p>
+      </div>`;
+                fillSelect(document.getElementById('d-wilaya'), WILAYAS); fillSelect(document.getElementById('d-cat'), CATEGORIES);
+                document.getElementById('d-wilaya').value = currentProfile.wilaya || ''; document.getElementById('d-cat').value = currentProfile.cat || '';
+            }
+            else if (tab === 'forfaits') {
+                const packages = currentProfile.packages || [];
+                const portfolio = currentProfile.portfolio || [];
+                content.innerHTML = `
+      <div class="card-block">
+        <h3>Mes forfaits</h3>
+        <div id="pkg-list">${packages.map((p, i) => `<div class="list-row"><input type="text" value="${p.label}" data-pi="${i}" data-f="label" oninput="editPkgField(this)"><input type="text" value="${p.price}" data-pi="${i}" data-f="price" oninput="editPkgField(this)" style="max-width:140px;"><button class="btn btn-line btn-sm" onclick="removePkg(${i})">Retirer</button></div>`).join('')}</div>
+        <button class="btn btn-ghost btn-sm" onclick="addPkg()">+ Ajouter un forfait</button>
+        <div class="form-actions"><button class="btn btn-gold" onclick="savePackages()">Enregistrer les forfaits</button></div>
+      </div>
+      <div class="card-block">
+        <h3>Portfolio</h3>
+        <div id="port-list">${portfolio.map((u, i) => `<div class="list-row"><input type="url" value="${u}" data-pi="${i}" oninput="editPortField(this)"><button class="btn btn-line btn-sm" onclick="removePort(${i})">Retirer</button></div>`).join('')}</div>
+        <button class="btn btn-ghost btn-sm" onclick="addPort()">+ Ajouter une image (URL)</button>
+        <div class="form-actions"><button class="btn btn-gold" onclick="savePortfolio()">Enregistrer le portfolio</button></div>
+      </div>`;
+                window._pkgState = JSON.parse(JSON.stringify(packages));
+                window._portState = JSON.parse(JSON.stringify(portfolio));
+            }
+            else if (tab === 'dispo') {
+                const busy = currentProfile.busyDates || [];
+                content.innerHTML = `
+      <div class="card-block">
+        <h3>Dates indisponibles</h3>
+        <div class="list-row"><input type="date" id="new-busy-date"><button class="btn btn-ghost btn-sm" onclick="addBusyDate()">Ajouter</button></div>
+        <div id="busy-list" style="margin-top:12px;">${busy.map(d => `<div class="list-row" style="justify-content:space-between;"><span>${d}</span><button class="btn btn-line btn-sm" onclick="removeBusyDate('${d}')">Retirer</button></div>`).join('') || '<p style="color:var(--ink-soft);font-size:14px;">Aucune date bloquée.</p>'}</div>
+      </div>`;
+            }
+            else if (tab === 'collabs') {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--ink-soft);">Chargement...</p></div>`;
+                db.collection('collaborations').where('talentId', '==', currentUser.uid).orderBy('createdAt', 'desc').get().then(snap => {
+                    renderCollabList(snap, 'talent');
+                }).catch(() => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--ink-soft);">Impossible de charger (vérifiez les règles Firestore).</p>'; });
+            }
+            else if (tab === 'avis') {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Avis reçus</h3><div id="reviews-dash"></div>`;
+                loadReviewsInto(currentUser.uid, 'reviews-dash');
+            }
+            else if (tab === 'stats') {
+                content.innerHTML = `
+      <div class="card-block">
+        <h3>Statistiques de visibilité</h3>
+        <p style="font-size:15px;">Votre profil a été consulté <strong>${currentProfile.viewCount || 0}</strong> fois.</p>
+        <p style="font-size:15px;margin-top:8px;">Note moyenne : <strong>${(currentProfile.ratingAvg || 0).toFixed(1)}/5</strong> (${currentProfile.ratingCount || 0} avis)</p>
+      </div>`;
+            }
+        }
+        function renderBusinessDashTab(content, tab) {
+            if (tab === 'compte') {
+                content.innerHTML = `
+      <div class="card-block">
+        <h3>Compte entreprise</h3>
+        <p style="font-size:14.5px;color:var(--ink-soft);">${currentProfile.nom} — ${currentProfile.wilaya}</p>
+        <p style="font-size:14.5px;margin-top:10px;">Formule actuelle : <strong>${currentProfile.plan === 'pro' ? 'Pro' : 'Gratuite'}</strong></p>
+        ${currentProfile.plan !== 'pro' ? `<p style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${currentProfile.requestCount || 0} / 3 demandes utilisées ce mois-ci</p><button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="upgradeToPro()">Passer en formule Pro</button>` : ''}
+      </div>`;
+            }
+            else if (tab === 'reco') {
+                const secteur = (currentProfile.secteur || '').toLowerCase();
+                const match = SECTOR_MAP.find(m => m.kw.some(k => secteur.includes(k)));
+                const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
+                let list = match ? source.filter(t => t.cat === match.cat) : source;
+                list = list.filter(t => t.wilaya === currentProfile.wilaya).concat(list.filter(t => t.wilaya !== currentProfile.wilaya)).slice(0, 6);
+                content.innerHTML = `<h3 style="margin-bottom:6px;">Recommandé pour votre secteur</h3><p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;">${match ? 'Basé sur la catégorie "' + match.cat + '" et votre wilaya.' : 'Renseignez un secteur plus précis dans votre profil pour affiner ces suggestions.'}</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">${list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('') || '<p style="color:var(--ink-soft);">Aucun talent disponible pour le moment.</p>'}</div>`;
+            }
+            else if (tab === 'collabs') {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--ink-soft);">Chargement...</p></div>`;
+                db.collection('collaborations').where('businessId', '==', currentUser.uid).orderBy('createdAt', 'desc').get().then(snap => {
+                    renderCollabList(snap, 'business');
+                }).catch(() => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--ink-soft);">Impossible de charger (vérifiez les règles Firestore).</p>'; });
+            }
+        }
+        function renderCollabList(snap, role) {
+            const el = document.getElementById('collab-list');
+            if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);">Aucune collaboration pour le moment.</p>'; return; }
+            el.innerHTML = snap.docs.map(d => {
+                const c = d.data(); const id = d.id;
+                const otherName = role === 'talent' ? c.businessName : c.talentNom;
+                const reviewed = c['reviewedBy_' + currentUser.uid];
+                let actions = `<button class="btn btn-line btn-sm" onclick="openChat('${id}','${(otherName || '').replace(/'/g, "")}')">Discuter</button>`;
+                if (role === 'talent') {
+                    if (c.status === 'en_attente') actions += `<button class="btn btn-teal btn-sm" onclick="updateCollabStatus('${id}','accepté')">Accepter</button><button class="btn btn-danger btn-sm" onclick="updateCollabStatus('${id}','refusé')">Refuser</button>`;
+                    if (c.status === 'accepté') actions += `<button class="btn btn-gold btn-sm" onclick="setDeliverable('${id}')">Marquer contenu livré</button>`;
+                } else {
+                    if (c.status === 'en_attente') actions += `<button class="btn btn-danger btn-sm" onclick="updateCollabStatus('${id}','refusé')">Annuler</button>`;
+                    if (c.status === 'contenu_livré') actions += `<button class="btn btn-teal btn-sm" onclick="markPaid('${id}','${c.businessId}','${(c.businessName || '').replace(/'/g, "")}','${c.talentId}','${(c.talentNom || '').replace(/'/g, "")}','${c.amount || ''}')">Valider et marquer payé</button>`;
+                }
+                if (c.status === 'payé') {
+                    actions += `<button class="btn btn-line btn-sm" onclick="viewInvoice('${id}')">Voir la facture</button>`;
+                    if (!reviewed) {
+                        const toId = role === 'talent' ? c.businessId : c.talentId;
+                        const toName = role === 'talent' ? c.businessName : c.talentNom;
+                        const toColl = role === 'talent' ? 'businesses' : 'talents';
+                        actions += `<button class="btn btn-gold btn-sm" onclick="openReviewForm('${id}','${toId}','${(toName || '').replace(/'/g, "")}','${toColl}')">Laisser un avis</button>`;
+                    }
+                }
+                if (c.deliverableURL) actions += `<a href="${c.deliverableURL}" target="_blank" class="btn btn-line btn-sm">Voir le contenu livré</a>`;
+                return `<div class="collab-item">
+      <div class="top"><span class="who">${otherName}</span><span class="status-pill status-${c.status}">${c.status.replace('_', ' ')}</span></div>
+      <p class="msg">${c.message || ''}${c.amount ? ' — Budget : ' + c.amount : ''}</p>
+      <div class="collab-actions">${actions}</div>
+    </div>`;
+            }).join('');
+        }
+
+        /* ---------------- TALENT DASH ACTIONS ---------------- */
+        function saveTalentEdits() {
+            const updated = { nom: document.getElementById('d-nom').value, wilaya: document.getElementById('d-wilaya').value, cat: document.getElementById('d-cat').value, abonnes: document.getElementById('d-abonnes').value, bio: document.getElementById('d-bio').value };
+            db.collection('talents').doc(currentUser.uid).update(updated).then(() => { currentProfile = { ...currentProfile, ...updated }; renderDashboard(); });
+        }
+        function saveEngagementStats() {
+            const updated = { engagementRate: parseFloat(document.getElementById('d-engagement').value) || 0, audienceAge: document.getElementById('d-age').value, audienceGeo: document.getElementById('d-geo').value };
+            db.collection('talents').doc(currentUser.uid).update(updated).then(() => { currentProfile = { ...currentProfile, ...updated }; renderDashboard(); });
+        }
+        function uploadIdDoc() {
+            const file = document.getElementById('d-idfile').files[0];
+            if (!file) return;
+            compressUnderLimit(file, 700000).then(dataUrl => {
+                return db.collection('talents').doc(currentUser.uid).update({ idDocURL: dataUrl });
+            }).then(() => {
+                currentProfile.idDocURL = "envoyé";
+                alert("Document envoyé. Vérification manuelle en cours.");
+            }).catch(err => { alert(err.message); });
+        }
+        function toggleFeatured() {
+            const val = !currentProfile.isFeatured;
+            db.collection('talents').doc(currentUser.uid).update({ isFeatured: val }).then(() => { currentProfile.isFeatured = val; renderDashboard(); });
+        }
+        function addPkg() { window._pkgState.push({ label: '', price: '' }); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
+        function removePkg(i) { window._pkgState.splice(i, 1); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
+        function editPkgField(el) { window._pkgState[+el.dataset.pi][el.dataset.f] = el.value; }
+        function savePackages() { db.collection('talents').doc(currentUser.uid).update({ packages: window._pkgState }).then(() => { currentProfile.packages = window._pkgState; renderDashboard(); }); }
+        function addPort() { window._portState.push(''); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
+        function removePort(i) { window._portState.splice(i, 1); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
+        function editPortField(el) { window._portState[+el.dataset.pi] = el.value; }
+        function savePortfolio() { db.collection('talents').doc(currentUser.uid).update({ portfolio: window._portState }).then(() => { currentProfile.portfolio = window._portState; renderDashboard(); }); }
+        function addBusyDate() {
+            const val = document.getElementById('new-busy-date').value; if (!val) return;
+            const dates = [...(currentProfile.busyDates || []), val];
+            db.collection('talents').doc(currentUser.uid).update({ busyDates: dates }).then(() => { currentProfile.busyDates = dates; renderDashboard(); });
+        }
+        function removeBusyDate(d) {
+            const dates = (currentProfile.busyDates || []).filter(x => x !== d);
+            db.collection('talents').doc(currentUser.uid).update({ busyDates: dates }).then(() => { currentProfile.busyDates = dates; renderDashboard(); });
+        }
+
+        /* ---------------- ADMIN PANEL ---------------- */
+        function renderAdminPanel(content) {
+            const box = document.createElement('div');
+            box.className = 'card-block';
+            box.innerHTML = `<h3>Panneau admin — vérifications en attente</h3><div id="admin-list">Chargement...</div>`;
+            content.appendChild(box);
+            db.collection('talents').where('idVerified', '==', false).get().then(snap => {
+                const el = document.getElementById('admin-list');
+                if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);">Aucune vérification en attente.</p>'; return; }
+                el.innerHTML = snap.docs.map(d => { const t = d.data(); return `<div class="admin-row"><span>${t.nom} — ${t.wilaya}${t.idDocURL ? ' <a href="' + t.idDocURL + '" target="_blank">(document)</a>' : ' (aucun document envoyé)'}</span><button class="btn btn-teal btn-sm" onclick="adminVerify('${d.id}')">Vérifier</button></div>`; }).join('');
+            });
+        }
+        function adminVerify(id) { db.collection('talents').doc(id).update({ idVerified: true, verified: true }).then(() => renderDashboard()); }
+
+        /* ---------------- BOOT ---------------- */
+        loadTalents();
+    </script>
+
+</body>
+
+</html>
