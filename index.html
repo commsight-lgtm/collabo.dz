@@ -8,24 +8,42 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Sora:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --paper: #F7F2E7;
-            --paper-2: #EFE7D3;
-            --ink: #1C2321;
-            --ink-soft: #565F58;
-            --line: #E0D5B8;
-            --gold: #C98A2C;
-            --gold-dark: #9C6A1E;
-            --gold-tint: #F3E1BC;
-            --teal: #1F5B54;
-            --teal-dark: #123834;
-            --teal-tint: #DDEAE7;
-            --clay: #B4472F;
-            --white: #FFFDF8;
-            --radius: 5px;
+            /* base */
+            --ink: #14121F;
+            --ink-2: #1D1A2E;
+            --paper: #F6F5FB;
+            --paper-2: #EDEBF7;
+            --white: #FFFFFF;
+            --line: #E3E1F0;
+            --line-dark: rgba(255, 255, 255, 0.12);
+            --text: #1B1725;
+            --text-soft: #6F6A80;
+            --text-inv: #F1EFFA;
+            --text-inv-soft: #B4AFC9;
+
+            /* signature "story ring" gradient — the one recurring device */
+            --ring: conic-gradient(from 210deg, #FF5C7A, #7B5CFA, #FFB443, #FF5C7A);
+            --grad: linear-gradient(120deg, #FF5C7A, #7B5CFA 60%, #FFB443);
+
+            --coral: #FF5C7A;
+            --violet: #7B5CFA;
+            --violet-dark: #5E3FE0;
+            --amber: #FFB443;
+            --amber-dark: #E0932A;
+            --teal: #1FA97F;
+            --teal-dark: #157A5C;
+            --teal-tint: #DCF3EA;
+            --amber-tint: #FFEFD6;
+            --violet-tint: #EDE9FE;
+            --rose-tint: #FFE3E9;
+
+            --radius: 14px;
+            --radius-sm: 9px;
+            --radius-pill: 999px;
         }
 
         * {
@@ -36,23 +54,39 @@
             scroll-behavior: smooth;
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
         body {
             margin: 0;
             background: var(--paper);
-            color: var(--ink);
-            font-family: 'Sora', sans-serif;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
             font-size: 16px;
             line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
         }
 
         h1,
         h2,
         h3,
         .display {
-            font-family: 'Fraunces', serif;
-            font-weight: 600;
-            line-height: 1.08;
-            color: var(--ink);
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            color: var(--text);
             margin: 0;
         }
 
@@ -79,14 +113,35 @@
         }
 
         .wrap {
-            max-width: 1140px;
+            max-width: 1160px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
         ::selection {
-            background: var(--gold);
-            color: var(--white);
+            background: var(--violet);
+            color: #fff;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--paper-2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--grad);
+            border-radius: 20px;
+            border: 2px solid var(--paper-2);
+        }
+
+        :focus-visible {
+            outline: 2.5px solid var(--violet);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         .page {
@@ -95,13 +150,13 @@
 
         .page.active {
             display: block;
-            animation: fadein .35s ease;
         }
 
-        @keyframes fadein {
+        /* orchestrated hero entrance — the one big animated moment */
+        @keyframes riseIn {
             from {
                 opacity: 0;
-                transform: translateY(6px);
+                transform: translateY(16px);
             }
 
             to {
@@ -110,9 +165,55 @@
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .page.active {
-                animation: none;
+        .rise {
+            animation: riseIn .7s cubic-bezier(.2, .7, .3, 1) both;
+        }
+
+        .rise-1 {
+            animation-delay: .05s;
+        }
+
+        .rise-2 {
+            animation-delay: .16s;
+        }
+
+        .rise-3 {
+            animation-delay: .27s;
+        }
+
+        .rise-4 {
+            animation-delay: .38s;
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(123, 92, 250, 0.35);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(123, 92, 250, 0);
+            }
+        }
+
+        @keyframes railScroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
             }
         }
 
@@ -121,34 +222,40 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 11px 20px;
-            border-radius: var(--radius);
+            padding: 12px 22px;
+            border-radius: var(--radius-pill);
             font-size: 14.5px;
-            font-weight: 600;
-            transition: transform .12s ease, background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            transition: transform .15s cubic-bezier(.3, 1.5, .5, 1), box-shadow .18s ease, background .18s ease, color .15s ease, border-color .15s ease;
+            white-space: nowrap;
         }
 
         .btn:active {
-            transform: translateY(1px);
+            transform: scale(.96);
         }
 
         .btn-solid {
             background: var(--ink);
-            color: var(--white);
+            color: #fff;
         }
 
         .btn-solid:hover {
-            background: var(--teal-dark);
+            background: var(--violet-dark);
+            box-shadow: 0 6px 18px rgba(94, 63, 224, 0.32);
+            transform: translateY(-2px);
         }
 
         .btn-gold {
-            background: var(--gold);
-            color: var(--white);
+            background: var(--grad);
+            background-size: 160% 160%;
+            color: #fff;
         }
 
         .btn-gold:hover {
-            background: var(--gold-dark);
-            box-shadow: 0 4px 14px rgba(201, 138, 44, 0.35);
+            box-shadow: 0 8px 22px rgba(255, 92, 122, 0.35);
+            transform: translateY(-2px);
+            background-position: 60% 40%;
         }
 
         .btn-ghost {
@@ -158,17 +265,18 @@
 
         .btn-ghost:hover {
             background: var(--ink);
-            color: var(--white);
+            color: #fff;
         }
 
         .btn-line {
             border: 1.5px solid var(--line);
-            color: var(--ink-soft);
+            color: var(--text-soft);
+            background: #fff;
         }
 
         .btn-line:hover {
-            border-color: var(--ink);
-            color: var(--ink);
+            border-color: var(--violet);
+            color: var(--violet-dark);
         }
 
         .btn-teal {
@@ -178,39 +286,41 @@
 
         .btn-teal:hover {
             background: var(--teal-dark);
+            transform: translateY(-2px);
         }
 
         .btn-danger {
-            border: 1.5px solid var(--clay);
-            color: var(--clay);
+            border: 1.5px solid var(--coral);
+            color: var(--coral);
         }
 
         .btn-danger:hover {
-            background: var(--clay);
+            background: var(--coral);
             color: #fff;
         }
 
         .btn-sm {
-            padding: 7px 13px;
+            padding: 8px 14px;
             font-size: 12.5px;
         }
 
         .btn[disabled] {
             opacity: .5;
             cursor: not-allowed;
+            transform: none !important;
         }
 
         header.site-nav {
             position: sticky;
             top: 0;
             z-index: 40;
-            background: rgba(247, 242, 231, 0.92);
-            backdrop-filter: blur(6px);
+            background: rgba(246, 245, 251, 0.82);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--line);
         }
 
         .nav-inner {
-            max-width: 1140px;
+            max-width: 1160px;
             margin: 0 auto;
             padding: 16px 24px;
             display: flex;
@@ -220,30 +330,53 @@
         }
 
         .logo {
-            font-family: 'Fraunces', serif;
-            font-weight: 700;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
             font-size: 22px;
         }
 
         .logo .dot {
-            color: var(--gold);
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         nav.links {
             display: flex;
-            gap: 26px;
+            gap: 30px;
             align-items: center;
         }
 
         nav.links button {
+            position: relative;
             font-size: 14.5px;
-            color: var(--ink-soft);
+            font-weight: 600;
+            color: var(--text-soft);
+            padding: 4px 0;
             transition: color .15s;
+        }
+
+        nav.links button::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 100%;
+            bottom: -2px;
+            height: 2px;
+            background: var(--grad);
+            border-radius: 2px;
+            transition: right .2s cubic-bezier(.3, 1, .4, 1);
         }
 
         nav.links button.active,
         nav.links button:hover {
             color: var(--ink);
+        }
+
+        nav.links button.active::after,
+        nav.links button:hover::after {
+            right: 0;
         }
 
         .nav-cta {
@@ -274,7 +407,7 @@
         }
 
         .section {
-            padding: 76px 0;
+            padding: 80px 0;
         }
 
         .section-tight {
@@ -286,8 +419,8 @@
         }
 
         .section-dark {
-            background: var(--teal-dark);
-            color: var(--paper);
+            background: var(--ink);
+            color: var(--text-inv);
         }
 
         .section-dark h2,
@@ -296,7 +429,7 @@
         }
 
         .section-dark p {
-            color: rgba(247, 242, 231, 0.78);
+            color: var(--text-inv-soft);
         }
 
         .section-head {
@@ -304,71 +437,97 @@
             justify-content: space-between;
             align-items: flex-end;
             gap: 24px;
-            margin-bottom: 36px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
         }
 
         .section-head h2 {
-            font-size: clamp(26px, 3vw, 36px);
-            max-width: 16ch;
+            font-size: clamp(26px, 3vw, 38px);
+            max-width: 18ch;
         }
 
         .section-head p {
-            color: var(--ink-soft);
+            color: var(--text-soft);
             max-width: 40ch;
             font-size: 15px;
         }
 
+        /* HERO — dark, energetic, story-rail entrance */
         .hero {
-            padding: 80px 0 60px;
+            padding: 88px 0 0;
+            background: var(--ink);
+            color: var(--text-inv);
             position: relative;
             overflow: hidden;
-            background: radial-gradient(ellipse at top right, var(--gold-tint) 0%, transparent 55%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 640px;
+            height: 640px;
+            background: radial-gradient(circle, rgba(255, 92, 122, 0.28), transparent 65%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, rgba(123, 92, 250, 0.24), transparent 65%);
+            pointer-events: none;
         }
 
         .hero-inner {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 56px;
-            align-items: center;
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
         }
 
         .hero h1 {
-            font-size: clamp(34px, 4.6vw, 58px);
-            max-width: 14ch;
+            font-size: clamp(36px, 5vw, 60px);
+            color: #fff;
         }
 
         .hero .lede {
-            margin-top: 22px;
-            font-size: 17px;
-            color: var(--ink-soft);
-            max-width: 46ch;
+            margin-top: 20px;
+            font-size: 17.5px;
+            color: var(--text-inv-soft);
+            max-width: 50ch;
         }
 
         .hero-search {
             margin-top: 32px;
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--line-dark);
             border-radius: var(--radius);
             padding: 8px;
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            box-shadow: 0 10px 30px rgba(28, 35, 33, 0.06);
         }
 
         .hero-search select {
             border: none;
             background: transparent;
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 15px;
             padding: 12px 10px;
-            color: var(--ink);
+            color: #fff;
             min-width: 0;
         }
 
+        .hero-search select option {
+            color: #111;
+        }
+
         .hero-search select:focus {
-            outline: 2px solid var(--gold);
+            outline: 2px solid var(--amber);
             outline-offset: -2px;
             border-radius: 3px;
         }
@@ -379,115 +538,114 @@
 
         .hero-search .field-cat {
             flex: 1 1 170px;
-            border-left: 1px solid var(--line);
+            border-left: 1px solid var(--line-dark);
         }
 
-        .hero-note {
-            margin-top: 16px;
-            font-size: 13.5px;
-            color: var(--ink-soft);
-        }
-
-        .hero-note strong {
-            color: var(--ink);
-        }
-
-        .hero-art {
-            position: relative;
-            aspect-ratio: 4/5;
-        }
-
-        .hero-card {
-            position: absolute;
-            background: var(--white);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            padding: 14px;
-            box-shadow: 0 16px 30px rgba(28, 35, 33, 0.10);
-            width: 190px;
-        }
-
-        .hero-card img {
-            width: 44px;
-            height: 44px;
-            border-radius: 3px;
-            object-fit: cover;
-        }
-
-        .hero-card .r {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .hero-card .nm {
-            font-weight: 600;
-            font-size: 13.5px;
-        }
-
-        .hero-card .wl {
-            font-size: 11.5px;
-            color: var(--ink-soft);
-        }
-
-        .hc1 {
-            top: 0;
-            left: 10%;
-            transform: rotate(-3deg);
-        }
-
-        .hc2 {
-            top: 40%;
-            right: 0;
-            transform: rotate(2deg);
-        }
-
-        .hc3 {
-            bottom: 0;
-            left: 20%;
-            transform: rotate(4deg);
-        }
-
-        .hero-art .plinth {
-            position: absolute;
-            inset: 14% 18%;
-            background: var(--teal);
-            border-radius: var(--radius);
-            z-index: -1;
+        .hero-search .btn {
+            border-radius: 8px;
         }
 
         .featured-strip {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 14px;
-            margin-top: 8px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
         }
 
         .fs-item {
-            border-top: 2px solid var(--line);
+            border-top: 2px solid var(--line-dark);
             padding-top: 14px;
         }
 
         .fs-item strong {
             display: block;
-            font-family: 'Fraunces', serif;
-            font-size: 26px;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 28px;
+            color: #fff;
         }
 
         .fs-item span {
             font-size: 13px;
-            color: var(--ink-soft);
+            color: var(--text-inv-soft);
+        }
+
+        /* story rail — signature ring motif, auto-scrolling */
+        .story-rail-outer {
+            margin-top: 56px;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+        }
+
+        .story-rail {
+            display: flex;
+            gap: 22px;
+            width: max-content;
+            padding: 6px 0 34px;
+            animation: railScroll 32s linear infinite;
+        }
+
+        .story-rail:hover {
+            animation-play-state: paused;
+        }
+
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 84px;
+            flex: 0 0 auto;
+        }
+
+        .ring {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--ring);
+        }
+
+        .ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid var(--ink);
+        }
+
+        .story-item .nm {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-inv-soft);
+            text-align: center;
         }
 
         .steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
+            gap: 4px;
+            background: var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
         }
 
         .step {
-            border-top: 2px solid var(--ink);
-            padding-top: 16px;
+            background: #fff;
+            padding: 30px 26px;
+        }
+
+        .step .k {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--violet);
+            margin-bottom: 12px;
+            display: block;
         }
 
         .step h3 {
@@ -496,24 +654,15 @@
         }
 
         .step p {
-            color: var(--ink-soft);
+            color: var(--text-soft);
             font-size: 14.5px;
-        }
-
-        .step.gold {
-            border-top-color: var(--gold);
-        }
-
-        .step.teal {
-            border-top-color: var(--teal);
         }
 
         /* MAP */
         .wilaya-map {
             position: relative;
             height: 360px;
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: var(--ink);
             border-radius: var(--radius);
             margin-bottom: 24px;
             overflow: hidden;
@@ -522,9 +671,9 @@
         .wilaya-map .cap {
             position: absolute;
             bottom: 10px;
-            left: 14px;
+            left: 16px;
             font-size: 12px;
-            color: var(--ink-soft);
+            color: var(--text-inv-soft);
         }
 
         .map-pin {
@@ -541,31 +690,34 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: var(--teal);
-            border: 2px solid var(--white);
-            box-shadow: 0 0 0 2px var(--teal);
-            transition: transform .12s;
+            background: var(--violet);
+            border: 2px solid var(--ink);
+            box-shadow: 0 0 0 2px var(--violet);
+            transition: transform .15s;
         }
 
-        .map-pin:hover .dot,
+        .map-pin:hover .dot {
+            transform: scale(1.35);
+        }
+
         .map-pin.active .dot {
-            background: var(--gold);
-            box-shadow: 0 0 0 2px var(--gold);
-            transform: scale(1.3);
+            background: var(--coral);
+            box-shadow: 0 0 0 2px var(--coral);
+            animation: ringPulse 1.6s ease-out infinite;
         }
 
         .map-pin .lbl {
             font-size: 10.5px;
-            color: var(--ink-soft);
+            color: var(--text-inv-soft);
             white-space: nowrap;
-            background: rgba(255, 253, 248, 0.9);
-            padding: 1px 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1px 6px;
             border-radius: 3px;
         }
 
         .map-pin.active .lbl {
-            color: var(--ink);
-            font-weight: 600;
+            color: #fff;
+            font-weight: 700;
         }
 
         .filters {
@@ -574,7 +726,7 @@
             flex-wrap: wrap;
             margin-bottom: 28px;
             padding: 14px;
-            background: var(--white);
+            background: #fff;
             border: 1px solid var(--line);
             border-radius: var(--radius);
         }
@@ -583,11 +735,11 @@
         .filters input {
             border: 1px solid var(--line);
             background: var(--paper);
-            border-radius: 3px;
+            border-radius: var(--radius-sm);
             padding: 10px 12px;
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 14.5px;
-            color: var(--ink);
+            color: var(--text);
         }
 
         .filters input[type="search"] {
@@ -600,7 +752,7 @@
 
         .filters select:focus,
         .filters input:focus {
-            outline: 2px solid var(--gold);
+            outline: 2px solid var(--violet);
             outline-offset: -1px;
         }
 
@@ -608,7 +760,8 @@
             margin-left: auto;
             align-self: center;
             font-size: 13.5px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
+            font-weight: 600;
         }
 
         #directory-grid {
@@ -621,44 +774,48 @@
             position: relative;
             display: flex;
             gap: 16px;
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 16px;
-            transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+            transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
         }
 
         .card:hover {
-            border-color: var(--gold);
-            box-shadow: 0 10px 22px rgba(201, 138, 44, 0.14);
-            transform: translateY(-2px);
+            border-color: transparent;
+            box-shadow: 0 0 0 2px var(--violet), 0 14px 28px rgba(27, 23, 37, 0.12);
+            transform: translateY(-3px);
         }
 
         .ribbon {
             position: absolute;
             top: -1px;
-            right: 12px;
-            background: var(--gold);
+            right: 14px;
+            background: var(--grad);
             color: #fff;
             font-size: 10.5px;
             font-weight: 700;
-            padding: 3px 9px;
-            border-radius: 0 0 4px 4px;
+            padding: 4px 11px;
+            border-radius: 0 0 8px 8px;
         }
 
         .card .photo {
             width: 76px;
             height: 76px;
-            border-radius: 3px;
+            border-radius: 12px;
             overflow: hidden;
             flex: 0 0 auto;
             background: var(--paper-2);
+            padding: 2.5px;
+            background: var(--ring);
         }
 
         .card .photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #fff;
         }
 
         .card .body {
@@ -674,15 +831,15 @@
 
         .card h3 {
             font-size: 17px;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .badge-verified {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             flex: 0 0 auto;
             border-radius: 50%;
-            background: var(--teal);
+            background: var(--violet);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -695,11 +852,11 @@
         }
 
         .badge-id {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             flex: 0 0 auto;
             border-radius: 50%;
-            background: var(--gold);
+            background: var(--amber-dark);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -714,11 +871,11 @@
         .card .meta {
             margin-top: 3px;
             font-size: 13px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .stars {
-            color: var(--gold);
+            color: var(--amber-dark);
             font-size: 13px;
             letter-spacing: 1px;
         }
@@ -733,7 +890,7 @@
             gap: 6px;
             margin-top: 4px;
             font-size: 12.5px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .card .tags {
@@ -745,11 +902,11 @@
 
         .tag {
             font-size: 11.5px;
-            padding: 3px 9px;
-            border-radius: 20px;
-            background: var(--paper-2);
-            color: var(--ink-soft);
-            border: 1px solid var(--line);
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            background: var(--violet-tint);
+            color: var(--violet-dark);
         }
 
         .card .row-bottom {
@@ -762,32 +919,36 @@
 
         .followers {
             font-size: 13px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .followers strong {
-            color: var(--ink);
+            color: var(--text);
         }
 
         .price-from {
             font-size: 12.5px;
-            color: var(--gold-dark);
-            font-weight: 600;
+            font-weight: 700;
             margin-top: 6px;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
         }
 
         .empty-state {
             grid-column: 1/-1;
             text-align: center;
             padding: 60px 20px;
-            color: var(--ink-soft);
-            border: 1px dashed var(--line);
+            color: var(--text-soft);
+            border: 1.5px dashed var(--line);
             border-radius: var(--radius);
         }
 
         .empty-state h3 {
             margin-bottom: 8px;
-            color: var(--ink);
+            color: var(--text);
         }
 
         .benefits {
@@ -797,17 +958,24 @@
         }
 
         .benefit {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
-            padding: 24px;
+            padding: 26px;
+            transition: transform .18s ease, box-shadow .18s ease;
         }
 
-        .benefit .num {
-            font-family: 'Fraunces', serif;
-            font-size: 32px;
-            color: var(--gold);
-            margin-bottom: 10px;
+        .benefit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(27, 23, 37, 0.08);
+        }
+
+        .benefit .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--grad);
+            margin-bottom: 16px;
         }
 
         .benefit h3 {
@@ -817,7 +985,7 @@
 
         .benefit p {
             font-size: 14px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .quote-row {
@@ -828,23 +996,23 @@
         }
 
         .quote {
-            background: var(--white);
-            border-left: 3px solid var(--gold);
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--amber);
             padding: 22px 24px;
             border-radius: 0 var(--radius) var(--radius) 0;
         }
 
         .quote p.txt {
-            font-family: 'Fraunces', serif;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 500;
             font-size: 17px;
-            font-style: italic;
-            color: var(--ink);
+            color: #fff;
         }
 
         .quote p.attr {
             margin-top: 12px;
             font-size: 13px;
-            color: var(--ink-soft);
+            color: var(--text-inv-soft);
         }
 
         .plans {
@@ -855,31 +1023,33 @@
         }
 
         .plan-card {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid var(--line-dark);
             border-radius: var(--radius);
-            padding: 26px;
+            padding: 28px;
         }
 
         .plan-card.pro {
-            border-color: var(--gold);
-            box-shadow: 0 8px 22px rgba(201, 138, 44, 0.12);
+            border: 1.5px solid transparent;
+            background: linear-gradient(var(--ink), var(--ink)) padding-box, var(--ring) border-box;
         }
 
         .plan-card h3 {
             font-size: 20px;
+            color: #fff;
         }
 
         .plan-card .price {
-            font-family: 'Fraunces', serif;
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-size: 30px;
             margin: 10px 0;
+            color: #fff;
         }
 
         .plan-card ul {
             margin: 14px 0 0;
             padding-left: 18px;
-            color: var(--ink-soft);
+            color: var(--text-inv-soft);
             font-size: 14px;
             line-height: 1.9;
         }
@@ -893,16 +1063,17 @@
 
         .reg-tab {
             padding: 10px 20px;
-            border: 1px solid var(--line);
-            border-radius: 20px;
+            border: 1.5px solid var(--line);
+            border-radius: var(--radius-pill);
             font-size: 14.5px;
-            font-weight: 600;
-            color: var(--ink-soft);
+            font-weight: 700;
+            color: var(--text-soft);
+            transition: all .15s;
         }
 
         .reg-tab.active {
             background: var(--ink);
-            color: var(--white);
+            color: #fff;
             border-color: var(--ink);
         }
 
@@ -915,8 +1086,8 @@
         }
 
         .form-card {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 32px;
             max-width: 640px;
@@ -939,14 +1110,14 @@
         label {
             display: block;
             font-size: 13.5px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 6px;
-            color: var(--ink);
+            color: var(--text);
         }
 
         label .opt {
             font-weight: 400;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         input[type="text"],
@@ -961,12 +1132,13 @@
         textarea {
             width: 100%;
             padding: 11px 13px;
-            border: 1px solid var(--line);
-            border-radius: 3px;
+            border: 1.5px solid var(--line);
+            border-radius: var(--radius-sm);
             background: var(--paper);
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 14.5px;
-            color: var(--ink);
+            color: var(--text);
+            transition: border-color .15s;
         }
 
         textarea {
@@ -977,9 +1149,9 @@
         input:focus,
         select:focus,
         textarea:focus {
-            outline: 2px solid var(--gold);
-            outline-offset: 0;
-            border-color: transparent;
+            outline: none;
+            border-color: var(--violet);
+            box-shadow: 0 0 0 3px var(--violet-tint);
         }
 
         .form-actions {
@@ -992,14 +1164,15 @@
 
         .form-note {
             font-size: 12.5px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .form-error {
             font-size: 13.5px;
-            color: var(--clay);
+            color: var(--coral);
             margin-top: 10px;
             display: none;
+            font-weight: 600;
         }
 
         .form-error.show {
@@ -1008,10 +1181,11 @@
 
         .success-box {
             display: none;
-            background: var(--teal);
+            background: var(--grad);
             color: #fff;
             border-radius: var(--radius);
             padding: 26px 28px;
+            animation: riseIn .4s ease both;
         }
 
         .success-box.show {
@@ -1024,25 +1198,25 @@
 
         .success-box h3 {
             color: #fff;
-            font-family: 'Sora', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 17px;
             margin-bottom: 6px;
         }
 
         .success-box p {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 14px;
         }
 
         .switch-link {
             font-size: 13.5px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
             margin-top: 18px;
         }
 
         .switch-link button {
-            color: var(--teal);
-            font-weight: 600;
+            color: var(--violet-dark);
+            font-weight: 700;
             text-decoration: underline;
         }
 
@@ -1055,8 +1229,8 @@
         }
 
         .dash-side {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 20px;
             position: sticky;
@@ -1064,18 +1238,20 @@
         }
 
         .dash-side .avatar {
-            width: 60px;
-            height: 60px;
+            width: 62px;
+            height: 62px;
             border-radius: 50%;
-            overflow: hidden;
-            background: var(--paper-2);
+            padding: 2.5px;
+            background: var(--ring);
             margin-bottom: 10px;
         }
 
         .dash-side .avatar img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #fff;
         }
 
         .dash-side h3 {
@@ -1084,8 +1260,8 @@
 
         .dash-side .role {
             font-size: 12px;
-            color: var(--gold-dark);
-            font-weight: 600;
+            color: var(--violet-dark);
+            font-weight: 700;
             margin-top: 2px;
         }
 
@@ -1099,15 +1275,15 @@
         .dash-tabs button {
             text-align: left;
             padding: 9px 10px;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 13.5px;
-            color: var(--ink-soft);
+            font-weight: 600;
+            color: var(--text-soft);
         }
 
         .dash-tabs button.active {
-            background: var(--paper-2);
-            color: var(--ink);
-            font-weight: 600;
+            background: var(--violet-tint);
+            color: var(--violet-dark);
         }
 
         .dash-side .btn {
@@ -1116,8 +1292,8 @@
         }
 
         .card-block {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 24px;
             margin-bottom: 18px;
@@ -1160,12 +1336,12 @@
         .stat-bar>span {
             display: block;
             height: 100%;
-            background: var(--teal);
+            background: var(--grad);
         }
 
         .collab-item {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 18px;
             margin-bottom: 12px;
@@ -1180,46 +1356,46 @@
         }
 
         .collab-item .who {
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .status-pill {
             font-size: 11.5px;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 4px 11px;
+            border-radius: var(--radius-pill);
             text-transform: none;
         }
 
         .status-en_attente {
-            background: var(--gold-tint);
-            color: var(--gold-dark);
+            background: var(--amber-tint);
+            color: var(--amber-dark);
         }
 
         .status-accepté {
+            background: var(--violet-tint);
+            color: var(--violet-dark);
+        }
+
+        .status-contenu_livré {
+            background: var(--rose-tint);
+            color: #B4325C;
+        }
+
+        .status-payé {
             background: var(--teal-tint);
             color: var(--teal-dark);
         }
 
-        .status-contenu_livré {
-            background: #E4DEF2;
-            color: #5B3EA6;
-        }
-
-        .status-payé {
-            background: #DDF0DE;
-            color: #1F6B2C;
-        }
-
         .status-refusé {
             background: #F3D9D3;
-            color: var(--clay);
+            color: var(--coral);
         }
 
         .collab-item .msg {
             margin-top: 10px;
             font-size: 14px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .collab-actions {
@@ -1230,21 +1406,21 @@
         }
 
         .req-item {
-            background: var(--white);
-            border: 1px solid var(--line);
+            background: #fff;
+            border: 1.5px solid var(--line);
             border-radius: var(--radius);
             padding: 18px;
             margin-bottom: 12px;
         }
 
         .req-item .who {
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .req-item .msg {
             margin-top: 10px;
             font-size: 14px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
         }
 
         .portfolio-grid {
@@ -1258,8 +1434,8 @@
             width: 100%;
             aspect-ratio: 1;
             object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid var(--line);
+            border-radius: 10px;
+            border: 1.5px solid var(--line);
         }
 
         .admin-row {
@@ -1273,8 +1449,8 @@
 
         footer {
             background: var(--ink);
-            color: var(--paper);
-            padding: 48px 0 28px;
+            color: var(--text-inv);
+            padding: 52px 0 28px;
         }
 
         .footer-inner {
@@ -1285,15 +1461,11 @@
         }
 
         footer .logo {
-            color: var(--paper);
-        }
-
-        footer .logo .dot {
-            color: var(--gold);
+            color: #fff;
         }
 
         footer p {
-            color: #B9BFB8;
+            color: var(--text-inv-soft);
             font-size: 13.5px;
             max-width: 36ch;
             margin-top: 10px;
@@ -1302,9 +1474,9 @@
         .footer-bottom {
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #333B36;
+            border-top: 1px solid var(--line-dark);
             font-size: 12.5px;
-            color: #8A9089;
+            color: #6E6884;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
@@ -1314,7 +1486,8 @@
         .modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(28, 35, 33, 0.55);
+            background: rgba(20, 18, 31, 0.6);
+            backdrop-filter: blur(3px);
             z-index: 100;
             display: none;
             align-items: flex-start;
@@ -1327,17 +1500,31 @@
             display: flex;
         }
 
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(.97) translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
         .modal {
-            background: var(--white);
+            background: #fff;
             border-radius: var(--radius);
             max-width: 600px;
             width: 100%;
             overflow: hidden;
             margin-bottom: 40px;
+            animation: modalPop .25s cubic-bezier(.2, .8, .3, 1) both;
         }
 
         .modal-head {
-            background: var(--teal);
+            background: var(--ink);
+            background-image: radial-gradient(circle at 100% 0%, rgba(255, 92, 122, 0.35), transparent 60%);
             padding: 28px;
             display: flex;
             gap: 18px;
@@ -1348,16 +1535,18 @@
         .modal-head .photo {
             width: 88px;
             height: 88px;
-            border-radius: 3px;
-            overflow: hidden;
+            border-radius: 50%;
+            padding: 3px;
+            background: var(--ring);
             flex: 0 0 auto;
-            border: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .modal-head .photo img {
             width: 100%;
             height: 100%;
+            border-radius: 50%;
             object-fit: cover;
+            border: 2.5px solid var(--ink);
         }
 
         .modal-head h3 {
@@ -1366,7 +1555,7 @@
         }
 
         .modal-head .meta {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-inv-soft);
             font-size: 13.5px;
             margin-top: 4px;
         }
@@ -1383,10 +1572,12 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            transition: background .15s, transform .15s;
         }
 
         .modal-close:hover {
             background: rgba(255, 255, 255, 0.15);
+            transform: rotate(90deg);
         }
 
         .modal-body {
@@ -1396,7 +1587,7 @@
         }
 
         .modal-body .bio {
-            color: var(--ink-soft);
+            color: var(--text-soft);
             font-size: 14.5px;
             line-height: 1.6;
         }
@@ -1412,15 +1603,17 @@
         .modal-tabs button {
             padding: 8px 4px;
             font-size: 13px;
-            color: var(--ink-soft);
+            font-weight: 600;
+            color: var(--text-soft);
             border-bottom: 2px solid transparent;
             margin-right: 14px;
+            transition: color .15s;
         }
 
         .modal-tabs button.active {
-            color: var(--ink);
-            border-color: var(--gold);
-            font-weight: 600;
+            color: var(--text);
+            border-color: var(--coral);
+            font-weight: 700;
         }
 
         .modal-tab-panel {
@@ -1442,20 +1635,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid var(--line);
-            border-radius: 20px;
+            border: 1.5px solid var(--line);
+            border-radius: var(--radius-pill);
             padding: 8px 14px;
             font-size: 13.5px;
-            color: var(--ink-soft);
-        }
-
-        .social-pill svg {
-            width: 14px;
-            height: 14px;
+            color: var(--text-soft);
         }
 
         .social-pill strong {
-            color: var(--ink);
+            color: var(--text);
         }
 
         .review-item {
@@ -1469,13 +1657,13 @@
 
         .review-item .cmt {
             font-size: 13.5px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
             margin-top: 4px;
         }
 
         .review-item .from {
             font-size: 12px;
-            color: var(--ink-soft);
+            color: var(--text-soft);
             margin-top: 4px;
         }
 
@@ -1497,22 +1685,22 @@
 
         .chat-msg {
             max-width: 75%;
-            padding: 9px 13px;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border-radius: 14px;
             font-size: 14px;
         }
 
         .chat-msg.mine {
             align-self: flex-end;
-            background: var(--teal);
+            background: var(--grad);
             color: #fff;
-            border-bottom-right-radius: 2px;
+            border-bottom-right-radius: 3px;
         }
 
         .chat-msg.theirs {
             align-self: flex-start;
             background: var(--paper-2);
-            border-bottom-left-radius: 2px;
+            border-bottom-left-radius: 3px;
         }
 
         .chat-input-row {
@@ -1527,7 +1715,7 @@
         }
 
         .invoice-box {
-            border: 1px solid var(--line);
+            border: 1.5px solid var(--line);
             padding: 24px;
             border-radius: var(--radius);
         }
@@ -1541,7 +1729,7 @@
         }
 
         .invoice-box .total {
-            font-family: 'Fraunces', serif;
+            font-family: 'Bricolage Grotesque', sans-serif;
             font-size: 22px;
             margin-top: 14px;
             text-align: right;
@@ -1566,7 +1754,7 @@
         }
 
         .config-banner {
-            background: var(--clay);
+            background: var(--coral);
             color: #fff;
             font-size: 13.5px;
             padding: 10px 0;
@@ -1579,7 +1767,7 @@
         }
 
         .config-banner code {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.2);
             padding: 1px 6px;
             border-radius: 3px;
         }
@@ -1593,14 +1781,6 @@
                 display: flex;
             }
 
-            .hero-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-art {
-                display: none;
-            }
-
             #directory-grid {
                 grid-template-columns: 1fr;
             }
@@ -1611,6 +1791,10 @@
             .plans,
             .portfolio-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .steps {
+                gap: 1px;
             }
 
             .featured-strip {
@@ -1631,6 +1815,10 @@
 
             .wilaya-map {
                 height: 280px;
+            }
+
+            #featured-grid {
+                grid-template-columns: 1fr !important;
             }
         }
     </style>
@@ -1676,54 +1864,30 @@
         <div class="page active" id="page-accueil">
             <section class="hero">
                 <div class="wrap hero-inner">
-                    <div>
-                        <h1>Les visages connus de chaque wilaya, à portée de collaboration</h1>
-                        <p class="lede">Fini de fouiller Instagram et TikTok au hasard. Collabo-DZ répertorie les
-                            créateurs par wilaya, avec avis vérifiés, statistiques d'audience réelles et suivi complet
-                            de vos collaborations.</p>
-                        <div class="hero-search">
-                            <select class="field-wilaya" id="hero-wilaya">
-                                <option value="">Toutes les wilayas</option>
-                            </select>
-                            <select class="field-cat" id="hero-cat">
-                                <option value="">Toutes les catégories</option>
-                            </select>
-                            <button class="btn btn-solid" onclick="applyHeroSearch()">Chercher un talent</button>
-                        </div>
-                        <div class="featured-strip">
-                            <div class="fs-item"><strong id="stat-talents">—</strong><span>talents inscrits</span></div>
-                            <div class="fs-item"><strong id="stat-wilayas">—</strong><span>wilayas couvertes</span>
-                            </div>
-                            <div class="fs-item"><strong>8</strong><span>catégories</span></div>
-                            <div class="fs-item"><strong>★</strong><span>avis vérifiés</span></div>
-                        </div>
+                    <h1 class="rise rise-1">Les visages connus de chaque wilaya, à portée de collaboration</h1>
+                    <p class="lede rise rise-2">Fini de fouiller Instagram et TikTok au hasard. Collabo-DZ répertorie
+                        les créateurs par wilaya, avec avis vérifiés, statistiques d'audience réelles et suivi
+                        complet de vos collaborations.</p>
+                    <div class="hero-search rise rise-3">
+                        <select class="field-wilaya" id="hero-wilaya">
+                            <option value="">Toutes les wilayas</option>
+                        </select>
+                        <select class="field-cat" id="hero-cat">
+                            <option value="">Toutes les catégories</option>
+                        </select>
+                        <button class="btn btn-gold" onclick="applyHeroSearch()">Chercher un talent</button>
                     </div>
-                    <div class="hero-art" aria-hidden="true">
-                        <div class="plinth"></div>
-                        <div class="hero-card hc1">
-                            <div class="r"><img src="https://i.pravatar.cc/100?img=32">
-                                <div>
-                                    <p class="nm">Amel D.</p>
-                                    <p class="wl">Alger — Humour</p>
-                                </div>
-                            </div>
+                    <div class="featured-strip rise rise-4">
+                        <div class="fs-item"><strong id="stat-talents">—</strong><span>talents inscrits</span></div>
+                        <div class="fs-item"><strong id="stat-wilayas">—</strong><span>wilayas couvertes</span>
                         </div>
-                        <div class="hero-card hc2">
-                            <div class="r"><img src="https://i.pravatar.cc/100?img=12">
-                                <div>
-                                    <p class="nm">Yanis K.</p>
-                                    <p class="wl">Béjaïa — Musique</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="hero-card hc3">
-                            <div class="r"><img src="https://i.pravatar.cc/100?img=47">
-                                <div>
-                                    <p class="nm">Sarah B.</p>
-                                    <p class="wl">Oran — Mode</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="fs-item"><strong>8</strong><span>catégories</span></div>
+                        <div class="fs-item"><strong>★</strong><span>avis vérifiés</span></div>
+                    </div>
+                </div>
+                <div class="wrap">
+                    <div class="story-rail-outer rise rise-4">
+                        <div class="story-rail" id="story-rail"></div>
                     </div>
                 </div>
             </section>
@@ -1746,15 +1910,18 @@
                         <h2>Comment ça marche</h2>
                     </div>
                     <div class="steps">
-                        <div class="step gold">
+                        <div class="step">
+                            <span class="k">01</span>
                             <h3>Demande de collaboration</h3>
                             <p>L'entreprise contacte le talent avec un message et un budget indicatif.</p>
                         </div>
-                        <div class="step teal">
+                        <div class="step">
+                            <span class="k">02</span>
                             <h3>Suivi en temps réel</h3>
                             <p>Discussion intégrée, statut de la collaboration, livraison du contenu.</p>
                         </div>
                         <div class="step">
+                            <span class="k">03</span>
                             <h3>Paiement et avis</h3>
                             <p>Facture générée automatiquement, puis avis mutuel à la fin.</p>
                         </div>
@@ -1790,15 +1957,18 @@
 
         <!-- ENTREPRISES -->
         <div class="page" id="page-entreprises">
-            <section class="hero" style="padding:64px 0 40px;">
+            <section class="hero" style="padding:72px 0 56px;">
                 <div class="wrap">
-                    <h1 style="max-width:18ch;">Trouvez le bon visage pour votre marque, dans votre wilaya</h1>
-                    <p class="lede" style="margin-top:18px;">Statistiques d'audience réelles, avis vérifiés, suivi de
-                        collaboration et facturation intégrée.</p>
-                    <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
-                        <button class="btn btn-gold" onclick="go('inscription');switchTab('business')">Créer un compte
-                            entreprise</button>
-                        <button class="btn btn-ghost" onclick="go('annuaire')">Parcourir les talents</button>
+                    <h1 style="max-width:18ch;" class="rise rise-1">Trouvez le bon visage pour votre marque, dans
+                        votre wilaya</h1>
+                    <p class="lede rise rise-2" style="margin-top:18px;">Statistiques d'audience réelles, avis
+                        vérifiés, suivi de collaboration et facturation intégrée.</p>
+                    <div class="rise rise-3" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
+                        <button class="btn btn-gold" onclick="go('inscription');switchTab('business')">Créer un
+                            compte entreprise</button>
+                        <button class="btn btn-ghost" style="border-color:var(--line-dark);color:#fff;"
+                            onclick="go('annuaire')">Parcourir les
+                            talents</button>
                     </div>
                 </div>
             </section>
@@ -1809,17 +1979,17 @@
                     </div>
                     <div class="benefits">
                         <div class="benefit">
-                            <div class="num">01</div>
+                            <div class="icon"></div>
                             <h3>Ciblage géographique</h3>
                             <p>Filtrez par wilaya et découvrez des talents recommandés pour votre secteur.</p>
                         </div>
                         <div class="benefit">
-                            <div class="num">02</div>
+                            <div class="icon"></div>
                             <h3>Avis vérifiés</h3>
                             <p>Chaque collaboration terminée donne lieu à un avis noté, visible publiquement.</p>
                         </div>
                         <div class="benefit">
-                            <div class="num">03</div>
+                            <div class="icon"></div>
                             <h3>Suivi complet</h3>
                             <p>Discussion, statut de livraison et facture générée automatiquement.</p>
                         </div>
@@ -2003,7 +2173,7 @@
                     <p>Mettre en relation les talents locaux et les entreprises, wilaya par wilaya.</p>
                 </div>
                 <div>
-                    <p style="color:var(--paper);font-weight:600;margin-bottom:8px;">Navigation</p>
+                    <p style="color:var(--text-inv);font-weight:700;margin-bottom:8px;">Navigation</p>
                     <p><button onclick="go('annuaire')">Talents</button></p>
                     <p style="margin-top:6px;"><button onclick="go('inscription')">Inscription</button></p>
                 </div>
@@ -2130,7 +2300,7 @@
             const full = Math.round(avg);
             let s = '';
             for (let i = 1; i <= 5; i++) s += i <= full ? '★' : '<span class="empty">★</span>';
-            return `<span class="stars">${s}</span> <span style="font-size:12px;color:var(--ink-soft);">${avg ? avg.toFixed(1) : '—'} (${count || 0})</span>`;
+            return `<span class="stars">${s}</span> <span style="font-size:12px;color:var(--text-soft);">${avg ? avg.toFixed(1) : '—'} (${count || 0})</span>`;
         }
 
         /* ---------------- MAP ---------------- */
@@ -2153,14 +2323,37 @@
             if (db) {
                 db.collection('talents').orderBy('createdAt', 'desc').onSnapshot(snap => {
                     talentsCache = snap.empty ? [] : snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                    renderDirectory(); renderFeatured(); renderStats();
-                }, err => { console.error(err); talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); });
-            } else { talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); }
+                    renderDirectory(); renderFeatured(); renderStats(); renderStoryRail();
+                }, err => { console.error(err); talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); renderStoryRail(); });
+            } else { talentsCache = DEMO_TALENTS; renderDirectory(); renderFeatured(); renderStats(); renderStoryRail(); }
         }
         function renderStats() {
             const list = talentsCache.length ? talentsCache : DEMO_TALENTS;
-            document.getElementById('stat-talents').textContent = list.length;
-            document.getElementById('stat-wilayas').textContent = new Set(list.map(t => t.wilaya)).size;
+            animateCount(document.getElementById('stat-talents'), list.length);
+            animateCount(document.getElementById('stat-wilayas'), new Set(list.map(t => t.wilaya)).size);
+        }
+        function animateCount(el, target) {
+            if (!el) return;
+            const start = 0, dur = 700, t0 = performance.now();
+            function tick(t) {
+                const p = Math.min(1, (t - t0) / dur);
+                el.textContent = Math.round(start + (target - start) * (1 - Math.pow(1 - p, 3)));
+                if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+        /* story rail: a horizontal, auto-scrolling row of creator rings across the hero — duplicated once for a seamless loop */
+        function renderStoryRail() {
+            const rail = document.getElementById('story-rail');
+            if (!rail) return;
+            const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
+            if (!source.length) { rail.innerHTML = ''; return; }
+            const items = source.concat(source).concat(source).map(t => `
+    <div class="story-item" onclick="openProfile('${t.id}')">
+      <div class="ring"><img src="${t.photoURL || 'https://i.pravatar.cc/200?u=' + t.id}" alt="${t.nom}"></div>
+      <span class="nm">${(t.nom || '').split(' ')[0]}</span>
+    </div>`).join('');
+            rail.innerHTML = items;
         }
         function sortForDisplay(list) {
             return [...list].sort((a, b) => {
@@ -2219,9 +2412,9 @@
             if (!t) return;
             if (db) db.collection('talents').doc(id).update({ viewCount: firebase.firestore.FieldValue.increment(1) }).catch(() => { });
 
-            const packagesHTML = (t.packages && t.packages.length) ? t.packages.map(p => `<div class="list-row" style="justify-content:space-between;"><span>${p.label}</span><strong>${p.price}</strong></div>`).join('') : '<p style="color:var(--ink-soft);font-size:14px;">Aucun forfait publié.</p>';
-            const portfolioHTML = (t.portfolio && t.portfolio.length) ? `<div class="portfolio-grid">${t.portfolio.map(u => `<img src="${u}">`).join('')}</div>` : '<p style="color:var(--ink-soft);font-size:14px;">Aucune réalisation publiée.</p>';
-            const busyHTML = (t.busyDates && t.busyDates.length) ? `<p style="font-size:14px;color:var(--ink-soft);">Indisponible : ${t.busyDates.join(', ')}</p>` : '<p style="font-size:14px;color:var(--ink-soft);">Aucune indisponibilité signalée.</p>';
+            const packagesHTML = (t.packages && t.packages.length) ? t.packages.map(p => `<div class="list-row" style="justify-content:space-between;"><span>${p.label}</span><strong>${p.price}</strong></div>`).join('') : '<p style="color:var(--text-soft);font-size:14px;">Aucun forfait publié.</p>';
+            const portfolioHTML = (t.portfolio && t.portfolio.length) ? `<div class="portfolio-grid">${t.portfolio.map(u => `<img src="${u}">`).join('')}</div>` : '<p style="color:var(--text-soft);font-size:14px;">Aucune réalisation publiée.</p>';
+            const busyHTML = (t.busyDates && t.busyDates.length) ? `<p style="font-size:14px;color:var(--text-soft);">Indisponible : ${t.busyDates.join(', ')}</p>` : '<p style="font-size:14px;color:var(--text-soft);">Aucune indisponibilité signalée.</p>';
 
             document.getElementById('modal-content').innerHTML = `
     <div class="modal-head">
@@ -2263,10 +2456,10 @@
             document.querySelectorAll('.modal-tab-panel').forEach(p => p.classList.toggle('active', p.dataset.mtp === tab));
         }
         function collabCTA(t) {
-            if (!currentUser) return `<p style="color:var(--ink-soft);font-size:14px;">Connectez-vous avec un compte entreprise pour contacter ce talent.</p><button class="btn btn-solid btn-sm" style="margin-top:12px;" onclick="closeModal();go('connexion')">Se connecter</button>`;
-            if (currentRole !== 'business') return `<p style="color:var(--ink-soft);font-size:14px;">Seuls les comptes entreprise peuvent envoyer une demande de collaboration.</p>`;
+            if (!currentUser) return `<p style="color:var(--text-soft);font-size:14px;">Connectez-vous avec un compte entreprise pour contacter ce talent.</p><button class="btn btn-solid btn-sm" style="margin-top:12px;" onclick="closeModal();go('connexion')">Se connecter</button>`;
+            if (currentRole !== 'business') return `<p style="color:var(--text-soft);font-size:14px;">Seuls les comptes entreprise peuvent envoyer une demande de collaboration.</p>`;
             return `
-    <p style="font-weight:600;margin-bottom:14px;">Proposer une collaboration</p>
+    <p style="font-weight:700;margin-bottom:14px;">Proposer une collaboration</p>
     <form onsubmit="return handleCreateCollab(event,'${t.id}','${(t.nom || '').replace(/'/g, "")}')">
       <div style="margin-bottom:12px;"><textarea placeholder="Type de campagne, délai..." id="collab-msg" required></textarea></div>
       <div style="margin-bottom:12px;"><input type="text" id="collab-amount" placeholder="Budget indicatif (ex : 20000 DA)"></div>
@@ -2278,11 +2471,11 @@
         /* ---------------- REVIEWS ---------------- */
         function loadReviewsInto(targetId, elId) {
             const el = document.getElementById(elId);
-            if (!db) { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Avis de démonstration indisponibles hors connexion Firebase.</p>'; return; }
+            if (!db) { el.innerHTML = '<p style="color:var(--text-soft);font-size:13.5px;">Avis de démonstration indisponibles hors connexion Firebase.</p>'; return; }
             db.collection('reviews').where('toId', '==', targetId).orderBy('createdAt', 'desc').limit(20).get().then(snap => {
-                if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Aucun avis pour le moment.</p>'; return; }
+                if (snap.empty) { el.innerHTML = '<p style="color:var(--text-soft);font-size:13.5px;">Aucun avis pour le moment.</p>'; return; }
                 el.innerHTML = snap.docs.map(d => { const r = d.data(); return `<div class="review-item">${starsHTML(r.rating, null)}<p class="cmt">${r.comment || ''}</p><p class="from">— ${r.fromName || 'Utilisateur'}</p></div>`; }).join('');
-            }).catch(() => { el.innerHTML = '<p style="color:var(--ink-soft);font-size:13.5px;">Impossible de charger les avis (vérifiez les règles Firestore).</p>'; });
+            }).catch(() => { el.innerHTML = '<p style="color:var(--text-soft);font-size:13.5px;">Impossible de charger les avis (vérifiez les règles Firestore).</p>'; });
         }
         function recomputeRating(targetId, collectionName) {
             db.collection('reviews').where('toId', '==', targetId).get().then(snap => {
@@ -2329,10 +2522,10 @@
             e.preventDefault();
             const msg = document.getElementById('collab-msg').value;
             const amount = document.getElementById('collab-amount').value;
-            if (!db) { document.getElementById('contact-zone').innerHTML = '<p style="color:var(--clay);">Firebase non configuré.</p>'; return false; }
+            if (!db) { document.getElementById('contact-zone').innerHTML = '<p style="color:var(--coral);">Firebase non configuré.</p>'; return false; }
             const biz = currentProfile || {};
             if ((biz.plan || 'free') === 'free' && (biz.requestCount || 0) >= 3) {
-                document.getElementById('contact-zone').innerHTML = `<p style="color:var(--clay);">Quota gratuit atteint (3 demandes / mois). <button class="btn btn-gold btn-sm" onclick="upgradeToPro()">Passer en formule Pro</button></p>`;
+                document.getElementById('contact-zone').innerHTML = `<p style="color:var(--coral);">Quota gratuit atteint (3 demandes / mois). <button class="btn btn-gold btn-sm" onclick="upgradeToPro()">Passer en formule Pro</button></p>`;
                 return false;
             }
             db.collection('collaborations').add({
@@ -2341,8 +2534,8 @@
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(), updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 db.collection('businesses').doc(currentUser.uid).update({ requestCount: firebase.firestore.FieldValue.increment(1) }).catch(() => { });
-                document.getElementById('contact-zone').innerHTML = '<p style="font-weight:600;color:var(--teal);">Demande envoyée. Suivez son statut depuis votre espace.</p>';
-            }).catch(err => { document.getElementById('contact-zone').innerHTML = `<p style="color:var(--clay);">Erreur : ${err.message}</p>`; });
+                document.getElementById('contact-zone').innerHTML = '<p style="font-weight:700;color:var(--teal-dark);">Demande envoyée. Suivez son statut depuis votre espace.</p>';
+            }).catch(err => { document.getElementById('contact-zone').innerHTML = `<p style="color:var(--coral);">Erreur : ${err.message}</p>`; });
             return false;
         }
         function upgradeToPro() {
@@ -2555,7 +2748,7 @@
             const content = document.getElementById('dash-content');
             if (currentRole === 'talent') renderTalentDashTab(content, activeCollabTab);
             else if (currentRole === 'business') renderBusinessDashTab(content, activeCollabTab);
-            else content.innerHTML = '<p style="color:var(--ink-soft);">Profil introuvable.</p>';
+            else content.innerHTML = '<p style="color:var(--text-soft);">Profil introuvable.</p>';
 
             if (currentUser.email === ADMIN_EMAIL) renderAdminPanel(content);
         }
@@ -2586,14 +2779,14 @@
       </div>
       <div class="card-block">
         <h3>Vérification d'identité</h3>
-        <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;">Statut actuel : <strong>${currentProfile.idVerified ? 'Vérifié' : 'Non vérifié'}</strong></p>
+        <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px;">Statut actuel : <strong>${currentProfile.idVerified ? 'Vérifié' : 'Non vérifié'}</strong></p>
         <label for="d-idfile">Photo de votre pièce d'identité <span class="opt">(JPG/PNG uniquement, compressée automatiquement)</span></label>
         <input type="file" id="d-idfile" accept="image/*">
         <div class="form-actions"><button class="btn btn-ghost" onclick="uploadIdDoc()">Envoyer le document</button></div>
       </div>
       <div class="card-block">
         <h3>Mise en avant</h3>
-        <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:12px;">Profil en vedette : <strong>${currentProfile.isFeatured ? 'Activé' : 'Désactivé'}</strong></p>
+        <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px;">Profil en vedette : <strong>${currentProfile.isFeatured ? 'Activé' : 'Désactivé'}</strong></p>
         <button class="btn ${currentProfile.isFeatured ? 'btn-danger' : 'btn-gold'}" onclick="toggleFeatured()">${currentProfile.isFeatured ? 'Désactiver la mise en avant' : 'Mettre mon profil en avant (démo)'}</button>
         <p class="form-note" style="margin-top:10px;">Version de démonstration : à remplacer par un vrai paiement avant mise en production.</p>
       </div>`;
@@ -2625,14 +2818,14 @@
       <div class="card-block">
         <h3>Dates indisponibles</h3>
         <div class="list-row"><input type="date" id="new-busy-date"><button class="btn btn-ghost btn-sm" onclick="addBusyDate()">Ajouter</button></div>
-        <div id="busy-list" style="margin-top:12px;">${busy.map(d => `<div class="list-row" style="justify-content:space-between;"><span>${d}</span><button class="btn btn-line btn-sm" onclick="removeBusyDate('${d}')">Retirer</button></div>`).join('') || '<p style="color:var(--ink-soft);font-size:14px;">Aucune date bloquée.</p>'}</div>
+        <div id="busy-list" style="margin-top:12px;">${busy.map(d => `<div class="list-row" style="justify-content:space-between;"><span>${d}</span><button class="btn btn-line btn-sm" onclick="removeBusyDate('${d}')">Retirer</button></div>`).join('') || '<p style="color:var(--text-soft);font-size:14px;">Aucune date bloquée.</p>'}</div>
       </div>`;
             }
             else if (tab === 'collabs') {
-                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--ink-soft);">Chargement...</p></div>`;
-                db.collection('collaborations').where('talentId', '==', currentUser.uid).orderBy('createdAt', 'desc').get().then(snap => {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--text-soft);">Chargement...</p></div>`;
+                db.collection('collaborations').where('talentId', '==', currentUser.uid).get().then(snap => {
                     renderCollabList(snap, 'talent');
-                }).catch(() => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--ink-soft);">Impossible de charger (vérifiez les règles Firestore).</p>'; });
+                }).catch(err => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>'; });
             }
             else if (tab === 'avis') {
                 content.innerHTML = `<h3 style="margin-bottom:16px;">Avis reçus</h3><div id="reviews-dash"></div>`;
@@ -2652,9 +2845,9 @@
                 content.innerHTML = `
       <div class="card-block">
         <h3>Compte entreprise</h3>
-        <p style="font-size:14.5px;color:var(--ink-soft);">${currentProfile.nom} — ${currentProfile.wilaya}</p>
+        <p style="font-size:14.5px;color:var(--text-soft);">${currentProfile.nom} — ${currentProfile.wilaya}</p>
         <p style="font-size:14.5px;margin-top:10px;">Formule actuelle : <strong>${currentProfile.plan === 'pro' ? 'Pro' : 'Gratuite'}</strong></p>
-        ${currentProfile.plan !== 'pro' ? `<p style="font-size:13px;color:var(--ink-soft);margin-top:4px;">${currentProfile.requestCount || 0} / 3 demandes utilisées ce mois-ci</p><button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="upgradeToPro()">Passer en formule Pro</button>` : ''}
+        ${currentProfile.plan !== 'pro' ? `<p style="font-size:13px;color:var(--text-soft);margin-top:4px;">${currentProfile.requestCount || 0} / 3 demandes utilisées ce mois-ci</p><button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="upgradeToPro()">Passer en formule Pro</button>` : ''}
       </div>`;
             }
             else if (tab === 'reco') {
@@ -2663,20 +2856,25 @@
                 const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
                 let list = match ? source.filter(t => t.cat === match.cat) : source;
                 list = list.filter(t => t.wilaya === currentProfile.wilaya).concat(list.filter(t => t.wilaya !== currentProfile.wilaya)).slice(0, 6);
-                content.innerHTML = `<h3 style="margin-bottom:6px;">Recommandé pour votre secteur</h3><p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;">${match ? 'Basé sur la catégorie "' + match.cat + '" et votre wilaya.' : 'Renseignez un secteur plus précis dans votre profil pour affiner ces suggestions.'}</p>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">${list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('') || '<p style="color:var(--ink-soft);">Aucun talent disponible pour le moment.</p>'}</div>`;
+                content.innerHTML = `<h3 style="margin-bottom:6px;">Recommandé pour votre secteur</h3><p style="font-size:13.5px;color:var(--text-soft);margin-bottom:16px;">${match ? 'Basé sur la catégorie "' + match.cat + '" et votre wilaya.' : 'Renseignez un secteur plus précis dans votre profil pour affiner ces suggestions.'}</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">${list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('') || '<p style="color:var(--text-soft);">Aucun talent disponible pour le moment.</p>'}</div>`;
             }
             else if (tab === 'collabs') {
-                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--ink-soft);">Chargement...</p></div>`;
-                db.collection('collaborations').where('businessId', '==', currentUser.uid).orderBy('createdAt', 'desc').get().then(snap => {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--text-soft);">Chargement...</p></div>`;
+                db.collection('collaborations').where('businessId', '==', currentUser.uid).get().then(snap => {
                     renderCollabList(snap, 'business');
-                }).catch(() => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--ink-soft);">Impossible de charger (vérifiez les règles Firestore).</p>'; });
+                }).catch(err => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>'; });
             }
         }
         function renderCollabList(snap, role) {
             const el = document.getElementById('collab-list');
-            if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);">Aucune collaboration pour le moment.</p>'; return; }
-            el.innerHTML = snap.docs.map(d => {
+            if (snap.empty) { el.innerHTML = '<p style="color:var(--text-soft);">Aucune collaboration pour le moment.</p>'; return; }
+            const docs = [...snap.docs].sort((a, b) => {
+                const ta = a.data().createdAt ? a.data().createdAt.toMillis() : 0;
+                const tb = b.data().createdAt ? b.data().createdAt.toMillis() : 0;
+                return tb - ta;
+            });
+            el.innerHTML = docs.map(d => {
                 const c = d.data(); const id = d.id;
                 const otherName = role === 'talent' ? c.businessName : c.talentNom;
                 const reviewed = c['reviewedBy_' + currentUser.uid];
@@ -2755,7 +2953,7 @@
             content.appendChild(box);
             db.collection('talents').where('idVerified', '==', false).get().then(snap => {
                 const el = document.getElementById('admin-list');
-                if (snap.empty) { el.innerHTML = '<p style="color:var(--ink-soft);">Aucune vérification en attente.</p>'; return; }
+                if (snap.empty) { el.innerHTML = '<p style="color:var(--text-soft);">Aucune vérification en attente.</p>'; return; }
                 el.innerHTML = snap.docs.map(d => { const t = d.data(); return `<div class="admin-row"><span>${t.nom} — ${t.wilaya}${t.idDocURL ? ' <a href="' + t.idDocURL + '" target="_blank">(document)</a>' : ' (aucun document envoyé)'}</span><button class="btn btn-teal btn-sm" onclick="adminVerify('${d.id}')">Vérifier</button></div>`; }).join('');
             });
         }
