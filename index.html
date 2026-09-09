@@ -150,6 +150,7 @@
 
         .page.active {
             display: block;
+            animation: pageIn .4s cubic-bezier(.2, .8, .3, 1) both;
         }
 
         /* orchestrated hero entrance — the one big animated moment */
@@ -215,6 +216,253 @@
             100% {
                 background-position: 200% 0;
             }
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateY(-6px) scale(.97);
+            }
+        }
+
+        @keyframes msgIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes confettiFall {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(120px) rotate(300deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes ripple {
+            from {
+                transform: scale(0);
+                opacity: .45;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes ringSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* toasts */
+        .toast-stack {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 320px;
+        }
+
+        .toast {
+            background: var(--ink);
+            color: #fff;
+            padding: 13px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13.5px;
+            font-weight: 600;
+            box-shadow: 0 10px 26px rgba(20, 18, 31, 0.25);
+            animation: toastIn .3s cubic-bezier(.2, .8, .3, 1) both;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid var(--violet);
+        }
+
+        .toast.success {
+            border-left-color: var(--teal);
+        }
+
+        .toast.error {
+            border-left-color: var(--coral);
+        }
+
+        .toast.closing {
+            animation: toastOut .25s ease both;
+        }
+
+        /* button ripple */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn .rpl {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.55);
+            width: 12px;
+            height: 12px;
+            transform: scale(0);
+            pointer-events: none;
+            animation: ripple .55s ease-out forwards;
+        }
+
+        .btn-ghost .rpl,
+        .btn-line .rpl {
+            background: rgba(123, 92, 250, 0.25);
+        }
+
+        /* skeleton loading */
+        .skel {
+            border-radius: var(--radius-sm);
+            background: linear-gradient(90deg, var(--paper-2) 25%, #fff 50%, var(--paper-2) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.3s infinite;
+        }
+
+        .skel-row {
+            height: 66px;
+            margin-bottom: 12px;
+        }
+
+        /* unread indicator */
+        .unread-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--coral);
+            display: inline-block;
+            flex: 0 0 auto;
+            box-shadow: 0 0 0 0 rgba(255, 92, 122, 0.5);
+            animation: ringPulse 1.7s infinite;
+        }
+
+        /* messages tab */
+        .msg-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 14px 16px;
+            border: 1.5px solid var(--line);
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: border-color .15s, transform .15s, box-shadow .15s;
+        }
+
+        .msg-row:hover {
+            border-color: var(--violet);
+            transform: translateX(4px);
+            box-shadow: 0 8px 18px rgba(27, 23, 37, 0.06);
+        }
+
+        .msg-row .who {
+            font-weight: 700;
+            font-size: 14.5px;
+        }
+
+        .msg-row .prev {
+            font-size: 13px;
+            color: var(--text-soft);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            max-width: 100%;
+        }
+
+        .msg-row.unread .prev {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .msg-row .right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .msg-row .time {
+            font-size: 11.5px;
+            color: var(--text-soft);
+        }
+
+        /* confetti burst */
+        .confetti-piece {
+            position: fixed;
+            top: 0;
+            width: 7px;
+            height: 12px;
+            z-index: 400;
+            pointer-events: none;
+            animation: confettiFall 1s ease-in forwards;
+        }
+
+        /* nav active-page indicator + hamburger morph */
+        .hamburger span {
+            transition: transform .25s ease, opacity .2s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .dash-tabs button {
+            transition: background .15s ease, color .15s ease, transform .1s ease;
+        }
+
+        .dash-tabs button:active {
+            transform: scale(.97);
         }
 
         .btn {
@@ -1839,21 +2087,24 @@
                 <button onclick="go('entreprises')" data-page="entreprises">Entreprises</button>
                 <button onclick="go('dashboard')" data-page="dashboard" id="nav-dashboard" style="display:none;">Mon
                     espace</button>
+                <button onclick="goToMessages()" id="nav-messages" style="display:none;position:relative;">Messages<span
+                        class="unread-dot" id="nav-messages-dot" style="display:none;margin-left:7px;"></span></button>
             </nav>
             <div class="nav-cta" id="nav-cta">
                 <button class="btn btn-line" onclick="go('connexion')" id="nav-login">Connexion</button>
                 <button class="btn btn-gold" onclick="go('inscription')" id="nav-register">Devenir talent</button>
             </div>
             <button class="hamburger" aria-label="menu"
-                onclick="document.getElementById('mnav').classList.toggle('open')"><span></span><span></span><span></span></button>
+                onclick="document.getElementById('mnav').classList.toggle('open');this.classList.toggle('open')"><span></span><span></span><span></span></button>
         </div>
         <div id="mnav" class="wrap">
             <div style="display:flex;flex-direction:column;gap:14px;padding:16px 0;">
                 <button onclick="go('accueil')">Accueil</button>
                 <button onclick="go('annuaire')">Talents</button>
                 <button onclick="go('entreprises')">Entreprises</button>
-                <button onclick="go('connexion')">Connexion</button>
-                <button onclick="go('inscription')">Inscription</button>
+                <button onclick="goToMessages()" id="mnav-messages" style="display:none;">Messages</button>
+                <button onclick="go('connexion')" id="mnav-login">Connexion</button>
+                <button onclick="go('inscription')" id="mnav-register">Inscription</button>
             </div>
         </div>
     </header>
@@ -1966,8 +2217,8 @@
                     <div class="rise rise-3" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;">
                         <button class="btn btn-gold" onclick="go('inscription');switchTab('business')">Créer un
                             compte entreprise</button>
-                        <button class="btn btn-ghost" style="border-color:var(--line-dark);color:#fff;"
-                            onclick="go('annuaire')">Parcourir les
+                        <button class="btn btn-ghost"
+                            style="border-color:var(--line-dark);color:#fff;" onclick="go('annuaire')">Parcourir les
                             talents</button>
                     </div>
                 </div>
@@ -2192,6 +2443,7 @@
     <div class="modal-backdrop" id="misc-backdrop" onclick="if(event.target===this) closeMisc()">
         <div class="modal" id="misc-content"></div>
     </div>
+    <div class="toast-stack" id="toast-stack"></div>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -2271,9 +2523,69 @@
 
         let talentsCache = [];
         let currentUser = null, currentRole = null, currentProfile = null;
-        let activeCollabTab = 'collabs';
+        let activeCollabTab = 'messages';
         let activeChatId = null, chatUnsub = null;
+        let collabsUnsub = null;
+        let myCollabs = [];
         let mapSelectedWilaya = "";
+
+        /* ---------------- TOASTS & FEEDBACK ---------------- */
+        function toast(msg, type) {
+            const stack = document.getElementById('toast-stack');
+            if (!stack) return;
+            const el = document.createElement('div');
+            el.className = 'toast' + (type ? ' ' + type : '');
+            el.textContent = msg;
+            stack.appendChild(el);
+            setTimeout(() => { el.classList.add('closing'); setTimeout(() => el.remove(), 260); }, 3200);
+        }
+        function requireDb() {
+            if (!db) { toast("Firebase n'est pas configuré — voir le bandeau en haut de page.", 'error'); return false; }
+            return true;
+        }
+        /* ripple feedback on every button press, delegated once */
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('.btn');
+            if (!btn) return;
+            const r = document.createElement('span');
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height) * 1.6;
+            r.className = 'rpl';
+            r.style.width = r.style.height = size + 'px';
+            r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            r.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            btn.appendChild(r);
+            setTimeout(() => r.remove(), 550);
+        });
+        function burstConfetti(originEl) {
+            const rect = originEl ? originEl.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0 };
+            const colors = ['#FF5C7A', '#7B5CFA', '#FFB443', '#1FA97F'];
+            for (let i = 0; i < 22; i++) {
+                const p = document.createElement('div');
+                p.className = 'confetti-piece';
+                p.style.left = (rect.left + rect.width / 2 + (Math.random() * 80 - 40)) + 'px';
+                p.style.top = (rect.top + (Math.random() * 20 - 10)) + 'px';
+                p.style.background = colors[i % colors.length];
+                p.style.animationDelay = (Math.random() * 0.15) + 's';
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1300);
+            }
+        }
+        function goToMessages() {
+            if (!currentUser) { go('connexion'); return; }
+            activeCollabTab = 'messages';
+            go('dashboard');
+        }
+        function timeAgo(ts) {
+            if (!ts || !ts.toMillis) return '';
+            const diff = Date.now() - ts.toMillis();
+            const min = Math.floor(diff / 60000);
+            if (min < 1) return "à l'instant";
+            if (min < 60) return min + ' min';
+            const h = Math.floor(min / 60);
+            if (h < 24) return h + ' h';
+            return Math.floor(h / 24) + ' j';
+        }
 
         function fillSelect(el, list) { list.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; el.appendChild(o); }); }
         ['hero-wilaya', 'f-wilaya', 't-wilaya', 'b-wilaya'].forEach(id => fillSelect(document.getElementById(id), WILAYAS));
@@ -2382,7 +2694,7 @@
         function renderFeatured() {
             const source = talentsCache.length ? talentsCache : DEMO_TALENTS;
             const list = sortForDisplay(source).slice(0, 3);
-            document.getElementById('featured-grid').innerHTML = list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('');
+            document.getElementById('featured-grid').innerHTML = list.map((t, i) => `<div class="card" style="animation:riseIn .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:${i * 90}ms">${cardHTML(t)}</div>`).join('');
         }
         function renderDirectory() {
             renderMap();
@@ -2395,7 +2707,7 @@
             document.getElementById('f-count').textContent = filtered.length + (filtered.length > 1 ? ' profils' : ' profil');
             grid.innerHTML = '';
             if (filtered.length === 0) { grid.innerHTML = '<div class="empty-state"><h3>Aucun profil trouvé</h3><p>Essayez une autre wilaya ou catégorie.</p></div>'; return; }
-            filtered.forEach(t => { const c = document.createElement('div'); c.className = 'card'; c.innerHTML = cardHTML(t); grid.appendChild(c); });
+            filtered.forEach((t, i) => { const c = document.createElement('div'); c.className = 'card'; c.style.animation = 'riseIn .45s cubic-bezier(.2,.7,.3,1) both'; c.style.animationDelay = Math.min(i, 10) * 55 + 'ms'; c.innerHTML = cardHTML(t); grid.appendChild(c); });
         }
         ['f-wilaya', 'f-cat'].forEach(id => document.getElementById(id).addEventListener('change', renderDirectory));
         document.getElementById('f-search').addEventListener('input', renderDirectory);
@@ -2501,6 +2813,7 @@
         }
         function submitReview(e, collabId, toId, toName, toRoleCollection) {
             e.preventDefault();
+            if (!requireDb()) return false;
             const s = +document.getElementById('rv-serieux').value, r = +document.getElementById('rv-reactivite').value, q = +document.getElementById('rv-qualite').value;
             const rating = Math.round((s + r + q) / 3);
             db.collection('reviews').add({
@@ -2511,8 +2824,8 @@
             }).then(() => {
                 recomputeRating(toId, toRoleCollection);
                 db.collection('collaborations').doc(collabId).update({ ['reviewedBy_' + currentUser.uid]: true }).catch(() => { });
-                closeMisc(); renderDashboard();
-            });
+                closeMisc(); toast('Avis publié, merci !', 'success');
+            }).catch(err => toast('Erreur : ' + err.message, 'error'));
             return false;
         }
         function closeMisc() { document.getElementById('misc-backdrop').classList.remove('open'); }
@@ -2542,25 +2855,36 @@
             db.collection('businesses').doc(currentUser.uid).update({ plan: 'pro' }).then(() => { currentProfile.plan = 'pro'; renderDashboard(); closeModal(); });
         }
         function updateCollabStatus(id, status) {
-            db.collection('collaborations').doc(id).update({ status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => renderDashboard());
+            if (!requireDb()) return;
+            db.collection('collaborations').doc(id).update({ status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() })
+                .then(() => toast(status === 'accepté' ? 'Collaboration acceptée' : status === 'refusé' ? 'Collaboration refusée' : 'Statut mis à jour', 'success'))
+                .catch(err => toast('Erreur : ' + err.message, 'error'));
         }
         function setDeliverable(id) {
+            if (!requireDb()) return;
             const url = prompt("Lien vers le contenu livré (Drive, YouTube, etc.) :");
             if (!url) return;
-            db.collection('collaborations').doc(id).update({ deliverableURL: url, status: 'contenu_livré', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => renderDashboard());
+            db.collection('collaborations').doc(id).update({ deliverableURL: url, status: 'contenu_livré', updatedAt: firebase.firestore.FieldValue.serverTimestamp() })
+                .then(() => toast('Contenu marqué comme livré', 'success'))
+                .catch(err => toast('Erreur : ' + err.message, 'error'));
         }
         function markPaid(id, businessId, businessName, talentId, talentNom, amount) {
+            if (!requireDb()) return;
             db.collection('collaborations').doc(id).update({ status: 'payé', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => {
                 return db.collection('invoices').add({
                     collaborationId: id, businessId, businessName, talentId, talentNom,
                     amount: amount || '—', description: 'Collaboration Collabo-DZ',
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
-            }).then(() => renderDashboard());
+            }).then(() => {
+                toast('Paiement confirmé — facture générée 🎉', 'success');
+                burstConfetti(document.querySelector('#collab-list') || document.body);
+            }).catch(err => toast('Erreur : ' + err.message, 'error'));
         }
         function viewInvoice(collabId) {
+            if (!requireDb()) return;
             db.collection('invoices').where('collaborationId', '==', collabId).limit(1).get().then(snap => {
-                if (snap.empty) { alert("Aucune facture trouvée pour cette collaboration."); return; }
+                if (snap.empty) { toast("Aucune facture trouvée pour cette collaboration.", 'error'); return; }
                 const inv = snap.docs[0].data();
                 document.getElementById('misc-content').innerHTML = `
       <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>Facture</h3></div>
@@ -2579,30 +2903,40 @@
 
         /* ---------------- CHAT ---------------- */
         function openChat(collabId, otherName) {
+            if (!requireDb() || !currentUser) return;
             activeChatId = collabId;
             document.getElementById('chat-content').innerHTML = `
     <div class="modal-head"><button class="modal-close" onclick="closeChat()">&times;</button><h3>Discussion avec ${otherName}</h3></div>
-    <div class="modal-body"><div class="chat-messages" id="chat-messages"></div>
+    <div class="modal-body"><div class="chat-messages" id="chat-messages"><div class="skel skel-row" style="margin:18px;"></div></div>
       <form class="chat-input-row" onsubmit="return sendChatMessage(event)">
-        <input type="text" id="chat-input" placeholder="Écrire un message..." required>
+        <input type="text" id="chat-input" placeholder="Écrire un message..." required autocomplete="off">
         <button type="submit" class="btn btn-gold btn-sm">Envoyer</button>
       </form>
     </div>`;
             document.getElementById('chat-backdrop').classList.add('open');
+            document.getElementById('chat-input').focus();
+            db.collection('collaborations').doc(collabId).update({ ['readBy_' + currentUser.uid]: firebase.firestore.FieldValue.serverTimestamp() }).catch(() => { });
             if (chatUnsub) chatUnsub();
+            let firstLoad = true;
             chatUnsub = db.collection('collaborations').doc(collabId).collection('messages').orderBy('createdAt', 'asc').onSnapshot(snap => {
                 const box = document.getElementById('chat-messages');
                 if (!box) return;
-                box.innerHTML = snap.docs.map(d => { const m = d.data(); const mine = m.senderId === currentUser.uid; return `<div class="chat-msg ${mine ? 'mine' : 'theirs'}">${m.text}</div>`; }).join('');
+                box.innerHTML = snap.docs.map((d, i) => {
+                    const m = d.data(); const mine = m.senderId === currentUser.uid;
+                    return `<div class="chat-msg ${mine ? 'mine' : 'theirs'}" style="animation:msgIn .3s ease both;animation-delay:${firstLoad ? Math.min(i, 12) * 25 : 0}ms">${m.text}</div>`;
+                }).join('') || '<p style="color:var(--text-soft);font-size:13.5px;padding:18px;">Aucun message — dites bonjour 👋</p>';
                 box.scrollTop = box.scrollHeight;
+                firstLoad = false;
             });
         }
         function sendChatMessage(e) {
             e.preventDefault();
+            if (!requireDb()) return false;
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
-            if (!text) return false;
+            if (!text || !activeChatId) return false;
             db.collection('collaborations').doc(activeChatId).collection('messages').add({ senderId: currentUser.uid, text, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+            db.collection('collaborations').doc(activeChatId).update({ lastMessage: text, lastMessageAt: firebase.firestore.FieldValue.serverTimestamp(), lastSenderId: currentUser.uid }).catch(() => { });
             input.value = '';
             return false;
         }
@@ -2705,14 +3039,39 @@
             }).catch(err => { document.getElementById('login-error').textContent = err.message; document.getElementById('login-error').classList.add('show'); });
             return false;
         }
-        function handleLogout() { if (auth) auth.signOut(); go('accueil'); }
+        function handleLogout() {
+            if (collabsUnsub) { collabsUnsub(); collabsUnsub = null; }
+            if (unreadWatchUnsub) { unreadWatchUnsub(); unreadWatchUnsub = null; }
+            if (auth) auth.signOut();
+            go('accueil');
+        }
 
         /* ---------------- AUTH STATE ---------------- */
         function updateNavForAuth() {
             document.getElementById('nav-dashboard').style.display = currentUser ? 'inline' : 'none';
+            document.getElementById('nav-messages').style.display = currentUser ? 'inline' : 'none';
+            document.getElementById('mnav-messages').style.display = currentUser ? 'inline' : 'none';
+            document.getElementById('mnav-login').style.display = currentUser ? 'none' : 'inline';
+            document.getElementById('mnav-register').style.display = currentUser ? 'none' : 'inline';
             document.getElementById('nav-login').style.display = currentUser ? 'none' : 'inline-flex';
             document.getElementById('nav-register').textContent = currentUser ? 'Mon espace' : 'Devenir talent';
             document.getElementById('nav-register').onclick = currentUser ? () => go('dashboard') : () => go('inscription');
+            if (currentUser && db) watchUnreadBadge(); else document.getElementById('nav-messages-dot').style.display = 'none';
+        }
+        let unreadWatchUnsub = null;
+        function watchUnreadBadge() {
+            if (unreadWatchUnsub) unreadWatchUnsub();
+            const field = currentRole === 'talent' ? 'talentId' : 'businessId';
+            unreadWatchUnsub = db.collection('collaborations').where(field, '==', currentUser.uid).onSnapshot(snap => {
+                const hasUnread = snap.docs.some(d => isUnread(d.data()));
+                document.getElementById('nav-messages-dot').style.display = hasUnread ? 'inline-block' : 'none';
+            }, () => { });
+        }
+        function isUnread(c) {
+            if (!c.lastSenderId || c.lastSenderId === currentUser.uid) return false;
+            const readTs = c['readBy_' + currentUser.uid];
+            if (!readTs || !c.lastMessageAt) return true;
+            return c.lastMessageAt.toMillis() > readTs.toMillis();
         }
         if (auth) {
             auth.onAuthStateChanged(async user => {
@@ -2730,12 +3089,14 @@
         /* ---------------- DASHBOARD ---------------- */
         function dashTabsFor(role) {
             if (role === 'talent') return [
+                { id: 'messages', label: 'Messages' }, { id: 'collabs', label: 'Collaborations' },
                 { id: 'profil', label: 'Mon profil' }, { id: 'forfaits', label: 'Forfaits & Portfolio' }, { id: 'dispo', label: 'Disponibilité' },
-                { id: 'collabs', label: 'Collaborations' }, { id: 'avis', label: 'Avis reçus' }, { id: 'stats', label: 'Statistiques' }
+                { id: 'avis', label: 'Avis reçus' }, { id: 'stats', label: 'Statistiques' }
             ];
-            return [{ id: 'compte', label: 'Compte & Plan' }, { id: 'reco', label: 'Recommandations' }, { id: 'collabs', label: 'Collaborations' }];
+            return [{ id: 'messages', label: 'Messages' }, { id: 'collabs', label: 'Collaborations' }, { id: 'compte', label: 'Compte & Plan' }, { id: 'reco', label: 'Recommandations' }];
         }
         function renderDashboard() {
+            if (collabsUnsub) { collabsUnsub(); collabsUnsub = null; }
             if (!currentUser) { document.getElementById('dash-content').innerHTML = '<p>Veuillez vous connecter.</p>'; return; }
             document.getElementById('dash-name').textContent = currentProfile ? currentProfile.nom : currentUser.email;
             document.getElementById('dash-role').textContent = currentRole === 'talent' ? 'Compte talent' : currentRole === 'business' ? 'Compte entreprise' : '—';
@@ -2822,10 +3183,12 @@
       </div>`;
             }
             else if (tab === 'collabs') {
-                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--text-soft);">Chargement...</p></div>`;
-                db.collection('collaborations').where('talentId', '==', currentUser.uid).get().then(snap => {
-                    renderCollabList(snap, 'talent');
-                }).catch(err => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>'; });
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list">${skeletonRows(3)}</div>`;
+                watchCollabList('talentId', 'talent');
+            }
+            else if (tab === 'messages') {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Messages</h3><div id="messages-list">${skeletonRows(3)}</div>`;
+                watchMessagesTab('talentId', 'talent');
             }
             else if (tab === 'avis') {
                 content.innerHTML = `<h3 style="margin-bottom:16px;">Avis reçus</h3><div id="reviews-dash"></div>`;
@@ -2860,21 +3223,69 @@
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">${list.map(t => `<div class="card">${cardHTML(t)}</div>`).join('') || '<p style="color:var(--text-soft);">Aucun talent disponible pour le moment.</p>'}</div>`;
             }
             else if (tab === 'collabs') {
-                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list"><p style="color:var(--text-soft);">Chargement...</p></div>`;
-                db.collection('collaborations').where('businessId', '==', currentUser.uid).get().then(snap => {
-                    renderCollabList(snap, 'business');
-                }).catch(err => { document.getElementById('collab-list').innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>'; });
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Mes collaborations</h3><div id="collab-list">${skeletonRows(3)}</div>`;
+                watchCollabList('businessId', 'business');
             }
+            else if (tab === 'messages') {
+                content.innerHTML = `<h3 style="margin-bottom:16px;">Messages</h3><div id="messages-list">${skeletonRows(3)}</div>`;
+                watchMessagesTab('businessId', 'business');
+            }
+        }
+        function skeletonRows(n) {
+            return Array.from({ length: n }).map(() => '<div class="skel skel-row"></div>').join('');
+        }
+        /* real-time collaboration list — updates instantly when a status changes on either side, fixing the previous stale/one-shot load */
+        function watchCollabList(field, role) {
+            if (collabsUnsub) { collabsUnsub(); collabsUnsub = null; }
+            if (!requireDb()) { document.getElementById('collab-list').innerHTML = '<p style="color:var(--coral);">Firebase non configuré.</p>'; return; }
+            collabsUnsub = db.collection('collaborations').where(field, '==', currentUser.uid).onSnapshot(snap => {
+                myCollabs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderCollabList(snap, role);
+            }, err => {
+                const el = document.getElementById('collab-list');
+                if (el) el.innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>';
+            });
+        }
+        /* messages tab — one conversation per collaboration, sorted by most recent activity, with unread state */
+        function watchMessagesTab(field, role) {
+            if (collabsUnsub) { collabsUnsub(); collabsUnsub = null; }
+            if (!requireDb()) { document.getElementById('messages-list').innerHTML = '<p style="color:var(--coral);">Firebase non configuré.</p>'; return; }
+            collabsUnsub = db.collection('collaborations').where(field, '==', currentUser.uid).onSnapshot(snap => {
+                const el = document.getElementById('messages-list');
+                if (!el) return;
+                if (snap.empty) { el.innerHTML = '<p style="color:var(--text-soft);">Aucune conversation pour le moment — elles apparaissent dès qu\'une collaboration est proposée.</p>'; return; }
+                const docs = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => {
+                    const ta = (a.lastMessageAt || a.createdAt) ? (a.lastMessageAt || a.createdAt).toMillis() : 0;
+                    const tb = (b.lastMessageAt || b.createdAt) ? (b.lastMessageAt || b.createdAt).toMillis() : 0;
+                    return tb - ta;
+                });
+                el.innerHTML = docs.map((c, i) => {
+                    const otherName = role === 'talent' ? c.businessName : c.talentNom;
+                    const unread = isUnread(c);
+                    const preview = c.lastMessage ? c.lastMessage : (c.message || 'Aucun message pour le moment');
+                    return `<div class="msg-row ${unread ? 'unread' : ''}" style="animation:msgIn .35s ease both;animation-delay:${i * 40}ms" onclick="openChat('${c.id}','${(otherName || '').replace(/'/g, "")}')">
+        <div style="min-width:0;flex:1;">
+          <p class="who">${otherName}${unread ? '<span class="unread-dot" style="margin-left:8px;"></span>' : ''}</p>
+          <span class="prev">${preview}</span>
+        </div>
+        <div class="right"><span class="time">${timeAgo(c.lastMessageAt || c.createdAt)}</span><span class="status-pill status-${c.status}">${c.status.replace('_', ' ')}</span></div>
+      </div>`;
+                }).join('');
+            }, err => {
+                const el = document.getElementById('messages-list');
+                if (el) el.innerHTML = '<p style="color:var(--coral);">Erreur : ' + err.message + '</p>';
+            });
         }
         function renderCollabList(snap, role) {
             const el = document.getElementById('collab-list');
+            if (!el) return;
             if (snap.empty) { el.innerHTML = '<p style="color:var(--text-soft);">Aucune collaboration pour le moment.</p>'; return; }
             const docs = [...snap.docs].sort((a, b) => {
                 const ta = a.data().createdAt ? a.data().createdAt.toMillis() : 0;
                 const tb = b.data().createdAt ? b.data().createdAt.toMillis() : 0;
                 return tb - ta;
             });
-            el.innerHTML = docs.map(d => {
+            el.innerHTML = docs.map((d, i) => {
                 const c = d.data(); const id = d.id;
                 const otherName = role === 'talent' ? c.businessName : c.talentNom;
                 const reviewed = c['reviewedBy_' + currentUser.uid];
@@ -2896,8 +3307,8 @@
                     }
                 }
                 if (c.deliverableURL) actions += `<a href="${c.deliverableURL}" target="_blank" class="btn btn-line btn-sm">Voir le contenu livré</a>`;
-                return `<div class="collab-item">
-      <div class="top"><span class="who">${otherName}</span><span class="status-pill status-${c.status}">${c.status.replace('_', ' ')}</span></div>
+                return `<div class="collab-item" style="animation:msgIn .35s ease both;animation-delay:${i * 40}ms">
+      <div class="top"><span class="who">${otherName}${isUnread(c) ? '<span class="unread-dot" style="margin-left:8px;"></span>' : ''}</span><span class="status-pill status-${c.status}">${c.status.replace('_', ' ')}</span></div>
       <p class="msg">${c.message || ''}${c.amount ? ' — Budget : ' + c.amount : ''}</p>
       <div class="collab-actions">${actions}</div>
     </div>`;
@@ -2914,14 +3325,15 @@
             db.collection('talents').doc(currentUser.uid).update(updated).then(() => { currentProfile = { ...currentProfile, ...updated }; renderDashboard(); });
         }
         function uploadIdDoc() {
+            if (!requireDb()) return;
             const file = document.getElementById('d-idfile').files[0];
             if (!file) return;
             compressUnderLimit(file, 700000).then(dataUrl => {
                 return db.collection('talents').doc(currentUser.uid).update({ idDocURL: dataUrl });
             }).then(() => {
                 currentProfile.idDocURL = "envoyé";
-                alert("Document envoyé. Vérification manuelle en cours.");
-            }).catch(err => { alert(err.message); });
+                toast('Document envoyé — vérification manuelle en cours.', 'success');
+            }).catch(err => { toast(err.message, 'error'); });
         }
         function toggleFeatured() {
             const val = !currentProfile.isFeatured;
