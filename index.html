@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -417,6 +417,70 @@
             #print-area { position: absolute; top: 0; left: 0; width: 100%; }
         }
 
+        /* ===== Classement des wilayas ===== */
+        .lb-row { display: flex; align-items: center; gap: 14px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 10px; cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
+        .lb-row:hover { border-color: var(--violet); transform: translateX(4px); box-shadow: 0 8px 18px rgba(27, 23, 37, 0.06); }
+        .lb-rank { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 22px; width: 40px; text-align: center; flex: 0 0 auto; }
+        .lb-main { flex: 1; min-width: 0; }
+        .lb-name { font-weight: 700; display: flex; justify-content: space-between; gap: 10px; font-size: 15px; }
+        .lb-name small { color: var(--text-soft); font-weight: 600; font-size: 12.5px; }
+        .lb-bar { height: 8px; background: var(--paper-2); border-radius: 8px; overflow: hidden; margin-top: 7px; }
+        .lb-bar span { display: block; height: 100%; background: var(--grad); border-radius: 8px; transition: width .6s ease; }
+        .lb-top { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-soft); flex: 0 0 auto; }
+        .lb-top img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 0 0 2px var(--violet); }
+        .share-preview { text-align: center; }
+        .share-preview img { width: min(250px, 62%); margin: 0 auto; border-radius: 14px; border: 1.5px solid var(--line); box-shadow: 0 10px 26px rgba(20, 18, 31, 0.15); }
+        .lang-btn { font-weight: 800; min-width: 52px; }
+
+        @media (max-width:560px) {
+            #nav-register { display: none; }
+            .lb-top span { display: none; }
+        }
+
+        /* ===== Arabe / RTL ===== */
+        html[lang="ar"] body, html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .display,
+        html[lang="ar"] .btn, html[lang="ar"] input, html[lang="ar"] select, html[lang="ar"] textarea, html[lang="ar"] button { font-family: 'Cairo', 'Inter', sans-serif; letter-spacing: 0; }
+        html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3 { line-height: 1.35; }
+        html[dir="rtl"] .story-rail-outer, html[dir="rtl"] .ticker-wrap, html[dir="rtl"] .wilaya-map, html[dir="rtl"] .logo { direction: ltr; }
+        html[dir="rtl"] .b1, html[dir="rtl"] .b2, html[dir="rtl"] .b3 { right: auto; }
+        html[dir="rtl"] .b1 { left: 6%; } html[dir="rtl"] .b2 { left: 17%; } html[dir="rtl"] .b3 { left: 5%; }
+        html[dir="rtl"] .ribbon { right: auto; left: 14px; }
+        html[dir="rtl"] .modal-close { right: auto; left: 16px; }
+        html[dir="rtl"] .modal-share { right: auto; left: 54px; }
+        html[dir="rtl"] .toast-stack { right: auto; left: 20px; }
+        html[dir="rtl"] .toast { border-left: none; border-right: 3px solid var(--violet); }
+        html[dir="rtl"] .toast.success { border-right-color: var(--teal); }
+        html[dir="rtl"] .toast.error { border-right-color: var(--coral); }
+        html[dir="rtl"] .msg-row:hover, html[dir="rtl"] .lb-row:hover { transform: translateX(-4px); }
+        html[dir="rtl"] .msg-row .right { margin-left: 0; margin-right: auto; }
+        html[dir="rtl"] .filters .count { margin-left: 0; margin-right: auto; }
+        html[dir="rtl"] .dash-tabs button { text-align: right; }
+        html[dir="rtl"] .plan-card ul { padding-left: 0; padding-right: 18px; }
+        html[dir="rtl"] .hero-search .field-cat { border-left: none; border-right: 1px solid var(--line-dark); }
+        html[dir="rtl"] .quote { border-left: none; border-right: 3px solid var(--amber); }
+        @media (max-width:860px) { html[dir="rtl"] .toast-stack { left: 12px; right: 12px; } }
+
+        /* ===== Monétisation ===== */
+        .status-validé { background: var(--teal-tint); color: var(--teal-dark); }
+        .status-en_vérification { background: var(--amber-tint); color: var(--amber-dark); }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 14px; }
+        .price-card { position: relative; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 18px 14px; text-align: center; background: #fff; transition: transform .15s, border-color .15s, box-shadow .15s; }
+        .price-card:hover { transform: translateY(-3px); border-color: var(--violet); box-shadow: 0 10px 22px rgba(27, 23, 37, 0.08); }
+        .price-card.best { border-color: var(--violet); }
+        .price-card .tagbest { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--grad); color: #fff; font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); white-space: nowrap; }
+        .price-card strong { display: block; font-family: 'Bricolage Grotesque', sans-serif; font-size: 19px; }
+        .price-card .pr { display: block; margin: 6px 0 12px; font-weight: 800; font-size: 16px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .price-card small { display: block; color: var(--text-soft); font-size: 12px; margin: -6px 0 10px; }
+        .pack-card .price-from { display: block; }
+        .pack-list { margin: 10px 0 0; padding-left: 18px; font-size: 13.5px; color: var(--text-soft); line-height: 1.8; }
+        html[dir="rtl"] .pack-list { padding-left: 0; padding-right: 18px; }
+        .pay-account { background: var(--paper); border: 1.5px dashed var(--violet); border-radius: var(--radius-sm); padding: 14px; margin: 12px 0 16px; font-size: 14px; }
+        .pay-account code { background: #fff; padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); font-weight: 700; user-select: all; }
+        .pay-warn { background: var(--amber-tint); color: var(--amber-dark); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; font-weight: 600; }
+        .ref-box { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
+        .ref-box input { flex: 1 1 220px; }
+        .hist-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; flex-wrap: wrap; }
+
         .config-banner { background: var(--coral); color: #fff; font-size: 13.5px; padding: 10px 0; text-align: center; display: none; }
         .config-banner.show { display: block; }
         .config-banner code { background: rgba(255, 255, 255, 0.2); padding: 1px 6px; border-radius: 3px; }
@@ -460,6 +524,7 @@
                 <button onclick="goToMessages()" id="nav-messages" style="display:none;position:relative;">Messages<span class="unread-dot" id="nav-messages-dot" style="display:none;margin-left:7px;"></span></button>
             </nav>
             <div class="nav-cta" id="nav-cta">
+                <button class="btn btn-line btn-sm lang-btn" id="lang-btn" onclick="toggleLang()" aria-label="Langue">عربي</button>
                 <button class="btn btn-line" onclick="go('connexion')" id="nav-login">Connexion</button>
                 <button class="btn btn-gold" onclick="go('inscription')" id="nav-register">Devenir talent</button>
             </div>
@@ -467,6 +532,7 @@
         </div>
         <div id="mnav" class="wrap">
             <div style="display:flex;flex-direction:column;gap:14px;padding:16px 0;">
+                <button onclick="toggleLang()" id="mnav-lang">عربي</button>
                 <button onclick="go('entreprises')">Entreprises</button>
                 <button onclick="go('dashboard')" id="mnav-dashboard" style="display:none;">Mon espace</button>
                 <button onclick="go('connexion')" id="mnav-login">Connexion</button>
@@ -537,6 +603,18 @@
                 </div>
             </section>
 
+            <section class="section-tight" id="lb-section" style="padding-top:0;">
+                <div class="wrap">
+                    <div class="section-head" style="margin-bottom:20px;"><h2>🏆 Classement des wilayas</h2><p>Quelle wilaya a le plus de talents ? Défends la tienne !</p></div>
+                    <div class="chips" style="margin-bottom:16px;">
+                        <button class="chip active" id="lb-b1" onclick="setLb('talents')">👥 Par talents</button>
+                        <button class="chip" id="lb-b2" onclick="setLb('vues')">👀 Par vues</button>
+                        <button class="btn btn-teal btn-sm" onclick="waShareLeaderboard()" style="margin-left:auto;">📲 Partager le classement</button>
+                    </div>
+                    <div id="lb-list"></div>
+                </div>
+            </section>
+
             <section class="section" id="comment">
                 <div class="wrap">
                     <div class="section-head"><h2>Comment ça marche</h2></div>
@@ -600,12 +678,18 @@
                     </div>
                 </div>
             </section>
+            <section class="section">
+                <div class="wrap">
+                    <div class="section-head"><h2>📦 Packs clé en main</h2><p>Un prix fixe, nous trouvons les talents et organisons la collaboration pour vous.</p></div>
+                    <div class="benefits" id="packs-grid"></div>
+                </div>
+            </section>
             <section class="section section-dark">
                 <div class="wrap">
                     <div class="section-head"><h2>Nos formules</h2></div>
                     <div class="plans">
                         <div class="plan-card"><h3>Gratuit</h3><p class="price">0 DA</p><ul><li>3 demandes de collaboration / mois</li><li>Accès complet à l'annuaire</li><li>Favoris et messagerie incluses</li></ul></div>
-                        <div class="plan-card pro"><h3>Pro</h3><p class="price">Sur devis</p><ul><li>Demandes de collaboration illimitées</li><li>Recommandations prioritaires</li><li>Support dédié</li></ul></div>
+                        <div class="plan-card pro"><h3>Pro</h3><p class="price" id="pro-price">Sur devis</p><ul><li>Demandes de collaboration illimitées</li><li>Recommandations prioritaires</li><li>Support dédié</li></ul></div>
                     </div>
                 </div>
             </section>
@@ -659,6 +743,7 @@
                                     <div><label for="t-photo">Photo de profil <span class="opt">(compressée automatiquement)</span></label><input type="file" id="t-photo" accept="image/*"></div>
                                     <div><label for="t-email">Email</label><input type="email" id="t-email" required></div>
                                     <div><label for="t-pass">Mot de passe</label><input type="password" id="t-pass" minlength="6" required></div>
+                                    <div><label for="t-ref">Code parrain <span class="opt">(optionnel)</span></label><input type="text" id="t-ref" maxlength="12" placeholder="ex : A1B2C3"></div>
                                 </div>
                                 <div class="form-error" id="talent-error"></div>
                                 <div class="form-actions"><button type="submit" class="btn btn-gold" id="t-submit-btn">Envoyer ma demande</button><span class="form-note">Un badge "vérifié" sera ajouté après contrôle manuel.</span></div>
@@ -676,6 +761,7 @@
                                     <div><label for="b-secteur">Secteur d'activité</label><input type="text" id="b-secteur" placeholder="ex : restauration, mode, e-commerce"></div>
                                     <div><label for="b-email">Email professionnel</label><input type="email" id="b-email" required></div>
                                     <div><label for="b-pass">Mot de passe</label><input type="password" id="b-pass" minlength="6" required></div>
+                                    <div><label for="b-ref">Code parrain <span class="opt">(optionnel)</span></label><input type="text" id="b-ref" maxlength="12" placeholder="ex : A1B2C3"></div>
                                     <div class="full"><label for="b-besoin">Type de collaborations recherchées</label><textarea id="b-besoin"></textarea></div>
                                 </div>
                                 <div class="form-error" id="business-error"></div>
@@ -754,51 +840,87 @@
            rules_version = '2';
            service cloud.firestore {
              match /databases/{database}/documents {
-               function isAdmin() { return request.auth != null && request.auth.token.email == 'admin@nujoom.dz'; }
+
+               function signedIn() { return request.auth != null; }
+               function isAdmin() { return signedIn() && request.auth.token.email == 'commsight.contact@gmail.com'; }
 
                match /talents/{id} {
                  allow read: if true;
-                 allow create: if request.auth != null && request.auth.uid == id;
-                 allow update: if (request.auth != null && request.auth.uid == id)
-                   || isAdmin()
+                 allow create: if signedIn() && request.auth.uid == id
+                   && request.resource.data.isFeatured == false
+                   && request.resource.data.verified == false
+                   && request.resource.data.idVerified == false;
+                 allow update: if isAdmin()
+                   || (signedIn() && request.auth.uid == id
+                       && !request.resource.data.diff(resource.data).affectedKeys()
+                            .hasAny(['isFeatured','featuredUntil','verified','idVerified','ratingAvg','ratingCount','viewCount']))
                    || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewCount'])
                        && request.resource.data.viewCount == resource.data.viewCount + 1)
-                   || (request.auth != null
-                       && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingAvg','ratingCount']));
+                   || (signedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingAvg','ratingCount']));
                }
+
                match /businesses/{id} {
-                 allow read: if request.auth != null;
-                 allow create: if request.auth != null && request.auth.uid == id;
-                 allow update: if request.auth != null && (request.auth.uid == id
-                   || request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingAvg','ratingCount']));
+                 allow read: if signedIn();
+                 allow create: if signedIn() && request.auth.uid == id && request.resource.data.plan == 'free';
+                 allow update: if isAdmin()
+                   || (signedIn() && request.auth.uid == id
+                       && !request.resource.data.diff(resource.data).affectedKeys()
+                            .hasAny(['plan','proUntil','ratingAvg','ratingCount']))
+                   || (signedIn() && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ratingAvg','ratingCount']));
                }
+
                match /collaborations/{cid} {
-                 allow create: if request.auth != null && request.resource.data.businessId == request.auth.uid;
-                 allow read, update: if request.auth != null
-                   && (resource.data.businessId == request.auth.uid || resource.data.talentId == request.auth.uid);
+                 function isParty() {
+                   return signedIn() && (resource.data.businessId == request.auth.uid || resource.data.talentId == request.auth.uid);
+                 }
+                 allow create: if signedIn() && request.resource.data.businessId == request.auth.uid
+                   && request.resource.data.status == 'en_attente';
+                 allow read: if isParty() || isAdmin();
+                 // seul l'admin peut passer une collaboration à "payé" et écrire les montants/commissions
+                 allow update: if isAdmin()
+                   || (isParty()
+                       && (request.resource.data.status != 'payé' || resource.data.status == 'payé')
+                       && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['paidAmount','commission','netAmount']));
+
                  match /messages/{mid} {
-                   allow read, create: if request.auth != null
+                   allow read, create: if signedIn()
                      && (get(/databases/$(database)/documents/collaborations/$(cid)).data.businessId == request.auth.uid
-                      || get(/databases/$(database)/documents/collaborations/$(cid)).data.talentId == request.auth.uid);
+                         || get(/databases/$(database)/documents/collaborations/$(cid)).data.talentId == request.auth.uid);
                  }
                }
+
+               match /payments/{id} {
+                 allow create: if signedIn() && request.resource.data.userId == request.auth.uid
+                   && request.resource.data.status == 'en_attente';
+                 allow read: if isAdmin() || (signedIn() && resource.data.userId == request.auth.uid);
+                 allow update: if isAdmin();
+               }
+
+               match /payouts/{uid} {
+                 allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+                 allow create, update: if signedIn() && request.auth.uid == uid;
+               }
+
                match /reviews/{id} {
                  allow read: if true;
-                 allow create: if request.auth != null && request.resource.data.fromId == request.auth.uid;
+                 allow create: if signedIn() && request.resource.data.fromId == request.auth.uid;
                }
+
                match /invoices/{id} {
-                 allow read: if request.auth != null
-                   && (resource.data.businessId == request.auth.uid || resource.data.talentId == request.auth.uid);
-                 allow create: if request.auth != null && request.resource.data.businessId == request.auth.uid;
+                 allow read: if isAdmin() || (signedIn()
+                   && (resource.data.businessId == request.auth.uid || resource.data.talentId == request.auth.uid));
+                 allow create: if isAdmin() || (signedIn() && request.resource.data.businessId == request.auth.uid);
                }
+
                match /stories/{id} {
                  allow read: if true;
-                 allow create: if request.auth != null && request.resource.data.talentId == request.auth.uid;
-                 allow delete: if request.auth != null && resource.data.talentId == request.auth.uid;
+                 allow create: if signedIn() && request.resource.data.talentId == request.auth.uid;
+                 allow delete: if signedIn() && resource.data.talentId == request.auth.uid;
                }
+
                match /idDocs/{id} {
                  allow read: if isAdmin();
-                 allow create, update: if request.auth != null && request.auth.uid == id;
+                 allow create, update: if signedIn() && request.auth.uid == id;
                }
              }
            }
@@ -813,7 +935,7 @@
             messagingSenderId: "672502375150",
             appId: "1:672502375150:web:2dc5383106214ff35d89ff"
         };
-        const ADMIN_EMAIL = "admin@nujoom.dz";
+        const ADMIN_EMAIL = "commsight.contact@gmail.com";
 
         let firebaseReady = false;
         try {
@@ -954,13 +1076,14 @@
             document.getElementById('mnav').classList.remove('open');
             document.querySelector('.hamburger').classList.remove('open');
             if (page === 'connexion') document.getElementById('success-login').classList.remove('show');
-            if (page === 'inscription') ['success-talent', 'success-business'].forEach(id => document.getElementById(id).classList.remove('show'));
+            if (page === 'inscription') { ['success-talent', 'success-business'].forEach(id => document.getElementById(id).classList.remove('show')); prefillRef(); }
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (location.hash.replace('#', '') !== page) location.hash = page;
             if (page === 'dashboard') renderDashboard();
         }
         function routeFromHash() {
             const h = location.hash.replace('#', '');
+            if (h.startsWith('ref-')) { try { localStorage.setItem('cdz_ref', cleanRef(h.slice(4))); } catch (e) { } go('inscription'); return; }
             if (h.startsWith('profil-')) { pendingProfile = h.slice(7); tryOpenPending(); return; }
             if (h === 'dashboard' && !authReady) { wantDash = true; return; }
             if (PAGES.includes(h) && h !== currentPage) go(h);
@@ -1129,7 +1252,7 @@
         /* ---------------- CARDS ---------------- */
         function sortForDisplay(list) {
             return [...list].sort((a, b) => {
-                if (!!b.isFeatured !== !!a.isFeatured) return (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0);
+                if (featuredActive(b) !== featuredActive(a)) return (featuredActive(b) ? 1 : 0) - (featuredActive(a) ? 1 : 0);
                 if (!!b.verified !== !!a.verified) return (b.verified ? 1 : 0) - (a.verified ? 1 : 0);
                 return (b.ratingAvg || 0) - (a.ratingAvg || 0);
             });
@@ -1155,7 +1278,7 @@
             const live = (storiesByTalent[t.id] || []).length > 0;
             const fav = isFav(t.id);
             return `
-    ${t.isFeatured ? '<span class="ribbon">En vedette</span>' : ''}
+    ${featuredActive(t) ? '<span class="ribbon">En vedette</span>' : ''}
     <div class="photo${live ? ' live' : ''}" ${live ? `onclick="openStories('${t.id}')" title="Voir la story"` : ''}><img src="${esc(safeImg(t.photoURL) || 'https://i.pravatar.cc/200?u=' + t.id)}" alt="${esc(t.nom)}"></div>
     <div class="body">
       <div class="top-row"><h3>${esc(t.nom)}</h3>${t.verified ? `<span class="badge-verified" title="Réseaux sociaux vérifiés">${ICONS.check}</span>` : ''}${t.idVerified ? `<span class="badge-id" title="Identité vérifiée">${ICONS.check}</span>` : ''}</div>
@@ -1238,7 +1361,7 @@
 
             document.getElementById('modal-content').innerHTML = `
     <div class="modal-head">
-      <button class="modal-share" onclick="shareProfile('${t.id}','${jsq(t.nom)}')">🔗 Partager</button>
+      <button class="modal-share" onclick="openShareSheet('${t.id}')">🔗 Partager</button>
       <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
       <div class="photo"><img src="${esc(safeImg(t.photoURL) || 'https://i.pravatar.cc/200?u=' + t.id)}" alt="${esc(t.nom)}"></div>
       <div><h3>${esc(t.nom)} ${t.verified ? '✓' : ''}</h3><p class="meta">📍 ${esc(t.wilaya)} — ${CAT_EMOJI[t.cat] || ''} ${esc(t.cat)}</p><div class="rating-line" style="color:#fff;">${starsHTML(t.ratingAvg, t.ratingCount)}</div>
@@ -1364,8 +1487,8 @@
             const biz = currentProfile || {};
             const month = new Date().toISOString().slice(0, 7);
             const count = biz.requestMonth === month ? (biz.requestCount || 0) : 0;
-            if ((biz.plan || 'free') === 'free' && count >= 3) {
-                document.getElementById('contact-zone').innerHTML = `<p style="color:var(--coral);">Quota gratuit atteint (3 demandes / mois). <button class="btn btn-gold btn-sm" onclick="upgradeToPro()">Passer en formule Pro</button></p>`;
+            if (!planActive(biz) && count >= quotaFor()) {
+                document.getElementById('contact-zone').innerHTML = `<p style="color:var(--coral);">Quota gratuit atteint (' + quotaFor() + ' demandes / mois). Parraine un ami pour +2, ou <button class="btn btn-gold btn-sm" onclick="upgradeToPro()">Passer en formule Pro</button></p>`;
                 return false;
             }
             const msg = document.getElementById('collab-msg').value.trim();
@@ -1393,10 +1516,7 @@
             });
             return false;
         }
-        function upgradeToPro() {
-            if (!requireDb()) return;
-            db.collection('businesses').doc(currentUser.uid).update({ plan: 'pro' }).then(() => { currentProfile.plan = 'pro'; renderDashboard(); closeModal(); toast('Formule Pro activée 🚀', 'success'); }).catch(err => toast('Erreur : ' + err.message, 'error'));
-        }
+        function upgradeToPro() { closeModal(); openProPlans(); }
         function updateCollabStatus(id, status) {
             if (!requireDb()) return;
             db.collection('collaborations').doc(id).update({ status, updatedAt: firebase.firestore.FieldValue.serverTimestamp() })
@@ -1423,23 +1543,6 @@
                 .then(() => toast('Contre-offre envoyée', 'success'))
                 .catch(err => toast('Erreur : ' + err.message, 'error'));
         }
-        function markPaid(id) {
-            if (!requireDb()) return;
-            const c = myCollabs.find(x => x.id === id);
-            if (!c) return;
-            if (!confirm('Confirmer le paiement' + (c.amount ? ' de ' + c.amount : '') + ' à ' + c.talentNom + ' ?')) return;
-            db.collection('collaborations').doc(id).update({ status: 'payé', updatedAt: firebase.firestore.FieldValue.serverTimestamp() }).then(() => {
-                return db.collection('invoices').add({
-                    collaborationId: id, businessId: c.businessId, businessName: c.businessName, talentId: c.talentId, talentNom: c.talentNom,
-                    amount: c.amount || '—', description: 'Collaboration Collabo-DZ' + (c.type ? ' — ' + c.type : ''),
-                    invoiceNo: 'CDZ-' + Date.now().toString().slice(-7),
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            }).then(() => {
-                toast('Paiement confirmé — facture générée 🎉', 'success');
-                burstConfetti(null);
-            }).catch(err => toast('Erreur : ' + err.message, 'error'));
-        }
         function viewInvoice(collabId) {
             if (!requireDb()) return;
             db.collection('invoices').where('collaborationId', '==', collabId).limit(1).get().then(snap => {
@@ -1455,6 +1558,7 @@
           <div class="row"><span>Entreprise</span><strong>${esc(inv.businessName)}</strong></div>
           <div class="row"><span>Talent</span><strong>${esc(inv.talentNom)}</strong></div>
           <div class="row"><span>Description</span><span>${esc(inv.description)}</span></div>
+          ${inv.commission != null ? `<div class="row"><span>Commission Collabo-DZ</span><span>- ${esc(fmtDA(inv.commission))}</span></div><div class="row"><span>Net versé au talent</span><strong>${esc(fmtDA(inv.net))}</strong></div>` : ''}
           <p class="total">${esc(inv.amount)}</p>
         </div>
         <div style="margin-top:16px;text-align:right;"><button class="btn btn-ghost" onclick="window.print()">Imprimer / PDF</button></div>
@@ -1596,7 +1700,7 @@
                         instagram: document.getElementById('t-insta').value, tiktok: document.getElementById('t-tiktok').value, snapchat: document.getElementById('t-snap').value,
                         verified: false, idVerified: false, idDocSent: false, isFeatured: false, photoURL: photoDataUrl,
                         engagementRate: 0, audienceAge: "", audienceGeo: "", packages: [], portfolio: [], busyDates: [],
-                        viewCount: 0, ratingAvg: 0, ratingCount: 0,
+                        viewCount: 0, ratingAvg: 0, ratingCount: 0, referredBy: cleanRef(document.getElementById('t-ref').value),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     };
                     return db.collection('talents').doc(cred.user.uid).set(profile);
@@ -1616,7 +1720,7 @@
                 return db.collection('businesses').doc(cred.user.uid).set({
                     nom: document.getElementById('b-nom').value.trim(), wilaya: document.getElementById('b-wilaya').value,
                     secteur: document.getElementById('b-secteur').value, email, besoin: document.getElementById('b-besoin').value,
-                    plan: 'free', requestCount: 0, requestMonth: new Date().toISOString().slice(0, 7), favorites: [], ratingAvg: 0, ratingCount: 0,
+                    plan: 'free', requestCount: 0, requestMonth: new Date().toISOString().slice(0, 7), favorites: [], ratingAvg: 0, ratingCount: 0, referredBy: cleanRef(document.getElementById('b-ref').value),
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
             }).then(() => finishSignup('success-business', btn, 'Créer mon compte entreprise'))
@@ -1691,6 +1795,7 @@
                 currentUser = user;
                 if (!signupInProgress) { try { await loadProfile(user); } catch (e) { console.error(e); currentRole = null; currentProfile = null; } }
                 authReady = true;
+                if (user) loadReferralCount(); else currentRefs = 0;
                 updateNavForAuth();
                 if (signupInProgress) return;
                 if (wantDash) { wantDash = false; go(user ? 'dashboard' : 'connexion'); }
@@ -1703,12 +1808,12 @@
         function dashTabsFor(role) {
             if (role === 'talent') return [
                 { id: 'home', label: "🏠 Vue d'ensemble" }, { id: 'messages', label: '💬 Messages' }, { id: 'collabs', label: '🤝 Collaborations' },
-                { id: 'stories', label: '📸 Stories' }, { id: 'profil', label: '👤 Mon profil' }, { id: 'forfaits', label: '💼 Forfaits & Portfolio' },
+                { id: 'money', label: '💰 Gains & Parrainage' }, { id: 'stories', label: '📸 Stories' }, { id: 'profil', label: '👤 Mon profil' }, { id: 'forfaits', label: '💼 Forfaits & Portfolio' },
                 { id: 'dispo', label: '📅 Disponibilité' }, { id: 'avis', label: '⭐ Avis reçus' }
             ];
             return [
                 { id: 'home', label: "🏠 Vue d'ensemble" }, { id: 'messages', label: '💬 Messages' }, { id: 'collabs', label: '🤝 Collaborations' },
-                { id: 'favoris', label: '♥ Favoris' }, { id: 'reco', label: '✨ Recommandations' }, { id: 'compte', label: '⚙️ Compte & Plan' }
+                { id: 'money', label: '💳 Pro, Packs & Parrainage' }, { id: 'favoris', label: '♥ Favoris' }, { id: 'reco', label: '✨ Recommandations' }, { id: 'compte', label: '⚙️ Compte & Plan' }
             ];
         }
         function renderDashboard() {
@@ -1727,7 +1832,7 @@
             else if (currentRole === 'business') renderBusinessDashTab(content, activeCollabTab);
             else content.innerHTML = '<p style="color:var(--text-soft);">Profil introuvable. Si vous venez de vous inscrire, rechargez la page.</p>';
 
-            if (currentUser.email === ADMIN_EMAIL) renderAdminPanel(content);
+            if (currentUser.email === ADMIN_EMAIL) { renderAdminMoney(content); renderAdminPanel(content); }
         }
         function setDashTab(id) { activeCollabTab = id; renderDashboard(); }
         function skeletonRows(n) { return Array.from({ length: n }).map(() => '<div class="skel skel-row"></div>').join(''); }
@@ -1750,11 +1855,11 @@
                 html = `<div class="kpis">${kpi('k1', esc(p.viewCount || 0), '👀 vues du profil')}${kpi('k2', (p.ratingAvg || 0).toFixed(1) + '/5', '⭐ note (' + (p.ratingCount || 0) + ' avis)')}${kpi('k3', '…', '📩 demandes à traiter')}${kpi('k4', '…', '💸 revenus encaissés')}</div>
       <div class="card-block"><h3>Profil complété à ${pct}% ${pct === 100 ? '🔥' : ''}</h3><div class="stat-bar"><span style="width:${pct}%"></span></div>
         ${todo.length ? `<p style="font-size:13px;color:var(--text-soft);margin:14px 0 10px;">Les profils complets reçoivent plus de demandes :</p><div class="chips">${todo.map(c => `<button class="chip" onclick="setDashTab('${c[2]}')">+ ${c[0]}</button>`).join('')}</div>` : '<p style="font-size:13.5px;color:var(--teal-dark);margin-top:12px;font-weight:600;">Parfait, ton profil est au top !</p>'}</div>
-      <div class="card-block"><h3>Actions rapides</h3><div class="collab-actions"><button class="btn btn-gold btn-sm" onclick="setDashTab('stories')">📸 Poster une story</button><button class="btn btn-line btn-sm" onclick="setDashTab('collabs')">🤝 Mes collaborations</button><button class="btn btn-line btn-sm" onclick="shareProfile('${currentUser.uid}','${jsq(p.nom)}')">🔗 Partager mon profil</button></div></div>`;
+      <div class="card-block"><h3>Actions rapides</h3><div class="collab-actions"><button class="btn btn-gold btn-sm" onclick="setDashTab('stories')">📸 Poster une story</button><button class="btn btn-line btn-sm" onclick="setDashTab('collabs')">🤝 Mes collaborations</button><button class="btn btn-line btn-sm" onclick="openShareSheet('${currentUser.uid}')">🔗 Partager mon profil</button></div></div>`;
             } else {
                 const month = new Date().toISOString().slice(0, 7);
                 const used = p.requestMonth === month ? (p.requestCount || 0) : 0;
-                html = `<div class="kpis">${kpi('k1', p.plan === 'pro' ? used + ' ∞' : used + '/3', '📤 demandes ce mois-ci')}${kpi('k2', '…', '🔄 collabs en cours')}${kpi('k3', (p.favorites || []).length, '♥ favoris')}${kpi('k4', '…', '💸 budget payé')}</div>
+                html = `<div class="kpis">${kpi('k1', planActive(p) ? used + ' ∞' : used + '/' + quotaFor(), '📤 demandes ce mois-ci')}${kpi('k2', '…', '🔄 collabs en cours')}${kpi('k3', (p.favorites || []).length, '♥ favoris')}${kpi('k4', '…', '💸 budget payé')}</div>
       <div class="card-block"><h3>Actions rapides</h3><div class="collab-actions"><button class="btn btn-gold btn-sm" onclick="go('annuaire')">🔎 Trouver un talent</button><button class="btn btn-line btn-sm" onclick="setDashTab('reco')">✨ Recommandations</button><button class="btn btn-line btn-sm" onclick="setDashTab('favoris')">♥ Mes favoris</button></div></div>`;
             }
             content.innerHTML = html;
@@ -1762,14 +1867,15 @@
             db.collection('collaborations').where(field, '==', currentUser.uid).get().then(snap => {
                 if (activeCollabTab !== 'home') return;
                 const cs = snap.docs.map(d => d.data());
-                const paid = cs.filter(c => c.status === 'payé').reduce((s, c) => s + parseAmount(c.amount), 0);
+                const paid = cs.filter(c => c.status === 'payé').reduce((s, c) => s + (role === 'talent' ? (c.netAmount != null ? c.netAmount : Math.round(parseAmount(c.amount) * (1 - COMMISSION_RATE))) : parseAmount(c.amount)), 0);
                 if (role === 'talent') { setText('k3', cs.filter(c => c.status === 'en_attente').length); setText('k4', fmtDA(paid)); }
                 else { setText('k2', cs.filter(c => ['en_attente', 'accepté', 'contenu_livré'].includes(c.status)).length); setText('k4', fmtDA(paid)); }
             }).catch(() => { if (role === 'talent') { setText('k3', '—'); setText('k4', '—'); } else { setText('k2', '—'); setText('k4', '—'); } });
         }
 
         function renderTalentDashTab(content, tab) {
-            if (tab === 'home') { renderOverview(content, 'talent'); }
+            if (tab === 'money') { renderMoneyTab(content, 'talent'); }
+            else if (tab === 'home') { renderOverview(content, 'talent'); }
             else if (tab === 'profil') {
                 const p = currentProfile;
                 content.innerHTML = `
@@ -1803,12 +1909,6 @@
         <label for="d-idfile">Photo de votre pièce d'identité <span class="opt">(JPG/PNG, compressée automatiquement, visible uniquement par l'admin)</span></label>
         <input type="file" id="d-idfile" accept="image/*">
         <div class="form-actions"><button class="btn btn-ghost" onclick="uploadIdDoc()">Envoyer le document</button></div>
-      </div>
-      <div class="card-block">
-        <h3>Mise en avant</h3>
-        <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px;">Profil en vedette : <strong>${p.isFeatured ? 'Activé' : 'Désactivé'}</strong></p>
-        <button class="btn ${p.isFeatured ? 'btn-danger' : 'btn-gold'}" onclick="toggleFeatured()">${p.isFeatured ? 'Désactiver la mise en avant' : 'Mettre mon profil en avant (démo)'}</button>
-        <p class="form-note" style="margin-top:10px;">Version de démonstration : à remplacer par un vrai paiement avant mise en production.</p>
       </div>`;
                 fillSelect(document.getElementById('d-wilaya'), WILAYAS); fillSelect(document.getElementById('d-cat'), CATEGORIES);
                 document.getElementById('d-wilaya').value = p.wilaya || ''; document.getElementById('d-cat').value = p.cat || '';
@@ -1871,7 +1971,8 @@
         }
         function renderBusinessDashTab(content, tab) {
             const p = currentProfile;
-            if (tab === 'home') { renderOverview(content, 'business'); }
+            if (tab === 'money') { renderMoneyTab(content, 'business'); }
+            else if (tab === 'home') { renderOverview(content, 'business'); }
             else if (tab === 'compte') {
                 const month = new Date().toISOString().slice(0, 7);
                 const used = p.requestMonth === month ? (p.requestCount || 0) : 0;
@@ -1887,8 +1988,8 @@
       </div>
       <div class="card-block">
         <h3>Formule</h3>
-        <p style="font-size:14.5px;">Formule actuelle : <strong>${p.plan === 'pro' ? 'Pro' : 'Gratuite'}</strong></p>
-        ${p.plan !== 'pro' ? `<p style="font-size:13px;color:var(--text-soft);margin-top:4px;">${used} / 3 demandes utilisées ce mois-ci</p><button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="upgradeToPro()">Passer en formule Pro</button>` : ''}
+        <p style="font-size:14.5px;">Formule actuelle : <strong>${planActive(p) ? 'Pro' + (p.proUntil ? ' (jusqu\'au ' + fmtDate(p.proUntil) + ')' : '') : 'Gratuite'}</strong></p>
+        ${!planActive(p) ? `<p style="font-size:13px;color:var(--text-soft);margin-top:4px;">${used} / ${quotaFor()} demandes utilisées ce mois-ci</p><button class="btn btn-gold btn-sm" style="margin-top:12px;" onclick="upgradeToPro()">Passer en formule Pro</button>` : ''}
       </div>`;
             }
             else if (tab === 'favoris') {
@@ -1977,7 +2078,7 @@
                     if (c.status === 'accepté') actions += `<button class="btn btn-gold btn-sm" onclick="setDeliverable('${id}')">Marquer contenu livré</button>`;
                 } else {
                     if (c.status === 'en_attente') actions += `<button class="btn btn-danger btn-sm" onclick="updateCollabStatus('${id}','refusé')">Annuler</button>`;
-                    if (c.status === 'contenu_livré') actions += `<button class="btn btn-teal btn-sm" onclick="markPaid('${id}')">Valider et marquer payé</button>`;
+                    if (c.status === 'contenu_livré') actions += c.paymentStatus === 'en_vérification' ? `<span class="status-pill status-en_vérification">⏳ Paiement en vérification</span>` : `<button class="btn btn-teal btn-sm" onclick="payCollab('${id}')">💳 Valider et payer</button>`;
                 }
                 if (c.status === 'payé') {
                     actions += `<button class="btn btn-line btn-sm" onclick="viewInvoice('${id}')">🧾 Facture</button>`;
@@ -1986,7 +2087,7 @@
                 if (safeUrl(c.deliverableURL)) actions += `<a href="${esc(safeUrl(c.deliverableURL))}" target="_blank" rel="noopener noreferrer" class="btn btn-line btn-sm">Voir le contenu livré</a>`;
                 return `<div class="collab-item" style="animation:msgIn .35s ease both;animation-delay:${Math.min(i, 8) * 40}ms">
       <div class="top"><span class="who">${esc(otherName)}${isUnread(c) ? '<span class="unread-dot" style="margin-left:8px;"></span>' : ''}</span><span class="status-pill status-${c.status}">${STATUS_LABEL[c.status] || esc(c.status)}</span></div>
-      <div class="meta-line">${c.type ? `<span>🎬 ${esc(c.type)}</span>` : ''}${c.deadline ? `<span>📅 ${esc(c.deadline)}</span>` : ''}${c.amount ? `<span>💰 ${esc(c.amount)}</span>` : ''}</div>
+      <div class="meta-line">${c.type ? `<span>🎬 ${esc(c.type)}</span>` : ''}${c.deadline ? `<span>📅 ${esc(c.deadline)}</span>` : ''}${c.amount ? `<span>💰 ${esc(c.amount)}</span>` : ''}${c.amount && role === 'talent' && c.status !== 'payé' ? `<span>🏷️ net ≈ ${esc(fmtDA(Math.round(parseAmount(c.amount) * (1 - COMMISSION_RATE))))}</span>` : ''}${c.paymentStatus === 'en_vérification' && c.status !== 'payé' ? '<span>⏳ Paiement en vérification</span>' : c.paymentStatus === 'refusé' && c.status !== 'payé' ? '<span>❌ Paiement refusé — réessayez</span>' : ''}</div>
       <p class="msg">${esc(c.message || '')}</p>
       ${stepperHTML(c.status)}
       <div class="collab-actions">${actions}</div>
@@ -2031,11 +2132,6 @@
                 currentProfile.idDocSent = true;
                 toast('Document envoyé — vérification manuelle en cours.', 'success'); renderDashboard();
             } catch (err) { toast(err.message, 'error'); }
-        }
-        function toggleFeatured() {
-            if (!requireDb()) return;
-            const val = !currentProfile.isFeatured;
-            db.collection('talents').doc(currentUser.uid).update({ isFeatured: val }).then(() => { currentProfile.isFeatured = val; renderDashboard(); }).catch(err => toast('Erreur : ' + err.message, 'error'));
         }
         function addPkg() { window._pkgState.push({ label: '', price: '' }); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
         function removePkg(i) { window._pkgState.splice(i, 1); renderTalentDashTab(document.getElementById('dash-content'), 'forfaits'); }
@@ -2120,6 +2216,676 @@
             }).catch(err => toast('Erreur : ' + err.message, 'error'));
         }
         function adminVerify(id) { db.collection('talents').doc(id).update({ idVerified: true, verified: true }).then(() => { toast('Talent vérifié ✅', 'success'); renderDashboard(); }).catch(err => toast('Erreur : ' + err.message, 'error')); }
+
+        /* =========================================================================
+           NOUVEAUTÉS : WhatsApp · carte de profil partageable · classement des wilayas · arabe
+           ========================================================================= */
+
+        /* ---------- Partage : WhatsApp + lien ---------- */
+        function profileUrl(id) { return location.href.split('#')[0] + '#profil-' + id; }
+        function openWhatsApp(text) { window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener'); }
+        function waShare(id) {
+            const t = allTalents().find(x => x.id === id); if (!t) return;
+            openWhatsApp('🔥 Découvre ' + t.nom + ' (' + (CAT_EMOJI[t.cat] || '') + ' ' + t.cat + ', 📍 ' + t.wilaya + ') sur Collabo-DZ :\n' + profileUrl(id));
+        }
+        function copyProfileLink(id) {
+            const url = profileUrl(id);
+            if (navigator.clipboard) navigator.clipboard.writeText(url).then(() => toast('Lien copié 🔗', 'success')).catch(() => toast(url));
+            else toast(url);
+        }
+
+        /* ---------- Carte de profil partageable (image 1080×1920, format story) ---------- */
+        function rr(g, x, y, w, h, r) {
+            g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+        }
+        function wrapLines(g, text, maxW, maxLines) {
+            const words = String(text || '').split(' '); const lines = []; let cur = '';
+            for (const w of words) {
+                const test = cur ? cur + ' ' + w : w;
+                if (g.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; } else cur = test;
+            }
+            if (cur) lines.push(cur);
+            return lines.slice(0, maxLines);
+        }
+        function loadImg(src) {
+            return new Promise(res => {
+                const i = new Image();
+                if (!/^data:/i.test(src)) i.crossOrigin = 'anonymous';
+                i.onload = () => res(i); i.onerror = () => res(null);
+                setTimeout(() => res(null), 6000);
+                i.src = src;
+            });
+        }
+        async function buildShareCard(t, noPhoto) {
+            const W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H;
+            const g = c.getContext('2d');
+            try { await Promise.all([document.fonts.load('800 80px "Bricolage Grotesque"'), document.fonts.load('600 40px Inter')]); } catch (e) { }
+            const DISPLAY = '"Bricolage Grotesque", Inter, sans-serif', BODY = 'Inter, sans-serif';
+            g.fillStyle = '#14121F'; g.fillRect(0, 0, W, H);
+            [[W, 0, 950, '255,92,122'], [0, H, 1150, '123,92,250'], [0, H * 0.5, 650, '255,180,67']].forEach(([x, y, rad, col]) => {
+                const r = g.createRadialGradient(x, y, 0, x, y, rad);
+                r.addColorStop(0, 'rgba(' + col + ',.45)'); r.addColorStop(1, 'rgba(' + col + ',0)');
+                g.fillStyle = r; g.fillRect(0, 0, W, H);
+            });
+            g.textAlign = 'center'; g.fillStyle = '#fff'; g.font = '800 56px ' + DISPLAY; g.fillText('Collabo.DZ', W / 2, 150);
+
+            const cx = W / 2, cy = 520, R = 250;
+            let ring;
+            if (g.createConicGradient) {
+                ring = g.createConicGradient(Math.PI * 0.7, cx, cy);
+                ring.addColorStop(0, '#FF5C7A'); ring.addColorStop(0.33, '#7B5CFA'); ring.addColorStop(0.66, '#FFB443'); ring.addColorStop(1, '#FF5C7A');
+            } else {
+                ring = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+                ring.addColorStop(0, '#FF5C7A'); ring.addColorStop(0.5, '#7B5CFA'); ring.addColorStop(1, '#FFB443');
+            }
+            g.fillStyle = ring; g.beginPath(); g.arc(cx, cy, R + 20, 0, Math.PI * 2); g.fill();
+            g.fillStyle = '#14121F'; g.beginPath(); g.arc(cx, cy, R + 7, 0, Math.PI * 2); g.fill();
+            const src = safeImg(t.photoURL) || ('https://i.pravatar.cc/500?u=' + t.id);
+            const img = noPhoto ? null : await loadImg(src);
+            g.save(); g.beginPath(); g.arc(cx, cy, R, 0, Math.PI * 2); g.clip();
+            if (img) {
+                const s = Math.max(2 * R / img.width, 2 * R / img.height), w = img.width * s, h = img.height * s;
+                g.drawImage(img, cx - w / 2, cy - h / 2, w, h);
+            } else {
+                g.fillStyle = '#2A2542'; g.fillRect(cx - R, cy - R, 2 * R, 2 * R);
+                g.fillStyle = '#fff'; g.font = '800 240px ' + DISPLAY; g.textBaseline = 'middle';
+                g.fillText((t.nom || '?').trim().charAt(0).toUpperCase(), cx, cy + 12); g.textBaseline = 'alphabetic';
+            }
+            g.restore();
+
+            let y = 890;
+            g.fillStyle = '#fff'; g.font = '800 94px ' + DISPLAY;
+            const lines = wrapLines(g, t.nom, 900, 2);
+            lines.forEach((l, i) => g.fillText(l, W / 2, y + i * 106));
+            y += lines.length * 106 - 10;
+            if (t.verified) {
+                g.font = '700 36px ' + BODY; const label = '✓  Profil vérifié', tw = g.measureText(label).width + 60;
+                g.fillStyle = '#7B5CFA'; rr(g, W / 2 - tw / 2, y + 10, tw, 66, 33); g.fill();
+                g.fillStyle = '#fff'; g.fillText(label, W / 2, y + 56); y += 96;
+            } else y += 30;
+            g.fillStyle = '#D8D3EE'; g.font = '600 46px ' + BODY;
+            g.fillText('📍 ' + (t.wilaya || '') + '   ' + (CAT_EMOJI[t.cat] || '') + ' ' + (t.cat || ''), W / 2, y + 40); y += 110;
+
+            /* note */
+            if ((t.ratingCount || 0) > 0) {
+                const full = Math.round(t.ratingAvg || 0), a = '★'.repeat(full), b = '★'.repeat(5 - full);
+                g.font = '700 60px ' + BODY;
+                const wa = g.measureText(a).width, wb = g.measureText(b).width; g.textAlign = 'left';
+                const label = '  ' + (t.ratingAvg || 0).toFixed(1) + ' (' + t.ratingCount + ')'; g.font = '600 40px ' + BODY;
+                const wl = g.measureText(label).width; let x = W / 2 - (wa + wb + wl) / 2;
+                g.font = '700 60px ' + BODY; g.fillStyle = '#FFB443'; g.fillText(a, x, y + 30); x += wa;
+                g.fillStyle = 'rgba(255,255,255,.25)'; g.fillText(b, x, y + 30); x += wb;
+                g.font = '600 40px ' + BODY; g.fillStyle = '#D8D3EE'; g.fillText(label, x, y + 28); g.textAlign = 'center';
+            } else { g.fillStyle = '#FFB443'; g.font = '700 46px ' + BODY; g.fillText('✨ Nouveau talent', W / 2, y + 30); }
+            y += 100;
+
+            /* stats */
+            const boxes = [[(t.abonnes || '—'), 'abonnés'], [String(t.viewCount || 0), 'vues du profil']];
+            boxes.forEach((bx, i) => {
+                const x = 90 + i * 450, w = 420;
+                g.fillStyle = 'rgba(255,255,255,.08)'; rr(g, x, y, w, 190, 28); g.fill();
+                g.strokeStyle = 'rgba(255,255,255,.15)'; g.lineWidth = 2; rr(g, x, y, w, 190, 28); g.stroke();
+                g.fillStyle = '#fff'; g.font = '800 76px ' + DISPLAY; g.fillText(bx[0], x + w / 2, y + 100);
+                g.fillStyle = '#B4AFC9'; g.font = '600 34px ' + BODY; g.fillText(bx[1], x + w / 2, y + 152);
+            });
+            y += 290;
+
+            /* appel à l'action */
+            const grad = g.createLinearGradient(110, y, W - 110, y + 130);
+            grad.addColorStop(0, '#FF5C7A'); grad.addColorStop(0.6, '#7B5CFA'); grad.addColorStop(1, '#FFB443');
+            g.fillStyle = grad; rr(g, 110, y, W - 220, 132, 66); g.fill();
+            g.fillStyle = '#fff'; g.font = '800 54px ' + DISPLAY; g.fillText('Collabore avec moi 🤝', W / 2, y + 85);
+            g.fillStyle = '#B4AFC9'; g.font = '600 36px ' + BODY; g.fillText('Retrouve mon profil sur Collabo-DZ', W / 2, y + 205);
+            g.font = '600 32px ' + BODY; g.fillText('Talents locaux · Algérie 🇩🇿', W / 2, H - 55);
+            return c.toDataURL('image/png');
+        }
+        async function getShareCard(t) {
+            try { return await buildShareCard(t, false); }
+            catch (e) { return await buildShareCard(t, true); }   /* canvas "tainted" par une image externe → sans photo */
+        }
+        function openShareSheet(id) {
+            const t = allTalents().find(x => x.id === id); if (!t) return;
+            document.getElementById('misc-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>Partager ${esc(t.nom)}</h3></div>
+    <div class="modal-body">
+      <div class="share-preview" id="share-preview"><div class="skel" style="height:360px;width:min(250px,62%);margin:0 auto;"></div></div>
+      <div class="collab-actions" style="justify-content:center;margin-top:18px;">
+        <button class="btn btn-teal btn-sm" onclick="waShare('${t.id}')">📲 WhatsApp</button>
+        <button class="btn btn-gold btn-sm" onclick="downloadShareCard('${t.id}')">⬇️ Télécharger la carte</button>
+        <button class="btn btn-line btn-sm" onclick="nativeShareCard('${t.id}')">📤 Story / autres apps</button>
+        <button class="btn btn-line btn-sm" onclick="copyProfileLink('${t.id}')">🔗 Copier le lien</button>
+      </div>
+    </div>`;
+            document.getElementById('misc-backdrop').classList.add('open');
+            window._shareCard = null;
+            getShareCard(t).then(url => {
+                window._shareCard = { id, url };
+                const el = document.getElementById('share-preview'); if (el) el.innerHTML = '<img src="' + url + '" alt="Carte de profil">';
+            }).catch(() => { const el = document.getElementById('share-preview'); if (el) el.innerHTML = '<p style="color:var(--text-soft);">Impossible de générer la carte.</p>'; });
+        }
+        function downloadShareCard(id) {
+            const sc = window._shareCard; if (!sc || sc.id !== id) { toast('La carte est en cours de création…'); return; }
+            const t = allTalents().find(x => x.id === id);
+            const a = document.createElement('a'); a.href = sc.url; a.download = 'collabo-dz-' + String(t ? t.nom : 'profil').toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.png';
+            document.body.appendChild(a); a.click(); a.remove();
+            toast('Carte téléchargée — ajoute-la à ta story 📸', 'success');
+        }
+        async function nativeShareCard(id) {
+            const sc = window._shareCard; if (!sc || sc.id !== id) { toast('La carte est en cours de création…'); return; }
+            const t = allTalents().find(x => x.id === id);
+            try {
+                const blob = await (await fetch(sc.url)).blob();
+                const file = new File([blob], 'collabo-dz.png', { type: 'image/png' });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file], text: (t ? t.nom : '') + ' sur Collabo-DZ 🔥 ' + profileUrl(id) });
+                else downloadShareCard(id);
+            } catch (e) { if (!e || e.name !== 'AbortError') downloadShareCard(id); }
+        }
+
+        /* ---------- Classement des wilayas ---------- */
+        let lbMode = 'talents';
+        function setLb(m) { lbMode = m; renderLeaderboard(); }
+        function lbData() {
+            const map = {};
+            allTalents().forEach(t => {
+                if (!t.wilaya) return;
+                const w = map[t.wilaya] = map[t.wilaya] || { name: t.wilaya, count: 0, views: 0, top: null };
+                w.count++; w.views += (t.viewCount || 0);
+                const sc = x => (x.viewCount || 0) + (x.ratingAvg || 0) * 20;
+                if (!w.top || sc(t) > sc(w.top)) w.top = t;
+            });
+            return Object.values(map).sort((a, b) => lbMode === 'vues' ? (b.views - a.views || b.count - a.count) : (b.count - a.count || b.views - a.views));
+        }
+        function renderLeaderboard() {
+            const el = document.getElementById('lb-list'); if (!el) return;
+            document.getElementById('lb-b1').classList.toggle('active', lbMode === 'talents');
+            document.getElementById('lb-b2').classList.toggle('active', lbMode === 'vues');
+            const data = lbData().slice(0, 8);
+            if (!data.length) { el.innerHTML = '<div class="empty-state"><h3>Pas encore de classement</h3><p>Dès que des talents s\'inscrivent, les wilayas s\'affrontent ici.</p></div>'; return; }
+            const val = w => lbMode === 'vues' ? w.views : w.count, max = Math.max(1, val(data[0]));
+            const medals = ['🥇', '🥈', '🥉'];
+            el.innerHTML = data.map((w, i) => `<div class="lb-row" onclick="lbGo('${jsq(w.name)}')" style="animation:msgIn .35s ease both;animation-delay:${i * 45}ms">
+      <span class="lb-rank">${medals[i] || '#' + (i + 1)}</span>
+      <div class="lb-main"><div class="lb-name"><span>${esc(w.name)}</span><small>${lbMode === 'vues' ? '👀 ' + w.views + ' vues' : '👥 ' + w.count + (w.count > 1 ? ' talents' : ' talent')}</small></div>
+        <div class="lb-bar"><span style="width:${Math.max(6, Math.round(val(w) / max * 100))}%"></span></div></div>
+      ${w.top ? `<div class="lb-top"><img src="${esc(safeImg(w.top.photoURL) || 'https://i.pravatar.cc/80?u=' + w.top.id)}" alt=""><span>${esc((w.top.nom || '').split(' ')[0])}</span></div>` : ''}
+    </div>`).join('');
+        }
+        function lbGo(name) {
+            mapSelectedWilaya = name; document.getElementById('f-wilaya').value = name;
+            go('annuaire'); renderDirectory();
+        }
+        function waShareLeaderboard() {
+            const d = lbData().slice(0, 3), m = ['🥇', '🥈', '🥉'];
+            if (!d.length) return;
+            openWhatsApp('🏆 Classement des wilayas sur Collabo-DZ\n' + d.map((w, i) => m[i] + ' ' + w.name + ' — ' + (lbMode === 'vues' ? w.views + ' vues' : w.count + (w.count > 1 ? ' talents' : ' talent'))).join('\n') + '\n\nEt ta wilaya ? 👉 ' + location.href.split('#')[0]);
+        }
+        /* le classement se met à jour avec les talents */
+        (function () { const orig = refreshTalentViews; refreshTalentViews = function () { orig(); renderLeaderboard(); }; })();
+
+        /* ---------- Arabe (RTL) : traduction automatique de l'interface ---------- */
+        const LANG_KEY = 'cdz_lang'; let lang = 'fr';
+        const AR = {
+            /* navigation */
+            'Accueil': 'الرئيسية', 'Talents': 'المواهب', 'Entreprises': 'الشركات', 'Mon espace': 'مساحتي', 'Messages': 'الرسائل', 'Moi': 'أنا',
+            'Connexion': 'تسجيل الدخول', 'Devenir talent': 'كن موهبة', 'Inscription': 'إنشاء حساب', 'Se déconnecter': 'تسجيل الخروج',
+            /* accueil */
+            '🇩🇿 Collabs locales · wilaya par wilaya': '🇩🇿 تعاونات محلية · ولاية بولاية',
+            'Les visages connus de chaque wilaya, à portée de collaboration': 'الوجوه المعروفة في كل ولاية، على بعد خطوة من التعاون',
+            "Fini de fouiller Instagram, TikTok et Snap au hasard. Collabo-DZ répertorie les créateurs par wilaya, avec avis vérifiés, statistiques d'audience réelles et suivi complet de vos collaborations.": 'كفى بحثًا عشوائيًا في إنستغرام وتيك توك وسناب. Collabo-DZ يجمع المبدعين حسب الولاية، مع تقييمات موثّقة وإحصائيات جمهور حقيقية ومتابعة كاملة لتعاوناتك.',
+            '📍 Toutes les wilayas': '📍 كل الولايات', '🎯 Toutes les catégories': '🎯 كل الفئات', 'Chercher un talent': 'ابحث عن موهبة',
+            'talents inscrits': 'موهبة مسجلة', 'wilayas couvertes': 'ولاية مغطاة', 'catégories': 'فئات', 'avis vérifiés': 'تقييمات موثّقة',
+            '📸 Stories des talents · touche un cercle': '📸 ستوريات المواهب · المس دائرة',
+            '❤️ Amel a accepté ta collab': '❤️ أمل قبلت تعاونك', '🔥 +12k vues sur ta story': '🔥 +12 ألف مشاهدة على ستوريك', '💸 Paiement validé · facture envoyée': '💸 تم تأكيد الدفع · أُرسلت الفاتورة',
+            'Explore par vibe': 'اكتشف حسب الأجواء', '🔥 Ça buzz en ce moment': '🔥 الأكثر رواجًا الآن', 'Les profils les plus consultés.': 'الملفات الأكثر مشاهدة.',
+            'Talents à la une': 'مواهب مميّزة', 'Profils vérifiés et mis en avant.': 'ملفات موثّقة ومُبرزة.', "Voir tout l'annuaire": 'عرض كل الدليل',
+            'Comment ça marche': 'كيف يعمل؟', 'Demande de collaboration': 'طلب تعاون', 'Suivi en temps réel': 'متابعة مباشرة', 'Paiement et avis': 'الدفع والتقييم',
+            "L'entreprise contacte le talent avec un brief, un type de contenu, une date et un budget.": 'تتواصل الشركة مع الموهبة مع وصف المشروع ونوع المحتوى والتاريخ والميزانية.',
+            'Discussion intégrée, contre-offre possible, statut de la collaboration, livraison du contenu.': 'محادثة مدمجة، إمكانية عرض مضاد، حالة التعاون وتسليم المحتوى.',
+            'Facture générée automatiquement, puis avis mutuel à la fin.': 'فاتورة تُنشأ تلقائيًا، ثم تقييم متبادل في النهاية.',
+            /* classement */
+            '🏆 Classement des wilayas': '🏆 ترتيب الولايات', 'Quelle wilaya a le plus de talents ? Défends la tienne !': 'أي ولاية لديها أكبر عدد من المواهب؟ دافع عن ولايتك!',
+            '👥 Par talents': '👥 حسب المواهب', '👀 Par vues': '👀 حسب المشاهدات', '📲 Partager le classement': '📲 شارك الترتيب',
+            'Pas encore de classement': 'لا يوجد ترتيب بعد',
+            /* annuaire */
+            'Explorer les talents': 'استكشف المواهب', 'Clique une wilaya sur la carte ou utilise les filtres.': 'اختر ولاية على الخريطة أو استعمل المرشحات.',
+            'Carte schématique — approximative, non géolocalisée': 'خريطة تخطيطية تقريبية — غير مرتبطة بالموقع الجغرافي',
+            'Wilaya': 'الولاية', 'Catégorie': 'الفئة', 'Tri : pertinence': 'الترتيب: الأنسب', 'Les plus vus': 'الأكثر مشاهدة', 'Mieux notés': 'الأعلى تقييمًا',
+            "Plus d'abonnés": 'الأكثر متابعين', 'Plus récents': 'الأحدث', 'Rechercher un nom...': 'ابحث عن اسم...', '✓ Vérifiés': '✓ الموثّقون', '🌍 Tous': '🌍 الكل',
+            'Aucun profil trouvé': 'لم يتم العثور على ملف', 'Essayez une autre wilaya ou catégorie.': 'جرّب ولاية أو فئة أخرى.', 'En vedette': 'مميّز',
+            '🔥 Tendance': '🔥 رائج', '⭐ Top noté': '⭐ الأعلى تقييمًا', '✨ Nouveau': '✨ جديد', 'abonnés': 'متابع', 'Voir le profil': 'عرض الملف', 'Voir le profil & collaborer': 'عرض الملف والتعاون',
+            /* entreprises */
+            'Trouvez le bon visage pour votre marque, dans votre wilaya': 'اعثر على الوجه المناسب لعلامتك التجارية في ولايتك',
+            "Statistiques d'audience réelles, avis vérifiés, suivi de collaboration et facturation intégrée.": 'إحصائيات جمهور حقيقية، تقييمات موثّقة، متابعة التعاون وفوترة مدمجة.',
+            'Créer un compte entreprise': 'إنشاء حساب شركة', 'Parcourir les talents': 'تصفّح المواهب', 'Pourquoi Collabo-DZ': 'لماذا Collabo-DZ',
+            'Ciblage géographique': 'استهداف جغرافي', 'Filtrez par wilaya et découvrez des talents recommandés pour votre secteur.': 'رشّح حسب الولاية واكتشف مواهب مناسبة لمجالك.',
+            'Avis vérifiés': 'تقييمات موثّقة', 'Chaque collaboration terminée donne lieu à un avis noté, visible publiquement.': 'كل تعاون منتهٍ يمنح تقييمًا معلنًا للجميع.',
+            'Suivi complet': 'متابعة كاملة', 'Discussion, contre-offre, statut de livraison et facture générée automatiquement.': 'محادثة، عرض مضاد، حالة التسليم وفاتورة تلقائية.',
+            'Nos formules': 'باقاتنا', 'Gratuit': 'مجاني', '0 DA': '0 دج', '3 demandes de collaboration / mois': '3 طلبات تعاون / شهر', "Accès complet à l'annuaire": 'وصول كامل إلى الدليل',
+            'Favoris et messagerie incluses': 'المفضلة والرسائل مشمولة', 'Pro': 'احترافي', 'Sur devis': 'حسب الطلب', 'Demandes de collaboration illimitées': 'طلبات تعاون غير محدودة',
+            'Recommandations prioritaires': 'ترشيحات ذات أولوية', 'Support dédié': 'دعم مخصّص',
+            /* connexion / inscription */
+            'Email': 'البريد الإلكتروني', 'Mot de passe': 'كلمة المرور', 'Se connecter': 'دخول', 'Pas encore de compte ?': 'ليس لديك حساب؟', "S'inscrire": 'إنشاء حساب',
+            'Connecté ✅': 'تم تسجيل الدخول ✅', 'Redirection vers votre espace...': 'جارٍ التحويل إلى مساحتك...',
+            'Rejoindre Collabo-DZ': 'انضم إلى Collabo-DZ', 'Vous pourrez compléter forfaits, portfolio et statistiques depuis votre espace après inscription.': 'يمكنك إكمال الباقات والأعمال والإحصائيات من مساحتك بعد التسجيل.',
+            '🎤 Je suis un talent': '🎤 أنا موهبة', '🏪 Je suis une entreprise': '🏪 أنا شركة', 'Nom et prénom': 'الاسم واللقب', 'Sélectionner': 'اختر', 'Abonnés approx.': 'عدد المتابعين تقريبًا',
+            'Courte bio': 'نبذة قصيرة', '📸 Lien Instagram': '📸 رابط إنستغرام', '🎵 Lien TikTok / YouTube': '🎵 رابط تيك توك / يوتيوب', '👻 Lien Snapchat': '👻 رابط سناب شات',
+            '(optionnel)': '(اختياري)', 'Photo de profil': 'صورة الملف', '(compressée automatiquement)': '(تُضغط تلقائيًا)', 'Envoyer ma demande': 'إرسال طلبي',
+            'Un badge "vérifié" sera ajouté après contrôle manuel.': 'تُضاف شارة "موثّق" بعد المراجعة اليدوية.', 'Compte créé 🎉': 'تم إنشاء الحساب 🎉',
+            "Nom de l'entreprise": 'اسم الشركة', 'Wilaya du siège': 'ولاية المقر', "Secteur d'activité": 'مجال النشاط', 'Email professionnel': 'البريد المهني',
+            'Type de collaborations recherchées': 'نوع التعاونات المطلوبة', 'Créer mon compte entreprise': 'إنشاء حساب شركتي', 'Formule gratuite : 3 demandes / mois.': 'الباقة المجانية: 3 طلبات / شهر.',
+            'Compte entreprise créé 🎉': 'تم إنشاء حساب الشركة 🎉',
+            /* tableau de bord */
+            "🏠 Vue d'ensemble": '🏠 نظرة عامة', '💬 Messages': '💬 الرسائل', '🤝 Collaborations': '🤝 التعاونات', '📸 Stories': '📸 الستوريات', '👤 Mon profil': '👤 ملفي',
+            '💼 Forfaits & Portfolio': '💼 الباقات والأعمال', '📅 Disponibilité': '📅 التوفّر', '⭐ Avis reçus': '⭐ التقييمات المستلمة', '♥ Favoris': '♥ المفضلة',
+            '✨ Recommandations': '✨ ترشيحات', '⚙️ Compte & Plan': '⚙️ الحساب والباقة', 'Compte talent': 'حساب موهبة', 'Compte entreprise': 'حساب شركة',
+            'Actions rapides': 'إجراءات سريعة', '📸 Poster une story': '📸 انشر ستوري', '🔗 Partager mon profil': '🔗 شارك ملفي', '🔎 Trouver un talent': '🔎 ابحث عن موهبة',
+            '🤝 Mes collaborations': '🤝 تعاوناتي', 'Mes collaborations': 'تعاوناتي', 'Enregistrer': 'حفظ', 'Poster une story 📸': 'انشر ستوري 📸', 'Publier ma story': 'نشر الستوري',
+            'Mes stories actives': 'ستورياتي الحالية', '👀 vues du profil': '👀 مشاهدات الملف', '📩 demandes à traiter': '📩 طلبات قيد المعالجة', '💸 revenus encaissés': '💸 الأرباح المحصّلة',
+            '📤 demandes ce mois-ci': '📤 طلبات هذا الشهر', '🔄 collabs en cours': '🔄 تعاونات جارية', '💸 budget payé': '💸 الميزانية المدفوعة', '♥ favoris': '♥ المفضلة',
+            /* collaborations */
+            'En attente': 'قيد الانتظار', 'Accepté': 'مقبول', 'Contenu livré': 'تم تسليم المحتوى', 'Payé 🎉': 'مدفوع 🎉', 'Refusé': 'مرفوض',
+            '💬 Discuter': '💬 تحدّث', 'Accepter': 'قبول', 'Contre-offre': 'عرض مضاد', 'Refuser': 'رفض', 'Marquer contenu livré': 'تأكيد تسليم المحتوى', 'Annuler': 'إلغاء',
+            'Valider et marquer payé': 'تأكيد والدفع', '🧾 Facture': '🧾 الفاتورة', '⭐ Laisser un avis': '⭐ اترك تقييمًا', 'Voir le contenu livré': 'عرض المحتوى المسلَّم',
+            'Demande': 'الطلب', 'Livré': 'مسلَّم', 'Payé': 'مدفوع', 'Toutes': 'الكل', 'En cours': 'جارية', 'Terminées': 'منتهية',
+            'Aucune conversation': 'لا توجد محادثات', 'Aucune collaboration pour le moment': 'لا توجد تعاونات حاليًا',
+            'Envoyer': 'إرسال', 'Écrire un message...': 'اكتب رسالة...',
+            /* profil */
+            'Profil': 'الملف', 'Statistiques': 'الإحصائيات', 'Forfaits': 'الباقات', 'Portfolio': 'الأعمال', 'Avis': 'التقييمات', '🔗 Partager': '🔗 مشاركة',
+            '🤝 Proposer une collaboration': '🤝 اقترح تعاونًا', 'Type de contenu': 'نوع المحتوى', 'Date souhaitée': 'التاريخ المطلوب', 'Budget indicatif': 'الميزانية التقديرية', 'Brief': 'وصف المشروع',
+            'Envoyer la demande': 'إرسال الطلب', 'Story': 'ستوري', 'Post': 'منشور', 'Reel / TikTok': 'ريلز / تيك توك', 'Présence évènement': 'حضور فعالية', 'Autre': 'آخر',
+            /* partage */
+            '📲 WhatsApp': '📲 واتساب', '⬇️ Télécharger la carte': '⬇️ تحميل البطاقة', '📤 Story / autres apps': '📤 ستوري / تطبيقات أخرى', '🔗 Copier le lien': '🔗 نسخ الرابط',
+            'Lien copié 🔗': 'تم نسخ الرابط 🔗', 'Retiré des favoris': 'أُزيل من المفضلة', 'Ajouté aux favoris ♥': 'أُضيف إلى المفضلة ♥',
+            /* pied de page */
+            'Navigation': 'التنقل', 'Mettre en relation les talents locaux et les entreprises, wilaya par wilaya.': 'نربط المواهب المحلية بالشركات، ولاية بولاية.', 'Fait avec ❤️ en Algérie 🇩🇿': 'صُنع بـ ❤️ في الجزائر 🇩🇿',
+            /* argent */
+            '📦 Packs clé en main': '📦 باقات جاهزة', '💰 Gains & Parrainage': '💰 الأرباح والإحالة', '💳 Pro, Packs & Parrainage': '💳 الاحترافي والباقات والإحالة',
+            '🚀 Formule Pro': '🚀 الباقة الاحترافية', '🎁 Parrainage': '🎁 الإحالة', '🧾 Mes paiements': '🧾 مدفوعاتي', 'Commander': 'اطلب', 'Commander ce pack': 'اطلب هذه الباقة',
+            'Choisir': 'اختر', 'Copier': 'نسخ', '💳 Valider et payer': '💳 تأكيد والدفع', '⭐ Mise en avant payante': '⭐ إبراز مدفوع', '🏦 Recevoir mes paiements': '🏦 استلام مدفوعاتي',
+            'Meilleure offre': 'أفضل عرض', 'Pack Lancement': 'باقة الانطلاق', 'Pack Boost': 'باقة التعزيز', 'Pack Campagne': 'باقة الحملة', 'Code parrain': 'رمز الإحالة',
+            /* wilayas */
+            'Alger': 'الجزائر', 'Oran': 'وهران', 'Constantine': 'قسنطينة', 'Annaba': 'عنابة', 'Blida': 'البليدة', 'Sétif': 'سطيف', 'Béjaïa': 'بجاية', 'Tlemcen': 'تلمسان', 'Batna': 'باتنة',
+            'Tizi Ouzou': 'تيزي وزو', 'Bouira': 'البويرة', 'Ouargla': 'ورقلة', 'Béchar': 'بشار', 'Tiaret': 'تيارت', 'Skikda': 'سكيكدة', 'Mostaganem': 'مستغانم', 'Djelfa': 'الجلفة',
+            'Chlef': 'الشلف', 'Biskra': 'بسكرة', 'El Oued': 'الوادي',
+            /* catégories */
+            'Humour': 'الفكاهة', 'Cuisine': 'الطبخ', 'Mode': 'الموضة', 'Sport': 'الرياضة', 'Musique': 'الموسيقى', 'Gaming': 'الألعاب', 'Lifestyle': 'نمط الحياة', 'Éducation': 'التعليم'
+        };
+        const AR_RULES = [
+            [/^(\d+) profils?$/, m => m[1] + ' ملف'],
+            [/^(\d+) talents?$/, m => m[1] + ' موهبة'],
+            [/^👥 (\d+) talents?$/, m => '👥 ' + m[1] + ' موهبة'],
+            [/^👀 (\d+) vues$/, m => '👀 ' + m[1] + ' مشاهدة']
+        ];
+        const origText = new WeakMap(), origAttr = new WeakMap();
+        function trLookup(raw) {
+            const k = raw.replace(/\s+/g, ' ').trim(); if (!k) return null;
+            if (AR[k]) return AR[k];
+            const m = k.match(/^([^\p{L}\p{N}]+)(.+)$/u);            /* emoji / symbole devant : "😂 Humour" */
+            if (m && AR[m[2].trim()]) return m[1].trim() + ' ' + AR[m[2].trim()];
+            for (const [re, f] of AR_RULES) { const r = k.match(re); if (r) return f(r); }
+            return null;
+        }
+        function trNode(n) {
+            if (n.nodeType === 3) {
+                const p = n.parentNode; if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName) || origText.has(n)) return;
+                const raw = n.nodeValue, t = trLookup(raw);
+                if (t) { origText.set(n, raw); n.nodeValue = raw.match(/^\s*/)[0] + t + raw.match(/\s*$/)[0]; }
+            } else if (n.nodeType === 1) {
+                if (/^(SCRIPT|STYLE)$/.test(n.nodeName)) return;
+                ['placeholder', 'title', 'aria-label'].forEach(a => {
+                    if (n.hasAttribute(a)) { const t = trLookup(n.getAttribute(a)); if (t) { const o = origAttr.get(n) || {}; if (!(a in o)) { o[a] = n.getAttribute(a); origAttr.set(n, o); } n.setAttribute(a, t); } }
+                });
+                n.childNodes.forEach(trNode);
+            }
+        }
+        function untrNode(n) {
+            if (n.nodeType === 3) { if (origText.has(n)) { n.nodeValue = origText.get(n); origText.delete(n); } }
+            else if (n.nodeType === 1) {
+                const o = origAttr.get(n); if (o) { for (const a in o) n.setAttribute(a, o[a]); origAttr.delete(n); }
+                n.childNodes.forEach(untrNode);
+            }
+        }
+        const trObs = new MutationObserver(muts => {
+            if (lang !== 'ar') return;
+            muts.forEach(m => {
+                if (m.type === 'childList') m.addedNodes.forEach(trNode);
+                else if (m.type === 'characterData') { origText.delete(m.target); trNode(m.target); }
+            });
+            trObs.takeRecords();
+        });
+        function setLang(l) {
+            lang = l;
+            try { localStorage.setItem(LANG_KEY, l); } catch (e) { }
+            const h = document.documentElement; h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr';
+            if (l === 'ar') trNode(document.body); else untrNode(document.body);
+            trObs.takeRecords();
+            ['lang-btn', 'mnav-lang'].forEach(id => { const b = document.getElementById(id); if (b) b.textContent = l === 'ar' ? 'FR' : 'عربي'; });
+        }
+        function toggleLang() { setLang(lang === 'ar' ? 'fr' : 'ar'); }
+        trObs.observe(document.body, { childList: true, subtree: true, characterData: true });
+        try { if (localStorage.getItem(LANG_KEY) === 'ar') setLang('ar'); } catch (e) { }
+
+        /* =========================================================================
+           MONÉTISATION
+           1) Commission sur chaque collaboration payée via la plateforme
+           2) Abonnement Pro (entreprises)        3) Mise en avant payante (talents)
+           4) Packs clé en main (entreprises)     5) Parrainage
+
+           ⚠️ À PERSONNALISER AVANT LE LANCEMENT : vos coordonnées de paiement (PAY_ACCOUNTS)
+           et vos tarifs (PRO_PRICES, FEATURE_PRICES, PACKS, COMMISSION_RATE).
+           Les paiements sont des virements Baridimob / CCP / banque vérifiés à la main par l'admin
+           (panneau « Paiements à valider » dans le tableau de bord de ADMIN_EMAIL).
+           ========================================================================= */
+        const COMMISSION_RATE = 0.10;                       /* 10 % prélevés sur le montant de chaque collaboration */
+        const PAY_ACCOUNTS = {
+            baridimob: { label: 'Baridimob (RIP)', account: 'VOTRE_RIP_ICI', holder: 'VOTRE_NOM_ICI' },
+            ccp: { label: 'CCP', account: 'VOTRE_NUMERO_CCP_ICI', holder: 'VOTRE_NOM_ICI' },
+            virement: { label: 'Virement bancaire', account: 'VOTRE_RIB_ICI', holder: 'VOTRE_NOM_ICI' }
+        };
+        const PRO_PRICES = { 1: 5000, 3: 12000, 12: 42000 };      /* mois → DA */
+        const FEATURE_PRICES = { 7: 2000, 30: 6000 };             /* jours → DA */
+        const PACKS = [
+            { id: 'lancement', icon: '🚀', name: 'Pack Lancement', price: 15000, desc: 'Idéal pour tester.', items: ['1 talent de votre wilaya', '1 story + 1 post', 'Mise en relation par notre équipe'] },
+            { id: 'boost', icon: '🔥', name: 'Pack Boost', price: 40000, desc: 'Le plus choisi.', items: ['2 talents de catégories différentes', 'Stories + 1 reel/TikTok chacun', 'Brief rédigé avec vous'] },
+            { id: 'campagne', icon: '🏆', name: 'Pack Campagne', price: 90000, desc: 'Visibilité maximale.', items: ['4 talents sur 2 wilayas', 'Reels + stories + présence évènement', 'Suivi et bilan de campagne'] }
+        ];
+        const PAY_TYPE = { collab: 'Collaboration', pro: 'Abonnement Pro', feature: 'Mise en avant', pack: 'Pack', reward: 'Récompense parrainage' };
+        let currentRefs = 0;
+
+        function planActive(p) { return !!p && p.plan === 'pro' && (!p.proUntil || ms(p.proUntil) > Date.now()); }
+        function featuredActive(t) { return !!t && !!t.isFeatured && (!t.featuredUntil || ms(t.featuredUntil) > Date.now()); }
+        function fmtDate(ts) { return ts && ts.toMillis ? new Date(ts.toMillis()).toLocaleDateString('fr-FR') : ''; }
+        function myRefCode() { return currentUser ? currentUser.uid.slice(0, 6).toUpperCase() : ''; }
+        function refLink() { return location.href.split('#')[0] + '#ref-' + myRefCode(); }
+        function quotaFor() { return 3 + Math.min(10, 2 * (currentRefs || 0)); }
+        function cleanRef(s) { return String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12); }
+        async function loadReferralCount() {
+            if (!db || !currentUser) { currentRefs = 0; return 0; }
+            const code = myRefCode();
+            try {
+                const r = await Promise.all([db.collection('talents').where('referredBy', '==', code).get(), db.collection('businesses').where('referredBy', '==', code).get()]);
+                currentRefs = r[0].size + r[1].size;
+            } catch (e) { currentRefs = 0; }
+            return currentRefs;
+        }
+        function prefillRef() {
+            let c = ''; try { c = localStorage.getItem('cdz_ref') || ''; } catch (e) { }
+            ['t-ref', 'b-ref'].forEach(id => { const el = document.getElementById(id); if (el && !el.value && c) el.value = c; });
+        }
+
+        /* ---------- Fenêtre de paiement (Baridimob / CCP / virement) ---------- */
+        function openPayModal(ctx) {
+            if (!requireDb()) return;
+            window._payCtx = ctx;
+            const isCollab = ctx.type === 'collab';
+            document.getElementById('misc-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>💳 ${esc(ctx.title)}</h3></div>
+    <div class="modal-body">
+      <form onsubmit="return submitPayment(event)">
+        ${isCollab ? `<label for="pay-amount">Montant convenu avec ${esc(ctx.talentNom)} (DA)</label><input type="number" id="pay-amount" min="1" value="${ctx.amount || ''}" required oninput="payRecalc()">
+          <div class="invoice-box" id="pay-breakdown" style="margin:14px 0;"></div>` :
+                    `<div class="invoice-box" style="margin-bottom:14px;"><div class="row"><span>${esc(ctx.title)}</span><strong>${esc(fmtDA(ctx.amount))}</strong></div></div>`}
+        <label for="pay-method">Mode de paiement</label>
+        <select id="pay-method" onchange="payShowAccount()">${Object.entries(PAY_ACCOUNTS).map(([k, v]) => `<option value="${k}">${esc(v.label)}</option>`).join('')}</select>
+        <div class="pay-account" id="pay-account"></div>
+        <label for="pay-ref">Référence du paiement</label>
+        <input type="text" id="pay-ref" required maxlength="80" placeholder="N° de transaction ou nom figurant sur le reçu">
+        <div class="form-actions"><button type="submit" class="btn btn-gold" id="pay-btn">J'ai payé — envoyer pour vérification</button></div>
+        <p class="form-note" style="margin-top:10px;">${isCollab ? 'Collabo-DZ garde l\'argent le temps de la vérification puis reverse le net au talent. ' : ''}Votre paiement est vérifié manuellement, généralement sous 24 h.</p>
+      </form>
+    </div>`;
+            document.getElementById('misc-backdrop').classList.add('open');
+            payShowAccount(); if (isCollab) payRecalc();
+        }
+        function payShowAccount() {
+            const m = PAY_ACCOUNTS[document.getElementById('pay-method').value], el = document.getElementById('pay-account');
+            if (!m || !el) return;
+            if (/VOTRE_/.test(m.account)) el.innerHTML = '<div class="pay-warn">⚠️ Les coordonnées de paiement ne sont pas encore renseignées. Contactez l\'administrateur du site.</div>';
+            else el.innerHTML = `Envoyez le montant à :<br><strong>${esc(m.holder)}</strong> — ${esc(m.label)} : <code>${esc(m.account)}</code>`;
+        }
+        function payRecalc() {
+            const a = Math.max(0, parseInt(document.getElementById('pay-amount').value, 10) || 0), com = Math.round(a * COMMISSION_RATE);
+            document.getElementById('pay-breakdown').innerHTML = `<div class="row"><span>Montant payé</span><strong>${esc(fmtDA(a))}</strong></div>
+      <div class="row"><span>Commission Collabo-DZ (${Math.round(COMMISSION_RATE * 100)}%)</span><span>${esc(fmtDA(com))}</span></div>
+      <div class="row"><span>Net reversé au talent</span><strong>${esc(fmtDA(a - com))}</strong></div>`;
+        }
+        function submitPayment(e) {
+            e.preventDefault();
+            const c = window._payCtx; if (!c || !requireDb() || !currentUser) return false;
+            const ref = document.getElementById('pay-ref').value.trim(), method = document.getElementById('pay-method').value;
+            let amount = c.amount || 0;
+            if (c.type === 'collab') amount = Math.max(0, parseInt(document.getElementById('pay-amount').value, 10) || 0);
+            if (!ref || (c.type !== 'reward' && amount <= 0)) { toast('Renseignez le montant et la référence', 'error'); return false; }
+            const commission = c.type === 'collab' ? Math.round(amount * COMMISSION_RATE) : 0;
+            const btn = document.getElementById('pay-btn'); btn.disabled = true; btn.textContent = 'Envoi...';
+            const ts = firebase.firestore.FieldValue.serverTimestamp();
+            const doc = {
+                type: c.type, userId: currentUser.uid, userName: currentProfile ? currentProfile.nom : currentUser.email, role: currentRole,
+                amount, commission, net: amount - commission, method, reference: ref, details: c.details || {}, status: 'en_attente', createdAt: ts
+            };
+            if (c.type === 'collab') { doc.collabId = c.collabId; doc.talentId = c.talentId; doc.talentNom = c.talentNom; }
+            db.collection('payments').add(doc).then(() => {
+                if (c.type === 'collab') return db.collection('collaborations').doc(c.collabId).update({ paymentStatus: 'en_vérification', updatedAt: ts });
+            }).then(() => {
+                closeMisc(); toast('Paiement envoyé — vérification en cours ⏳', 'success'); burstConfetti(null);
+                if (currentPage === 'dashboard' && activeCollabTab === 'money') renderDashboard();
+            }).catch(err => { btn.disabled = false; btn.textContent = "J'ai payé — envoyer pour vérification"; toast('Erreur : ' + err.message + (/permission/i.test(err.message) ? ' — collez les nouvelles règles Firestore.' : ''), 'error'); });
+            return false;
+        }
+        function payCollab(id) {
+            const c = myCollabs.find(x => x.id === id); if (!c) return;
+            openPayModal({ type: 'collab', title: 'Payer ' + c.talentNom, amount: parseAmount(c.amount), collabId: id, talentId: c.talentId, talentNom: c.talentNom });
+        }
+        function openProPlans() {
+            if (!currentUser || currentRole !== 'business') { toast('Réservé aux comptes entreprise', 'error'); return; }
+            document.getElementById('misc-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>🚀 Passer en formule Pro</h3></div>
+    <div class="modal-body"><p class="bio">Demandes de collaboration illimitées, recommandations prioritaires et support dédié.</p>${proCards()}</div>`;
+            document.getElementById('misc-backdrop').classList.add('open');
+        }
+        function proCards() {
+            const base = PRO_PRICES[1];
+            return `<div class="price-grid">${Object.entries(PRO_PRICES).map(([m, pr]) => {
+                const save = Math.round((1 - pr / (base * m)) * 100);
+                return `<div class="price-card${m == 12 ? ' best' : ''}">${m == 12 ? '<span class="tagbest">Meilleure offre</span>' : ''}<strong>${m} mois</strong><span class="pr">${esc(fmtDA(pr))}</span>${save > 0 ? `<small>-${save}% vs mensuel</small>` : '<small>&nbsp;</small>'}<button class="btn btn-gold btn-sm" onclick="buyPro(${m})">Choisir</button></div>`;
+            }).join('')}</div>`;
+        }
+        function buyPro(m) { openPayModal({ type: 'pro', title: 'Abonnement Pro — ' + m + ' mois', amount: PRO_PRICES[m], details: { months: m } }); }
+        function buyFeature(d) { openPayModal({ type: 'feature', title: 'Mise en avant — ' + d + ' jours', amount: FEATURE_PRICES[d], details: { days: d } }); }
+        function openFeaturePlans() { setDashTab('money'); }
+        function orderPack(id) {
+            const k = PACKS.find(x => x.id === id); if (!k) return;
+            if (!currentUser) { toast('Connectez-vous avec un compte entreprise pour commander', 'error'); go('connexion'); return; }
+            if (currentRole !== 'business') { toast('Les packs sont réservés aux comptes entreprise', 'error'); return; }
+            document.getElementById('misc-content').innerHTML = `
+    <div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>${k.icon} ${esc(k.name)} — ${esc(fmtDA(k.price))}</h3></div>
+    <div class="modal-body"><ul class="pack-list" style="margin:0 0 16px;">${k.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      <form onsubmit="return packNext(event,'${k.id}')"><div class="form-grid" style="gap:12px;">
+        <div><label for="pk-wilaya">Wilaya ciblée</label><select id="pk-wilaya" required></select></div>
+        <div><label for="pk-cat">Catégorie souhaitée</label><select id="pk-cat" required></select></div>
+        <div class="full"><label for="pk-phone">Votre numéro (WhatsApp)</label><input type="tel" id="pk-phone" required placeholder="05 50 00 00 00"></div>
+        <div class="full"><label for="pk-brief">Votre brief</label><textarea id="pk-brief" required placeholder="Votre marque, votre objectif, vos dates..."></textarea></div>
+      </div><div class="form-actions"><button class="btn btn-gold" type="submit">Continuer vers le paiement</button></div></form></div>`;
+            fillSelect(document.getElementById('pk-wilaya'), WILAYAS); fillSelect(document.getElementById('pk-cat'), CATEGORIES);
+            document.getElementById('pk-wilaya').value = (currentProfile && currentProfile.wilaya) || '';
+            document.getElementById('misc-backdrop').classList.add('open');
+        }
+        function packNext(e, id) {
+            e.preventDefault(); const k = PACKS.find(x => x.id === id);
+            openPayModal({
+                type: 'pack', title: k.name, amount: k.price,
+                details: { packId: id, wilaya: document.getElementById('pk-wilaya').value, cat: document.getElementById('pk-cat').value, phone: document.getElementById('pk-phone').value.trim(), brief: document.getElementById('pk-brief').value.trim() }
+            });
+            return false;
+        }
+        function renderPacks() {
+            const el = document.getElementById('packs-grid'); if (!el) return;
+            el.innerHTML = PACKS.map(k => `<div class="benefit pack-card"><div class="icon">${k.icon}</div><h3>${esc(k.name)}</h3><p>${esc(k.desc)}</p>
+      <ul class="pack-list">${k.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+      <span class="price-from" style="font-size:22px;margin:12px 0;">${esc(fmtDA(k.price))}</span><button class="btn btn-gold btn-sm" onclick="orderPack('${k.id}')">Commander ce pack</button></div>`).join('');
+            const pp = document.getElementById('pro-price'); if (pp) pp.textContent = fmtDA(PRO_PRICES[1]) + ' / mois';
+        }
+
+        /* ---------- Onglet « Argent » (talent et entreprise) ---------- */
+        function refCardHTML(role) {
+            const reward = role === 'business'
+                ? 'Chaque filleul = <strong>+2 demandes de collaboration par mois</strong> (jusqu\'à +10).'
+                : 'Tous les <strong>3 filleuls</strong> = <strong>7 jours de mise en avant offerts</strong>.';
+            return `<div class="card-block"><h3>🎁 Parrainage</h3>
+      <p style="font-size:13.5px;color:var(--text-soft);">Invite un ami à rejoindre Collabo-DZ avec ton code. ${reward}</p>
+      <div class="ref-box"><input type="text" id="ref-link" readonly value="${esc(refLink())}"><button class="btn btn-line btn-sm" onclick="copyRef()">Copier</button><button class="btn btn-teal btn-sm" onclick="waRef()">📲 WhatsApp</button></div>
+      <p style="margin-top:14px;font-size:14px;">Ton code : <strong>${esc(myRefCode())}</strong> · Filleuls : <strong id="ref-count">…</strong>${role === 'business' ? ' · Quota actuel : <strong id="ref-quota">…</strong> demandes / mois' : ''}</p>
+      ${role === 'talent' ? '<div class="stat-bar" style="margin-top:10px;"><span id="ref-bar" style="width:0"></span></div><div class="form-actions"><button class="btn btn-gold btn-sm" id="ref-claim" onclick="claimReward()" disabled>🎁 Réclamer ma récompense</button><span class="form-note" id="ref-note"></span></div>' : ''}</div>`;
+        }
+        function copyRef() { const v = refLink(); if (navigator.clipboard) navigator.clipboard.writeText(v).then(() => toast('Lien de parrainage copié 🎁', 'success')).catch(() => toast(v)); else toast(v); }
+        function waRef() { openWhatsApp('🔥 Rejoins-moi sur Collabo-DZ, la plateforme des talents et des marques de chaque wilaya ! Inscris-toi avec mon lien : ' + refLink()); }
+        function claimReward() {
+            if (!requireDb()) return;
+            db.collection('payments').where('userId', '==', currentUser.uid).get().then(snap => {
+                const claimed = snap.docs.filter(d => d.data().type === 'reward').length;
+                if (currentRefs < 3 * (claimed + 1)) { toast('Il te faut ' + (3 * (claimed + 1)) + ' filleuls pour cette récompense', 'error'); return; }
+                return db.collection('payments').add({
+                    type: 'reward', userId: currentUser.uid, userName: currentProfile.nom, role: 'talent', amount: 0, commission: 0, net: 0, method: 'parrainage',
+                    reference: 'Code ' + myRefCode() + ' — ' + currentRefs + ' filleuls', details: { days: 7, refs: currentRefs }, status: 'en_attente', createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => { toast('Demande envoyée — validation sous 24 h 🎉', 'success'); renderDashboard(); });
+            }).catch(err => toast('Erreur : ' + err.message, 'error'));
+        }
+        function renderMoneyTab(content, role) {
+            const p = currentProfile || {};
+            let html = '';
+            if (role === 'talent') {
+                html = `<div class="kpis">${kpi('m1', '…', '💸 net encaissé')}${kpi('m2', '…', '⏳ à venir (net)')}${kpi('m3', featuredActive(p) ? (p.featuredUntil ? 'jusqu\'au ' + esc(fmtDate(p.featuredUntil)) : 'active') : 'non', '⭐ mise en avant')}${kpi('m4', Math.round(COMMISSION_RATE * 100) + '%', '🏷️ commission plateforme')}</div>
+      <div class="card-block"><h3>🏦 Recevoir mes paiements</h3>
+        <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px;">Collabo-DZ te reverse le net (montant – ${Math.round(COMMISSION_RATE * 100)}%) à la livraison validée. Ces informations ne sont visibles que par l'administrateur.</p>
+        <div class="form-grid"><div><label for="po-method">Mode de réception</label><select id="po-method">${Object.entries(PAY_ACCOUNTS).map(([k, v]) => `<option value="${k}">${esc(v.label)}</option>`).join('')}</select></div>
+          <div><label for="po-account">N° RIP / CCP / RIB</label><input type="text" id="po-account" maxlength="60"></div>
+          <div class="full"><label for="po-holder">Nom du titulaire</label><input type="text" id="po-holder" maxlength="60"></div></div>
+        <div class="form-actions"><button class="btn btn-gold" onclick="savePayout()">Enregistrer</button></div></div>
+      <div class="card-block"><h3>⭐ Mise en avant payante</h3>
+        <p style="font-size:13.5px;color:var(--text-soft);">Ton profil passe en tête de l'annuaire et de l'accueil avec le ruban « En vedette ».${featuredActive(p) && p.featuredUntil ? ' <strong>Actif jusqu\'au ' + esc(fmtDate(p.featuredUntil)) + '.</strong>' : ''}</p>
+        <div class="price-grid">${Object.entries(FEATURE_PRICES).map(([d, pr]) => `<div class="price-card${d == 30 ? ' best' : ''}"><strong>${d} jours</strong><span class="pr">${esc(fmtDA(pr))}</span><button class="btn btn-gold btn-sm" onclick="buyFeature(${d})">Choisir</button></div>`).join('')}</div></div>`;
+            } else {
+                html = `<div class="kpis">${kpi('m1', planActive(p) ? 'Pro' : 'Gratuite', '📦 formule')}${kpi('m2', planActive(p) && p.proUntil ? esc(fmtDate(p.proUntil)) : '—', '📅 valable jusqu\'au')}${kpi('m3', planActive(p) ? '∞' : quotaFor(), '📤 demandes / mois')}${kpi('m4', Math.round(COMMISSION_RATE * 100) + '%', '🏷️ commission sur paiements')}</div>
+      <div class="card-block"><h3>🚀 Formule Pro</h3><p style="font-size:13.5px;color:var(--text-soft);">Demandes illimitées, recommandations prioritaires, support dédié.</p>${proCards()}</div>
+      <div class="card-block"><h3>📦 Packs clé en main</h3><p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px;">Vous payez un prix fixe, notre équipe sélectionne les talents et organise la collaboration.</p><div class="grid-3" id="packs-grid-dash"></div></div>`;
+            }
+            html += refCardHTML(role) + `<div class="card-block"><h3>🧾 Mes paiements</h3><div id="pay-history"><div class="skel skel-row"></div></div></div>`;
+            content.innerHTML = html;
+            if (role === 'business') {
+                const g = document.getElementById('packs-grid-dash');
+                g.innerHTML = PACKS.map(k => `<div class="benefit pack-card"><div class="icon">${k.icon}</div><h3>${esc(k.name)}</h3><ul class="pack-list">${k.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul><span class="price-from" style="font-size:20px;margin:10px 0;">${esc(fmtDA(k.price))}</span><button class="btn btn-gold btn-sm" onclick="orderPack('${k.id}')">Commander</button></div>`).join('');
+            }
+            if (!db) return;
+            loadReferralCount().then(n => {
+                if (activeCollabTab !== 'money') return;
+                setText('ref-count', n); setText('ref-quota', quotaFor());
+                if (role === 'talent') {
+                    const bar = document.getElementById('ref-bar'); if (bar) bar.style.width = Math.min(100, (n % 3) / 3 * 100 + (n && n % 3 === 0 ? 100 : 0)) + '%';
+                    const btn = document.getElementById('ref-claim');
+                    db.collection('payments').where('userId', '==', currentUser.uid).get().then(s => {
+                        const claimed = s.docs.filter(d => d.data().type === 'reward').length;
+                        if (btn) btn.disabled = n < 3 * (claimed + 1);
+                        setText('ref-note', n < 3 * (claimed + 1) ? (3 * (claimed + 1) - n) + ' filleul(s) restant(s)' : 'Récompense disponible !');
+                    }).catch(() => { });
+                }
+            });
+            db.collection('payments').where('userId', '==', currentUser.uid).get().then(snap => {
+                if (activeCollabTab !== 'money') return;
+                const arr = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => ms(b.createdAt) - ms(a.createdAt));
+                const el = document.getElementById('pay-history'); if (!el) return;
+                el.innerHTML = arr.length ? arr.map(x => `<div class="hist-row"><span><strong>${esc(PAY_TYPE[x.type] || x.type)}</strong> · ${esc(fmtDate(x.createdAt))}${x.type === 'collab' ? ' · ' + esc(role === 'talent' ? x.userName : x.talentNom) : ''}</span><span>${x.amount ? esc(fmtDA(x.amount)) : '🎁'} <span class="status-pill status-${x.status === 'en_attente' ? 'en_vérification' : x.status}">${x.status === 'en_attente' ? 'En vérification' : x.status === 'validé' ? 'Validé' : 'Refusé'}</span></span></div>`).join('') : '<p style="color:var(--text-soft);font-size:14px;">Aucun paiement pour le moment.</p>';
+            }).catch(() => { const el = document.getElementById('pay-history'); if (el) el.innerHTML = '<p style="color:var(--coral);font-size:13.5px;">Historique indisponible (vérifiez les règles Firestore).</p>'; });
+            if (role === 'talent') {
+                db.collection('payouts').doc(currentUser.uid).get().then(d => {
+                    if (!d.exists || activeCollabTab !== 'money') return; const v = d.data();
+                    const m = document.getElementById('po-method'), a = document.getElementById('po-account'), h = document.getElementById('po-holder');
+                    if (m) m.value = v.method || 'baridimob'; if (a) a.value = v.account || ''; if (h) h.value = v.holder || '';
+                }).catch(() => { });
+                db.collection('collaborations').where('talentId', '==', currentUser.uid).get().then(snap => {
+                    if (activeCollabTab !== 'money') return;
+                    const cs = snap.docs.map(d => d.data());
+                    const paid = cs.filter(c => c.status === 'payé').reduce((s, c) => s + (c.netAmount != null ? c.netAmount : Math.round(parseAmount(c.amount) * (1 - COMMISSION_RATE))), 0);
+                    const soon = cs.filter(c => c.status === 'accepté' || c.status === 'contenu_livré').reduce((s, c) => s + Math.round(parseAmount(c.amount) * (1 - COMMISSION_RATE)), 0);
+                    setText('m1', fmtDA(paid)); setText('m2', fmtDA(soon));
+                }).catch(() => { setText('m1', '—'); setText('m2', '—'); });
+            }
+        }
+        function savePayout() {
+            if (!requireDb()) return;
+            const v = { method: document.getElementById('po-method').value, account: document.getElementById('po-account').value.trim(), holder: document.getElementById('po-holder').value.trim(), talentId: currentUser.uid, updatedAt: firebase.firestore.FieldValue.serverTimestamp() };
+            if (!v.account || !v.holder) { toast('Renseignez le numéro et le titulaire', 'error'); return; }
+            db.collection('payouts').doc(currentUser.uid).set(v).then(() => toast('Coordonnées enregistrées ✅', 'success')).catch(err => toast('Erreur : ' + err.message, 'error'));
+        }
+
+        /* ---------- Admin : paiements à valider + revenus ---------- */
+        function waLink(phone) {
+            let d = String(phone || '').replace(/\D/g, ''); if (d.length === 10 && d[0] === '0') d = '213' + d.slice(1);
+            return d.length >= 9 ? 'https://wa.me/' + d : '';
+        }
+        function renderAdminMoney(content) {
+            const box = document.createElement('div'); box.className = 'card-block';
+            box.innerHTML = '<h3>💰 Paiements à valider</h3><div id="admin-pay">Chargement...</div><h3 style="margin-top:24px;">📈 Revenus Collabo-DZ</h3><div id="admin-rev"></div>';
+            content.appendChild(box);
+            db.collection('payments').get().then(snap => {
+                const all = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => ms(b.createdAt) - ms(a.createdAt));
+                window._adminPays = all;
+                const pend = all.filter(x => x.status === 'en_attente');
+                const el = document.getElementById('admin-pay'); if (!el) return;
+                el.innerHTML = pend.length ? pend.map(x => {
+                    const dt = x.details || {}; let extra = '';
+                    if (x.type === 'collab') extra = `Talent : ${esc(x.talentNom)} · commission ${esc(fmtDA(x.commission))} · net à reverser <strong>${esc(fmtDA(x.net))}</strong> <button class="btn btn-line btn-sm" onclick="adminShowPayout('${esc(x.talentId)}')">Coordonnées du talent</button>`;
+                    if (x.type === 'pack') extra = `${esc(dt.packId)} · ${esc(dt.wilaya)} · ${esc(dt.cat)} · ${esc(dt.phone)} ${waLink(dt.phone) ? `<a class="btn btn-teal btn-sm" target="_blank" rel="noopener" href="${esc(waLink(dt.phone))}">WhatsApp</a>` : ''}<br><em>${esc(dt.brief)}</em>`;
+                    if (x.type === 'pro') extra = esc(dt.months) + ' mois';
+                    if (x.type === 'feature' || x.type === 'reward') extra = esc(dt.days) + ' jours' + (x.type === 'reward' ? ' (offerts)' : '');
+                    return `<div class="admin-row" style="flex-wrap:wrap;align-items:flex-start;"><span style="flex:1 1 320px;"><strong>${esc(PAY_TYPE[x.type] || x.type)}</strong> — ${esc(x.userName)} · ${x.amount ? esc(fmtDA(x.amount)) : 'gratuit'} · ${esc(x.method)} · réf. <code>${esc(x.reference)}</code><br><small style="color:var(--text-soft);">${extra}</small></span>
+          <span style="display:flex;gap:6px;"><button class="btn btn-teal btn-sm" onclick="adminValidatePayment('${x.id}')">Valider</button><button class="btn btn-danger btn-sm" onclick="adminRejectPayment('${x.id}')">Refuser</button></span></div>`;
+                }).join('') : '<p style="color:var(--text-soft);">Aucun paiement en attente.</p>';
+                const ok = all.filter(x => x.status === 'validé'), sum = (t, k) => ok.filter(x => x.type === t).reduce((s, x) => s + (x[k] || 0), 0);
+                const com = sum('collab', 'commission'), pro = sum('pro', 'amount'), feat = sum('feature', 'amount'), pk = sum('pack', 'amount');
+                document.getElementById('admin-rev').innerHTML = `<div class="kpis"><div class="kpi"><strong>${esc(fmtDA(com + pro + feat))}</strong><span>revenus nets (hors packs)</span></div><div class="kpi"><strong>${esc(fmtDA(com))}</strong><span>commissions</span></div><div class="kpi"><strong>${esc(fmtDA(pro))}</strong><span>abonnements Pro</span></div><div class="kpi"><strong>${esc(fmtDA(feat))}</strong><span>mises en avant</span></div></div><p class="form-note">Packs encaissés (brut, avant paiement des talents) : ${esc(fmtDA(pk))}</p>`;
+            }).catch(err => { const el = document.getElementById('admin-pay'); if (el) el.innerHTML = '<p style="color:var(--coral);">' + esc(err.message) + '</p>'; });
+        }
+        function adminShowPayout(talentId) {
+            db.collection('payouts').doc(talentId).get().then(d => {
+                const v = d.exists ? d.data() : null;
+                document.getElementById('misc-content').innerHTML = `<div class="modal-head"><button class="modal-close" onclick="closeMisc()">&times;</button><h3>Coordonnées du talent</h3></div><div class="modal-body">${v ? `<p><strong>${esc(v.holder)}</strong><br>${esc((PAY_ACCOUNTS[v.method] || {}).label || v.method)} : <code>${esc(v.account)}</code></p>` : '<p style="color:var(--text-soft);">Le talent n\'a pas encore renseigné ses coordonnées.</p>'}</div>`;
+                document.getElementById('misc-backdrop').classList.add('open');
+            }).catch(err => toast('Erreur : ' + err.message, 'error'));
+        }
+        async function adminValidatePayment(id) {
+            const p = (window._adminPays || []).find(x => x.id === id); if (!p) return;
+            if (!confirm('Confirmer que vous avez bien reçu ' + (p.amount ? fmtDA(p.amount) : 'cette demande') + ' (réf. ' + p.reference + ') ?')) return;
+            const ts = firebase.firestore.FieldValue.serverTimestamp(), dt = p.details || {};
+            try {
+                if (p.type === 'collab') {
+                    await db.collection('collaborations').doc(p.collabId).update({ status: 'payé', paymentStatus: 'validé', paidAmount: p.amount, commission: p.commission, netAmount: p.net, amount: fmtDA(p.amount), updatedAt: ts });
+                    await db.collection('invoices').add({
+                        collaborationId: p.collabId, businessId: p.userId, businessName: p.userName, talentId: p.talentId, talentNom: p.talentNom,
+                        amount: fmtDA(p.amount), amountNum: p.amount, commission: p.commission, net: p.net, description: 'Collaboration Collabo-DZ',
+                        invoiceNo: 'CDZ-' + Date.now().toString().slice(-7), createdAt: ts
+                    });
+                } else if (p.type === 'pro') {
+                    const ref = db.collection('businesses').doc(p.userId), cur = (await ref.get()).data() || {};
+                    const base = Math.max(Date.now(), planActive(cur) ? ms(cur.proUntil) : 0);
+                    await ref.update({ plan: 'pro', proUntil: firebase.firestore.Timestamp.fromMillis(base + (dt.months || 1) * 30 * 864e5) });
+                } else if (p.type === 'feature' || p.type === 'reward') {
+                    const ref = db.collection('talents').doc(p.userId), cur = (await ref.get()).data() || {};
+                    const base = Math.max(Date.now(), featuredActive(cur) ? ms(cur.featuredUntil) : 0);
+                    await ref.update({ isFeatured: true, featuredUntil: firebase.firestore.Timestamp.fromMillis(base + (dt.days || 7) * 864e5) });
+                }
+                await db.collection('payments').doc(id).update({ status: 'validé', validatedAt: ts });
+                toast('Paiement validé ✅', 'success'); renderDashboard();
+            } catch (err) { toast('Erreur : ' + err.message, 'error'); }
+        }
+        async function adminRejectPayment(id) {
+            const p = (window._adminPays || []).find(x => x.id === id); if (!p || !confirm('Refuser ce paiement ?')) return;
+            try {
+                await db.collection('payments').doc(id).update({ status: 'refusé' });
+                if (p.type === 'collab') await db.collection('collaborations').doc(p.collabId).update({ paymentStatus: 'refusé' });
+                toast('Paiement refusé', 'success'); renderDashboard();
+            } catch (err) { toast('Erreur : ' + err.message, 'error'); }
+        }
+        renderPacks();
 
         /* ---------------- BOOT ---------------- */
         buildTicker();
